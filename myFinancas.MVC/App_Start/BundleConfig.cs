@@ -27,6 +27,7 @@ namespace myFinancas.MVC
                       "~/Content/site.css"));
 
             // CSS Files
+            // ../assets/css/material-dashboard.css?v=2.1.0 versão retirada
             bundles.Add(new StyleBundle("~/Content/assets/css/material-dashboard").Include(
                 "~/Content/assets/css/material-dashboard.css"));
 
@@ -35,7 +36,6 @@ namespace myFinancas.MVC
                 "~/Content/assets/demo/demo.css"));
 
             // Core JS Files 
-            // ../assets/css/material-dashboard.css?v=2.1.0 versão retirada
             bundles.Add(new ScriptBundle("~/Content/assets/js/core").Include(
                 "~/Content/assets/js/core/jquery.min.js",
                 "~/Content/assets/js/core/popper.min.js",
