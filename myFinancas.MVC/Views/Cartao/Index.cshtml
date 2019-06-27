@@ -1,7 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    
+    ViewBag.Title = "Index";  
 }
 
 <div class="container-fluid">
@@ -21,24 +20,74 @@
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Data de Vencimento</label>
-                                    <input type="date" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Limite</label>
-                                    <input type="number" class="form-control">
-                                </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Bandeira</label>
+                                <select id="inputState" class="form-control" style="background-color: #202940; color: #fff">
+                                    <option selected>Choose...</option>
+                                    <option>Mastercard</option>
+                                    <option>Maestro</option>
+                                    <option>Visa</option>
+                                </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Salvar</button>
                         <div class="clearfix"></div>
                     </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">Cartões</h4>
+                            <p class="card-category">Lisa de todos os cartões</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th>
+                                                ID
+                                            </th>
+                                            <th>
+                                                Nome
+                                            </th>
+                                            <th>
+                                                Bandeira
+                                            </th>
+                                            <th class="text-center">
+                                                Ação
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                Cartão Master
+                                            </td>
+                                            <td>
+                                                Mastercard
+                                            </td>
+                                            <td style="width: 150px;">
+                                                <button type="button" rel="tooltip" title="Detalhes"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">description</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Remover"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
