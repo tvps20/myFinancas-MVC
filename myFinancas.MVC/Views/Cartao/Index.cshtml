@@ -1,6 +1,8 @@
-﻿
+﻿@model myFinancas.MVC.Models.Domain.CartaoModel
+@using myFinancas.MVC.Models.Domain;
 @{
-    ViewBag.Title = "Index";  
+    ViewBag.Title = "Cartões";
+    List<CartaoModel> Cartoes = ViewBag.Cartoes;
 }
 
 <div class="container-fluid">
@@ -12,27 +14,30 @@
                     <p class="card-category">Criar um novo cartão</p>
                 </div>
                 <div class="card-body">
-                    <form>
+                    @using (Html.BeginForm("Salvar", "Cartao", null, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Nome</label>
-                                    <input type="text" class="form-control">
+                                    @Html.LabelFor(model => model.Nome, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.Nome, new { Class = "form-control", required = true })
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputState">Bandeira</label>
-                                <select id="inputState" class="form-control" style="background-color: #202940; color: #fff">
+                                @Html.LabelFor(model => model.Bandeira, new { Class = "bmd-label-floating" })
+                                <select id="inputState" name="Bandeira" class="form-control" style="background-color: #202940; color: #fff" required>
                                     <option selected>Choose...</option>
-                                    <option>Mastercard</option>
-                                    <option>Maestro</option>
-                                    <option>Visa</option>
+                                    <option value="Mastercard">Mastercard</option>
+                                    <option value="Maestro">Maestro</option>
+                                    <option value="Visa">Visa</option>
                                 </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Salvar</button>
                         <div class="clearfix"></div>
-                    </form>
+                    }
                 </div>
             </div>
             <div class="row">
@@ -62,27 +67,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>
-                                                Cartão Master
-                                            </td>
-                                            <td>
-                                                Mastercard
-                                            </td>
-                                            <td style="width: 150px;">
-                                                <button type="button" rel="tooltip" title="Detalhes"
-                                                        class="btn btn-white btn-link btn-sm">
-                                                    <i class="material-icons">description</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remover"
-                                                        class="btn btn-white btn-link btn-sm">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        @foreach (CartaoModel Cartao in Cartoes)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Cartao.Id
+                                                </td>
+                                                <td>
+                                                    @Cartao.Nome
+                                                </td>
+                                                <td>
+                                                    @Cartao.Bandeira
+                                                </td>
+                                                <td style="width: 150px;">
+                                                    <button type="button" rel="tooltip" title="Detalhes"
+                                                            class="btn btn-white btn-link btn-sm">
+                                                        <i class="material-icons">description</i>
+                                                    </button>
+                                                    <button type="button" rel="tooltip" title="Remover"
+                                                            class="btn btn-white btn-link btn-sm">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
