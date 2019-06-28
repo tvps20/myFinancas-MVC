@@ -149,6 +149,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CartaoRepository.cs" />
     <Compile Include="Repositories\FaturaRepository.cs" />
+    <Compile Include="Util\ActionResultExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -400,6 +401,7 @@
     <Content Include="Views\Dashboard\Contact.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Cartao\Index.cshtml" />
+    <Content Include="Views\Shared\_Mensagem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
