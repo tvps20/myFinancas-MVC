@@ -5,6 +5,16 @@
     List<CartaoModel> Cartoes = ViewBag.Cartoes;
 }
 
+<script type="text/javascript">
+    function navegarTo(Url) {
+        $.ajax({
+            url: Url,
+            method: 'GET',
+            success: function (data) { alert(data); }
+        });
+    }
+</script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -85,6 +95,7 @@
                                                         <i class="material-icons">description</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remover"
+                                                            onclick="navegarTo('Remover/' + @Cartao.Id)"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">close</i>
                                                     </button>
@@ -101,4 +112,3 @@
         </div>
     </div>
 </div>
-

@@ -31,5 +31,20 @@ namespace myFinancas.MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Remover(long id)
+        {
+            try
+            {
+                CartaoRepository.Remover(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

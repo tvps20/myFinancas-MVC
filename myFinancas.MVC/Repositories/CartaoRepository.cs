@@ -48,5 +48,17 @@ namespace myFinancas.MVC.Repositories
                 return db.SaveChanges();
             }
         }
+
+        public static bool Remover(long id)
+        {
+            using(var db = new ContextoDB())
+            {
+                var Cartao = new CartaoModel { Id = id };
+                db.Cartoes.Attach(Cartao);
+                db.Entry(Cartao).State = EntityState.Deleted;
+                db.SaveChanges();
+                return true;
+            }
+        }
     }
 }
