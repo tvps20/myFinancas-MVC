@@ -14,7 +14,7 @@ namespace myFinancas.MVC.Repositories
         {
             using(var db = new ContextoDB())
             {
-                return db.Cartoes.OrderBy(c => c.Nome).ToList();
+                return db.Cartoes.OrderBy(c => c.Id).ToList();
             }
         }
 

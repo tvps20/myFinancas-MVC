@@ -8,11 +8,11 @@ using System.Web;
 
 namespace myFinancas.MVC.Models.Maps
 {
-    public class CartaoMap : EntityTypeConfiguration<CartaoModel>
+    public class FaturaMap : EntityTypeConfiguration<FaturaModel>
     {
-        public CartaoMap()
+        public FaturaMap()
         {
-            ToTable("cartoes");
+            ToTable("faturas");
 
             HasKey(x => x.Id);
             Property(x => x.Id).HasColumnName("id").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -20,8 +20,13 @@ namespace myFinancas.MVC.Models.Maps
             Property(x => x.UpdateAt).HasColumnName("update_at");
             Property(x => x.IsAtivo).HasColumnName("is_ativo");
 
-            Property(x => x.Nome).HasMaxLength(30).HasColumnName("nome").IsRequired();
-            Property(x => x.Bandeira).HasMaxLength(15).HasColumnName("bandeira").IsRequired();
+            Property(x => x.DataVencimento).HasColumnName("data_vencimento").IsRequired();
+            Property(x => x.Observacao).HasColumnName("observacao");
+            Property(x => x.IsPaga).HasColumnName("is_paga");
+            Property(x => x.isFechada).HasColumnName("is_fechada");
+
+            Property(x => x.IdCartao).HasColumnName("id_cartao").IsRequired();
+            HasRequired(x => x.Cartao).WithMany().HasForeignKey(x => x.IdCartao);
         }
     }
 }

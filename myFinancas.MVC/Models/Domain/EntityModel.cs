@@ -10,12 +10,12 @@ namespace myFinancas.MVC.Models.Domain
         public long Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public bool Ativo { get; set; }
+        public bool IsAtivo { get; set; }
 
 
         public EntityModel()
         {
-            this.Ativo = true;
+            this.IsAtivo = true;
         }
     }
 }

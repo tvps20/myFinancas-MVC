@@ -15,8 +15,10 @@ namespace myFinancas.MVC.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new CartaoMap());
+            modelBuilder.Configurations.Add(new FaturaMap());
         }
 
         public DbSet<CartaoModel> Cartoes { get; set; }
+        public DbSet<FaturaModel> Faturas { get; set; }
     }
 }

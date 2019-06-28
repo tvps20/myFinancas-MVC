@@ -133,6 +133,10 @@
     <Compile Include="Migrations\201906281742338_inicial.Designer.cs">
       <DependentUpon>201906281742338_inicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906281810203_fatura.cs" />
+    <Compile Include="Migrations\201906281810203_fatura.Designer.cs">
+      <DependentUpon>201906281810203_fatura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
     <Compile Include="Models\Domain\CartaoModel.cs" />
@@ -141,8 +145,10 @@
     <Compile Include="Models\Enuns\EnumExtensions.cs" />
     <Compile Include="Models\Enuns\TipoBandeira.cs" />
     <Compile Include="Models\Maps\CartaoMap.cs" />
+    <Compile Include="Models\Maps\FaturaMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CartaoRepository.cs" />
+    <Compile Include="Repositories\FaturaRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -414,6 +420,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906281742338_inicial.resx">
       <DependentUpon>201906281742338_inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906281810203_fatura.resx">
+      <DependentUpon>201906281810203_fatura.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
