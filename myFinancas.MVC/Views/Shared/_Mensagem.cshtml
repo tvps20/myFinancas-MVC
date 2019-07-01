@@ -10,73 +10,62 @@
 
     var Mensagem = "";
     var Titulo = "";
+    var Tipo = "";
+    var Icone = "";
     if (TempData["Mensagem"] != null)
     {
         Mensagem = TempData["Mensagem"].ToString();
         Titulo = TempData["Titulo"].ToString();
+        Tipo = TempData["Tipo"].ToString();
+        Icone = TempData["Icone"].ToString();
     }
 }
 
 @{
-    <!--Formulario principal para Display de Mensagens /Views/shared/_Mensagem.cshtml-->
     if (Mensagem != "")
-    {
-        if (Titulo == TipoMensagem.PRIMARY.ToString())
+    {   
+        // Se o titulo for vazio mostra um alerta, caso contrário mostra um modal
+        if (Titulo == "")
         {
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <strong>Atenção!</strong> @Mensagem
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        }
-        else if (Titulo == TipoMensagem.INFO.ToString())
-        {
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                <strong>Informação!</strong> @Mensagem
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        }
-        else if (Titulo == TipoMensagem.SUCCESS.ToString())
-        {
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Sucesso!</strong> @Mensagem
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        }
-        else if (Titulo == TipoMensagem.DANGER.ToString())
-        {
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Erro!</strong> @Mensagem
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        }
-        else if (Titulo == TipoMensagem.WARNING.ToString())
-        {
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Aviso!</strong> @Mensagem
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    md.showNotification('top', 'right', '@Mensagem', '@Tipo', '@Icone')
+                });
+            </script>
         }
         else
         {
-            <div class="alert alert-default alert-dismissible fade show" role="alert">
-                <strong>@Titulo</strong> @Mensagem
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <!--Formulario principal para Display de Mensagens /Views/shared/_Mensagem.cshtml-->
+            <div id="ModalMensagem" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">@Titulo</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    @Html.Raw(Mensagem)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#ModalMensagem").modal('show');
+                });
+            </script>
+
+            <!--Fim Formulario principal para Display de Mensagens -->
         }
     }
-    <!--Fim Formulario principal para Display de Mensagens -->
 }
 
 

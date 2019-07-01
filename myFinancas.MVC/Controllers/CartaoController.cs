@@ -25,14 +25,12 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 CartaoRepository.Salvar(Cartao);
-                return RedirectToAction("Index").Mensagem("O cartão " + Cartao.Nome + " foi salvo.", TipoMensagem.SUCCESS.ToString());
+                return RedirectToAction("Index").Mensagem("O cartão " + Cartao.Nome + " foi salvo com sucesso!","", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.SUCCESS), "add_alert");
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index").Mensagem(e.Message, TipoMensagem.DANGER.ToString());
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
             }
-
-
         }
 
         [HttpGet]
@@ -41,11 +39,11 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 CartaoRepository.Remover(id);
-                return RedirectToAction("Index").Mensagem("O cartão de id " + id + " foi removido.", TipoMensagem.INFO.ToString());
+                return RedirectToAction("Index").Mensagem("O cartão de id " + id + " foi removido com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.INFO), "add_alert");
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index").Mensagem(e.Message, TipoMensagem.DANGER.ToString());
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
             }
         }
     }

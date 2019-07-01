@@ -1,5 +1,6 @@
 ﻿@model myFinancas.MVC.Models.Domain.CartaoModel
 @using myFinancas.MVC.Models.Domain;
+@using myFinancas.MVC.Models.Enuns;
 @{
     ViewBag.Title = "Cartões";
     List<CartaoModel> Cartoes = ViewBag.Cartoes;
@@ -16,11 +17,11 @@
 </script>
 
 @*<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>*@
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>*@
 
 <div class="container-fluid">
     <div class="row">
@@ -46,9 +47,9 @@
                                 @Html.LabelFor(model => model.Bandeira, new { Class = "bmd-label-floating" })
                                 <select id="inputState" name="Bandeira" class="form-control" style="background-color: #202940; color: #fff" required>
                                     <option selected>Choose...</option>
-                                    <option value="Mastercard">Mastercard</option>
-                                    <option value="Maestro">Maestro</option>
-                                    <option value="Visa">Visa</option>
+                                    <option value="Mastercard">@EnumExtensions.TipoPontoToDescriptionString(TipoBandeira.MASTERCARD)</option>
+                                    <option value="Maestro">@EnumExtensions.TipoPontoToDescriptionString(TipoBandeira.MAESTRO)</option>
+                                    <option value="Visa">@EnumExtensions.TipoPontoToDescriptionString(TipoBandeira.VISA)</option>
                                 </select>
                             </div>
                         </div>
@@ -102,7 +103,7 @@
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
                                                     </button>
-                                                    <button type="button" rel="tooltip" title="Remover"                                                           
+                                                    <button type="button" rel="tooltip" title="Remover"
                                                             onclick="MensagemConfirma('Ateção', 'Deseja apagar o cartão @Cartao.Nome?', '@Url.Action("Remover", "Cartao", new { id = Cartao.Id })')"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">close</i>

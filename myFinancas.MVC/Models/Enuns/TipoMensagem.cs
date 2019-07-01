@@ -8,17 +8,17 @@ namespace myFinancas.MVC.Models.Enuns
 {
     public enum TipoMensagem
     {
-        [Description("Alerta")]
+        [Description("primary")]
         PRIMARY = 0,
-        [Description("Informação")]
+        [Description("info")]
         INFO = 2,
-        [Description("Sucesso")]
+        [Description("success")]
         SUCCESS = 3,
-        [Description("Erro")]
+        [Description("danger")]
         DANGER = 4,
-        [Description("Aviso")]
+        [Description("warning")]
         WARNING = 5,
-        [Description("Atenção")]
+        [Description("default")]
         DEFAULT = 6
     }
 }

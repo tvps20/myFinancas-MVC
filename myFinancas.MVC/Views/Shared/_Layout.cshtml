@@ -120,9 +120,7 @@
                 </div>
             </nav>
             <div class="content">
-                <!-- Cerregando o HTML do modal na pagina -->
-                @{Html.RenderPartial("~/Views/Shared/_Mensagem.cshtml");}
-                
+
                 @RenderBody()
 
                 <!-- Footer -->
@@ -343,5 +341,8 @@
     </script>
 
     @RenderSection("scripts", required: false);
+
+    <!-- Cerregando o HTML do modal na pagina -->
+    @{Html.RenderPartial("~/Views/Shared/_Mensagem.cshtml");}
 </body>
 </html>
