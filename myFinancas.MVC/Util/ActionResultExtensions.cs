@@ -1,4 +1,5 @@
-﻿using System;
+﻿using myFinancas.MVC.Models.Enuns;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,7 @@ namespace myFinancas.MVC.Util
         /// <param name="mensagem">Mensagem a ser exibida</param>
         /// <param name="titulo">titulo a ser exibido, sendo omitido apresenta defaut 'Atenção'</param>
         /// <returns></returns>
-        public static ActionResult Mensagem(this ActionResult actionResult, string mensagem, string titulo = "Atenção")
+        public static ActionResult Mensagem(this ActionResult actionResult, string mensagem, string titulo = "INFO")
         {
             return new TempDataActionResult(actionResult, mensagem, titulo);
         }
