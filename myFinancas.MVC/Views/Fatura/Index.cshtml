@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<FaturaModel> Faturas = ViewBag.Faturas != null ? ViewBag.Faturas : new List<FaturaModel>();
-    List<CartaoModel> Cartoes = ViewBag.Cartoes != null ? ViewBag.Cartoes : new List<CartaoModel>();
+    List<FaturaModel> Faturas = ViewBag.Faturas;
+    List<CartaoModel> Cartoes = ViewBag.Cartoes;
 }
 
 <div class="container-fluid">
