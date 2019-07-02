@@ -14,7 +14,16 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                return db.Faturas.OrderByDescending(c => c.DataVencimento).ToList();
+                return db.Faturas.OrderByDescending(f => f.DataVencimento).ToList();
+            }
+        }
+
+        public static List<FaturaModel> ListAllByCartao(long id)
+        {
+            using (var db = new ContextoDB())
+            {
+                List<FaturaModel> faturas = db.Faturas.Where(f => f.IdCartao == id).ToList();
+                return faturas;
             }
         }
 
@@ -30,9 +39,9 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                var cartaoBd = RecuperarPeloId(Fatura.Id);
+                var faturaBd = RecuperarPeloId(Fatura.Id);
 
-                if (cartaoBd == null)
+                if (faturaBd == null)
                 {
                     Fatura.CreatedAt = DateTime.UtcNow;
                     Fatura.UpdateAt = DateTime.UtcNow;
@@ -46,6 +55,18 @@ namespace myFinancas.MVC.Repositories
                 }
 
                 return db.SaveChanges();
+            }
+        }
+
+        public static bool Remover(long id)
+        {
+            using (var db = new ContextoDB())
+            {
+                var Fatura = new FaturaModel { Id = id };
+                db.Faturas.Attach(Fatura);
+                db.Entry(Fatura).State = EntityState.Deleted;
+                db.SaveChanges();
+                return true;
             }
         }
     }

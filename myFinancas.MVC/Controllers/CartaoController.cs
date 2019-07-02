@@ -16,7 +16,7 @@ namespace myFinancas.MVC.Controllers
         public ActionResult Index()
         {
             ViewBag.Cartoes = CartaoRepository.ListAll();
-            return View();
+            return View("Index");
         }
 
         [HttpPost]
@@ -25,12 +25,35 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 CartaoRepository.Salvar(Cartao);
-                return RedirectToAction("Index").Mensagem("O cartão " + Cartao.Nome + " foi salvo com sucesso!","", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.SUCCESS), "add_alert");
+                return RedirectToAction("Index").Mensagem("O cartão " + Cartao.Nome + " foi salvo com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.SUCCESS), "add_alert");
             }
             catch (Exception e)
             {
                 return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
             }
+        }
+
+        [HttpPost]
+        public ActionResult SalvarFatura(FaturaModel Fatura)
+        {
+            try
+            {
+                FaturaRepository.Salvar(Fatura);
+                return RedirectToAction("Detalhes", "Cartao", new { id = Fatura.IdCartao }).Mensagem("A fatura de " + Fatura.DataVencimento.ToString("MMMM") + " foi salva com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.SUCCESS), "add_alert");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Detalhes", "Cartao", new { id = Fatura.IdCartao }).Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Detalhes(long id)
+        {
+            CartaoModel Cartao = CartaoRepository.RecuperarPeloId(id);
+            ViewBag.Cartao = Cartao;
+            ViewBag.Faturas = FaturaRepository.ListAllByCartao(id);
+            return View();
         }
 
         [HttpGet]
@@ -44,6 +67,20 @@ namespace myFinancas.MVC.Controllers
             catch (Exception e)
             {
                 return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult RemoverFatura(long Id, long IdCartao)
+        {
+            try
+            {
+                FaturaRepository.Remover(Id);
+                return RedirectToAction("Detalhes", "Cartao", new { id = IdCartao }).Mensagem("A fatura de id " + Id + " foi Removida com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.INFO), "add_alert");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Detalhes", "Cartao", new { id = IdCartao }).Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
             }
         }
     }

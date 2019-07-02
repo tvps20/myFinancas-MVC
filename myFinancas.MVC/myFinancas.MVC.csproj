@@ -126,6 +126,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartaoController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\FaturaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -136,6 +137,10 @@
     <Compile Include="Migrations\201906281810203_fatura.cs" />
     <Compile Include="Migrations\201906281810203_fatura.Designer.cs">
       <DependentUpon>201906281810203_fatura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907021209253_fatura2.cs" />
+    <Compile Include="Migrations\201907021209253_fatura2.Designer.cs">
+      <DependentUpon>201907021209253_fatura2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
@@ -403,9 +408,11 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Cartao\Index.cshtml" />
     <Content Include="Views\Shared\_Mensagem.cshtml" />
+    <Content Include="Views\Cartao\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Fatura\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -426,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906281810203_fatura.resx">
       <DependentUpon>201906281810203_fatura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907021209253_fatura2.resx">
+      <DependentUpon>201907021209253_fatura2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

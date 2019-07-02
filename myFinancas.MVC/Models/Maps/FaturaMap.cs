@@ -23,7 +23,7 @@ namespace myFinancas.MVC.Models.Maps
             Property(x => x.DataVencimento).HasColumnName("data_vencimento").IsRequired();
             Property(x => x.Observacao).HasColumnName("observacao");
             Property(x => x.IsPaga).HasColumnName("is_paga");
-            Property(x => x.isFechada).HasColumnName("is_fechada");
+            Property(x => x.IsFechada).HasColumnName("is_fechada");
 
             Property(x => x.IdCartao).HasColumnName("id_cartao").IsRequired();
             HasRequired(x => x.Cartao).WithMany().HasForeignKey(x => x.IdCartao);

@@ -6,23 +6,6 @@
     List<CartaoModel> Cartoes = ViewBag.Cartoes;
 }
 
-<script type="text/javascript">
-    function navegarTo(Url) {
-        $.ajax({
-            url: Url,
-            method: 'GET',
-            success: function (data) { alert(data); }
-        });
-    }
-</script>
-
-@*<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>*@
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -53,7 +36,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+                        <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
                         <div class="clearfix"></div>
                     }
                 </div>
@@ -64,7 +47,7 @@
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title ">Cartões</h4>
-                            <p class="card-category">Lisa de todos os cartões</p>
+                            <p class="card-category">Lista de todos os cartões</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -98,8 +81,13 @@
                                                 <td>
                                                     @Cartao.Bandeira
                                                 </td>
-                                                <td style="width: 150px;">
+                                                <td align="center" style="width:250px">
+                                                    <button type="button" rel="tooltip" title="Editar"
+                                                            class="btn btn-white btn-link btn-sm">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
+                                                            onclick="location.href='@Url.Action("Detalhes", "Cartao", new { id = Cartao.Id })'"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
                                                     </button>
