@@ -3,8 +3,8 @@
 @using myFinancas.MVC.Models.Enuns;
 @{
     ViewBag.Title = "Detalhes";
-    CartaoModel Cartao = ViewBag.Cartao != null ? ViewBag.Cartao : new CartaoModel();
-    List<FaturaModel> Faturas = ViewBag.Faturas != null ? ViewBag.Faturas : new List<FaturaModel>();
+    CartaoModel Cartao = ViewBag.Cartao;
+    List<FaturaModel> Faturas = ViewBag.Faturas;
 }
 
 <div class="container-fluid">

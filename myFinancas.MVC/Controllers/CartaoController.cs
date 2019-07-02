@@ -15,8 +15,16 @@ namespace myFinancas.MVC.Controllers
         // GET: Cartao
         public ActionResult Index()
         {
-            ViewBag.Cartoes = CartaoRepository.ListAll();
-            return View("Index");
+            try
+            {
+                List<CartaoModel> Cartoes = CartaoRepository.ListAll();
+                ViewBag.Cartoes = Cartoes != null ? Cartoes : new List<CartaoModel>();
+                return View("Index");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Dashboard").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+            }
         }
 
         [HttpPost]
@@ -50,10 +58,18 @@ namespace myFinancas.MVC.Controllers
         [HttpGet]
         public ActionResult Detalhes(long id)
         {
-            CartaoModel Cartao = CartaoRepository.RecuperarPeloId(id);
-            ViewBag.Cartao = Cartao;
-            ViewBag.Faturas = FaturaRepository.ListAllByCartao(id);
-            return View();
+            try
+            {
+                CartaoModel Cartao = CartaoRepository.RecuperarPeloId(id);
+                List<FaturaModel> Faturas = FaturaRepository.ListAllByCartao(id);
+                ViewBag.Cartao = Cartao != null ? Cartao : new CartaoModel();
+                ViewBag.Faturas = Faturas != null ? Faturas : new List<FaturaModel>();
+                return View();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+            }
         }
 
         [HttpGet]
