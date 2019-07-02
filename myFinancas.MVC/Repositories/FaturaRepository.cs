@@ -14,7 +14,7 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                return db.Faturas.OrderByDescending(f => f.DataVencimento).ToList();
+                return db.Faturas.Include("Cartao").OrderByDescending(f => f.DataVencimento).ToList();
             }
         }
 

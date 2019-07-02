@@ -1,30 +1,22 @@
 ﻿@model myFinancas.MVC.Models.Domain.FaturaModel
 @using myFinancas.MVC.Models.Domain;
-@using myFinancas.MVC.Models.Enuns;
 @{
-    ViewBag.Title = "Detalhes";
-    CartaoModel Cartao = ViewBag.Cartao != null ? ViewBag.Cartao : new CartaoModel();
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     List<FaturaModel> Faturas = ViewBag.Faturas != null ? ViewBag.Faturas : new List<FaturaModel>();
+    List<CartaoModel> Cartoes = ViewBag.Cartoes != null ? ViewBag.Cartoes : new List<CartaoModel>();
 }
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-12">
-                <div class="card card-profile">
-                    <div class="card-body">
-                        <h6 class="card-category">Cartão @Cartao.Nome</h6>
-                        <h4 class="card-title">@Cartao.Bandeira</h4>
-                    </div>
-                </div>
-            </div>
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">Nova Fatura</h4>
                     <p class="card-category">Criar uma nova Fatura</p>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm("SalvarFatura", "Cartao", null, FormMethod.Post))
+                    @using (Html.BeginForm("Salvar", "Fatura", null, FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
@@ -35,8 +27,17 @@
                                     <input style="margin-top: 12px;" type="date" name="DataVencimento" class="form-control">
                                 </div>
                             </div>
-
-                            <input hidden class="form-control" value="@Cartao.Id" name="IdCartao" rows="2" />
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="inputState">Cartao</label>
+                                    <select id="IdCartao" name="IdCartao" class="form-control input-sm" style="background-color: #202940; color: white">
+                                        @foreach (CartaoModel Cartao in Cartoes)
+                                        {
+                                            <option value="@Cartao.Id"> @Cartao.Nome </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
@@ -96,6 +97,9 @@
                                                 Data de Vencimento
                                             </th>
                                             <th>
+                                                Cartão
+                                            </th>
+                                            <th>
                                                 Fechada
                                             </th>
                                             <th>
@@ -114,6 +118,9 @@
                                                     @Fatura.DataVencimento.ToString("dd/MM/yyyy")
                                                 </td>
                                                 <td>
+                                                    @Fatura.Cartao.Nome
+                                                </td>
+                                                <td>
                                                     @(Fatura.IsFechada ? "Fechada" : "Aberta")
                                                 </td>
                                                 <td>
@@ -125,12 +132,12 @@
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="location.href='@Url.Action("Detalhes", "Cartao", new { id = Fatura.Id })'"
+                                                            onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remover"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja apagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("RemoverFatura", "Cartao", new { Id = Fatura.Id, IdCartao = Fatura.IdCartao })')"
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja apagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("Remover", "Fatura", new { Id = Fatura.Id })')"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">close</i>
                                                     </button>
@@ -147,3 +154,4 @@
         </div>
     </div>
 </div>
+
