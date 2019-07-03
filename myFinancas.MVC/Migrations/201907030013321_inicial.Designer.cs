@@ -5,13 +5,13 @@ namespace myFinancas.MVC.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class fatura : IMigrationMetadata
+    public sealed partial class inicial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(fatura));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(inicial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906281810203_fatura"; }
+            get { return "201907030013321_inicial"; }
         }
         
         string IMigrationMetadata.Source

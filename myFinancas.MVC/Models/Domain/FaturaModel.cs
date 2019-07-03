@@ -10,6 +10,7 @@ namespace myFinancas.MVC.Models.Domain
     {
         [Description("Data de Vencimento")]
         public DateTime DataVencimento { get; set; }
+        public decimal Valor { get; set; }
         public String Observacao { get; set; }
 
         [Description("Paga")]

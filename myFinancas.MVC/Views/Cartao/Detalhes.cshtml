@@ -3,6 +3,7 @@
 @using myFinancas.MVC.Models.Enuns;
 @{
     ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     CartaoModel Cartao = ViewBag.Cartao;
     List<FaturaModel> Faturas = ViewBag.Faturas;
 }
@@ -96,7 +97,7 @@
                                                 Data de Vencimento
                                             </th>
                                             <th>
-                                                Fechada
+                                                Valor
                                             </th>
                                             <th>
                                                 Paga
@@ -114,7 +115,7 @@
                                                     @Fatura.DataVencimento.ToString("dd/MM/yyyy")
                                                 </td>
                                                 <td>
-                                                    @(Fatura.IsFechada ? "Fechada" : "Aberta")
+                                                    @Fatura.Valor
                                                 </td>
                                                 <td>
                                                     @(Fatura.IsPaga ? "Paga" : "Não foi paga")
@@ -125,7 +126,7 @@
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="location.href='@Url.Action("Detalhes", "Cartao", new { id = Fatura.Id })'"
+                                                            onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
                                                     </button>

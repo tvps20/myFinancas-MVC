@@ -130,23 +130,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906281742338_inicial.cs" />
-    <Compile Include="Migrations\201906281742338_inicial.Designer.cs">
-      <DependentUpon>201906281742338_inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906281810203_fatura.cs" />
-    <Compile Include="Migrations\201906281810203_fatura.Designer.cs">
-      <DependentUpon>201906281810203_fatura.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907021209253_fatura2.cs" />
-    <Compile Include="Migrations\201907021209253_fatura2.Designer.cs">
-      <DependentUpon>201907021209253_fatura2.cs</DependentUpon>
+    <Compile Include="Migrations\201907030013321_inicial.cs" />
+    <Compile Include="Migrations\201907030013321_inicial.Designer.cs">
+      <DependentUpon>201907030013321_inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
     <Compile Include="Models\Domain\CartaoModel.cs" />
     <Compile Include="Models\Domain\EntityModel.cs" />
     <Compile Include="Models\Domain\FaturaModel.cs" />
+    <Compile Include="Models\Domain\LancamentoModel.cs" />
     <Compile Include="Models\Enuns\EnumExtensions.cs" />
     <Compile Include="Models\Enuns\TipoBandeira.cs" />
     <Compile Include="Models\Enuns\TipoMensagem.cs" />
@@ -429,14 +422,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906281742338_inicial.resx">
-      <DependentUpon>201906281742338_inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906281810203_fatura.resx">
-      <DependentUpon>201906281810203_fatura.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907021209253_fatura2.resx">
-      <DependentUpon>201907021209253_fatura2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907030013321_inicial.resx">
+      <DependentUpon>201907030013321_inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
