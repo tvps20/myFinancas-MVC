@@ -11,7 +11,6 @@ namespace myFinancas.MVC.Models.Domain
         public string Descricao { get; set; }
         public string Observacao { get; set; }
         public bool IsParcelado { get; set; }
-        public bool IsPago { get; set; }
         public int QtdParcelas { get; set; }
         public int ParcelaAtual { get; set; }
         public DateTime DataCompra { get; set; }

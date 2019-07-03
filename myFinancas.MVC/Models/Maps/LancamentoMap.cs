@@ -23,7 +23,6 @@ namespace myFinancas.MVC.Models.Maps
             Property(x => x.Descricao).HasColumnName("descricao").IsRequired();
             Property(x => x.Observacao).HasColumnName("observacao");
             Property(x => x.IsParcelado).HasColumnName("is_parcelado").IsRequired();
-            Property(x => x.IsPago).HasColumnName("is_pago");
             Property(x => x.QtdParcelas).HasColumnName("qtd_parcelas");
             Property(x => x.ParcelaAtual).HasColumnName("parcela_atual");
 

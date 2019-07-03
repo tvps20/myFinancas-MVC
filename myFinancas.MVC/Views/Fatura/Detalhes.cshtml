@@ -1,7 +1,204 @@
-﻿
+﻿@model myFinancas.MVC.Models.Domain.LancamentoModel
+@using myFinancas.MVC.Models.Domain;
 @{
     ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    FaturaModel Fatura = ViewBag.Fatura;
+    List<LancamentoModel> Lancamentos = ViewBag.Lancamentos;
 }
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12">
+                    <div class="card card-profile">
+                        <div class="card-body">
+                            <h6 class="card-category @(Fatura.IsPaga ? "text-success" : "text-danger")">@(Fatura.IsPaga ? "Fatura paga" : "Fatura não foi paga")</h6>
+                            <h4 class="card-title">Fatura de @Fatura.DataVencimento.ToString("MMMM")</h4>
+                            <p>Vencimento para @Fatura.DataVencimento.ToString("dd/MM")</p>
+                            <p class="left">@(Fatura.Observacao != "" ? Fatura.Observacao : "Sem Observações")</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-success card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">store</i>
+                                        @*<i class="material-icons">monetization_on</i>*@
+                                    </div>
+                                    <p class="card-category">Valor a Pagar</p>
+                                    <h3 class="card-title">R$ @Fatura.Valor</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-warning card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">group</i>
+                                    </div>
+                                    <p class="card-category">Compradores</p>
+                                    <h3 class="card-title">7</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Novo Lançamento</h4>
+                    <p class="card-category">Adicionar a fatura um novo Lançamento</p>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("SalvarLancamento", "Fatura", null, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                    <div class="row">
+                        <input hidden class="form-control" value="@Fatura.Id" name="IdFatura" rows="2" />
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DataCompra)
+                                <input style="margin-top: 12px;" type="date" name="DataCompra" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inputState">Comprador</label>
+                                <select class="form-control input-sm" style="background-color: #202940; color: white">
+                                    @foreach (LancamentoModel Cartao in Lancamentos)
+                                    {
+                                        <option value="@Cartao.Id"> @Cartao.Descricao </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-top: 6px;">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Valor, new { Class = "bmd-label-floating" })
+                                @Html.TextBoxFor(model => model.Valor, new { Class = "form-control money", required = true })
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">
+                                        Descrição
+                                    </label>
+                                    <textarea class="form-control" name="Descricao" rows="1"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.TextBox("IsParcelado", true, new { Class = "form-check-input", Type = "checkbox" })
+                                        Compra Parcelada
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">
+                                        Numero de Parcelas
+                                    </label>
+                                    <textarea class="form-control" name="QtdParcelas" rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">
+                                        Observações
+                                    </label>
+                                    <textarea class="form-control" name="Observacao" rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
+                        <div class="clearfix"></div>
+                    }
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">Faturas</h4>
+                            <p class="card-category">Lista de todas as faturas</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th>
+                                                Data
+                                            </th>
+                                            <th>
+                                                Descrição
+                                            </th>
+                                            <th>
+                                                Valor
+                                            </th>
+                                            <th class="text-center">
+                                                Ação
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (LancamentoModel Lancamento in Lancamentos)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Lancamento.DataCompra
+                                                </td>
+                                                <td>
+                                                    @Lancamento.Descricao
+                                                </td>
+                                                <td>
+                                                    @Lancamento.Valor
+                                                </td>
+                                                <td align="center" style="width:250px">
+                                                    <button type="button" rel="tooltip" title="Editar"
+                                                            class="btn btn-white btn-link btn-sm">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button type="button" rel="tooltip" title="Detalhes"
+                                                            onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
+                                                            class="btn btn-white btn-link btn-sm">
+                                                        <i class="material-icons">description</i>
+                                                    </button>
+                                                    <button type="button" rel="tooltip" title="Remover"
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja apagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("RemoverFatura", "Cartao", new { Id = Fatura.Id, IdCartao = Fatura.IdCartao })')"
+                                                            class="btn btn-white btn-link btn-sm">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 

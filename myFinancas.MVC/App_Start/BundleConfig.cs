@@ -12,7 +12,13 @@ namespace myFinancas.MVC
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/CustomValidacoes.js"));
+
+            // Scripts para mascaras
+            bundles.Add(new ScriptBundle("~/bundles/Mascaras").Include(
+                "~/Scripts/Mascaras/jquery.mask.js",
+                "~/Scripts/Mascaras/Mascaras.js"));
 
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender. Em seguida, quando estiver
             // pronto para a produção, utilize a ferramenta de build em https://modernizr.com para escolher somente os testes que precisa.

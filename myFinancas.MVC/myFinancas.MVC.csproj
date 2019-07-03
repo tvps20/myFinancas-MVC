@@ -142,6 +142,10 @@
     <Compile Include="Migrations\201907031313136_lancamentos2.Designer.cs">
       <DependentUpon>201907031313136_lancamentos2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907031636154_lancamentos3.cs" />
+    <Compile Include="Migrations\201907031636154_lancamentos3.Designer.cs">
+      <DependentUpon>201907031636154_lancamentos3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
     <Compile Include="Models\Domain\CartaoModel.cs" />
@@ -157,7 +161,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CartaoRepository.cs" />
     <Compile Include="Repositories\FaturaRepository.cs" />
+    <Compile Include="Repositories\LancamentoRepository.cs" />
     <Compile Include="Util\ActionResultExtensions.cs" />
+    <Compile Include="Util\DataBrasilAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -384,6 +390,7 @@
     <Content Include="Content\assets\scss\material-dashboard\_type.scss" />
     <Content Include="Content\assets\scss\material-dashboard\_variables.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\CustomValidacoes.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -393,6 +400,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Mascaras\jquery.mask.js" />
+    <Content Include="Scripts\Mascaras\Mascaras.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -439,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907031313136_lancamentos2.resx">
       <DependentUpon>201907031313136_lancamentos2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907031636154_lancamentos3.resx">
+      <DependentUpon>201907031636154_lancamentos3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

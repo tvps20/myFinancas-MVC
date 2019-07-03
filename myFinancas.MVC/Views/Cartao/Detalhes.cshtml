@@ -1,6 +1,5 @@
 ﻿@model myFinancas.MVC.Models.Domain.FaturaModel
 @using myFinancas.MVC.Models.Domain;
-@using myFinancas.MVC.Models.Enuns;
 @{
     ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,15 +13,15 @@
             <div class="col-md-12">
                 <div class="card card-profile">
                     <div class="card-body">
-                        <h6 class="card-category">Cartão @Cartao.Nome</h6>
-                        <h4 class="card-title">@Cartao.Bandeira</h4>
+                        <h6 class="card-category">@Cartao.Bandeira</h6>
+                        <h4 class="card-title">Cartão @Cartao.Nome</h4>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">Nova Fatura</h4>
-                    <p class="card-category">Criar uma nova Fatura</p>
+                    <p class="card-category">Adicioanar ao cartão uma nova Fatura</p>
                 </div>
                 <div class="card-body">
                     @using (Html.BeginForm("SalvarFatura", "Cartao", null, FormMethod.Post))
@@ -30,6 +29,8 @@
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
                         <div class="row">
+                            <input hidden class="form-control" value="@Cartao.Id" name="IdCartao" rows="2" />
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.DataVencimento, new { required = true })
@@ -37,9 +38,6 @@
                                 </div>
                             </div>
 
-                            <input hidden class="form-control" value="@Cartao.Id" name="IdCartao" rows="2" />
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -63,14 +61,14 @@
                                 </div>
                             </div>
                         </div>
-                        <br />
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">
                                         Observações
                                     </label>
-                                    <textarea class="form-control" name="Observacao" rows="2"></textarea>
+                                    <textarea class="form-control" name="Observacao" rows="1"></textarea>
                                 </div>
                             </div>
                         </div>
