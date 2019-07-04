@@ -8,7 +8,7 @@ namespace myFinancas.MVC.Models.Enuns
 {
     public static class EnumExtensions
     {
-        public static string TipoPontoToDescriptionString(this TipoBandeira val)
+        public static string EnumToDescriptionString(this TipoBandeira val)
         {
             DescriptionAttribute[] attributes = (DescriptionAttribute[])val
                 .GetType()
@@ -17,7 +17,16 @@ namespace myFinancas.MVC.Models.Enuns
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
         }
 
-        public static string TipoPontoToDescriptionString(this TipoMensagem val)
+        public static string EnumToDescriptionString(this TipoMensagem val)
+        {
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])val
+                .GetType()
+                .GetField(val.ToString())
+                .GetCustomAttributes(typeof(DescriptionAttribute), false);
+            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+        }
+
+        public static string EnumToDescriptionString(this TipoIcone val)
         {
             DescriptionAttribute[] attributes = (DescriptionAttribute[])val
                 .GetType()

@@ -16,5 +16,10 @@ namespace myFinancas.MVC.Models.Domain
         public DateTime DataCompra { get; set; }
         public long IdFatura { get; set; }
         public virtual FaturaModel Fatura { get; set; }
+
+        public LancamentoModel()
+        {
+            this.ParcelaAtual = 1;
+        }
     }
 }

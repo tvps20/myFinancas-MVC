@@ -11,43 +11,45 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div class="card card-profile">
                         <div class="card-body">
-                            <h6 class="card-category @(Fatura.IsPaga ? "text-success" : "text-danger")">@(Fatura.IsPaga ? "Fatura paga" : "Fatura não foi paga")</h6>
-                            <h4 class="card-title">Fatura de @Fatura.DataVencimento.ToString("MMMM")</h4>
-                            <p>Vencimento para @Fatura.DataVencimento.ToString("dd/MM")</p>
-                            <p class="left">@(Fatura.Observacao != "" ? Fatura.Observacao : "Sem Observações")</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-success card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons">store</i>
-                                        @*<i class="material-icons">monetization_on</i>*@
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-12">
+                                    <h6 class="card-category @(Fatura.IsPaga ? "text-success" : "text-danger")">@(Fatura.IsPaga ? "Paga" : "Ainda não foi paga")</h6>
+                                    <h4 class="card-title">Fatura de @Fatura.DataVencimento.ToString("MMMM")</h4>
+                                    <p>Vencimento para @Fatura.DataVencimento.ToString("dd/MM/yyyy")</p>
+                                    <p class="left">@(Fatura.Observacao != null ? Fatura.Observacao : "Sem Observações")</p>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-success card-header-icon">
+                                            <div class="card-icon">
+                                                <i class="material-icons">store</i>
+                                                @*<i class="material-icons">monetization_on</i>*@
+                                            </div>
+                                            <p class="card-category">Valor a Pagar</p>
+                                            <h3 class="card-title">R$ @Fatura.Valor</h3>
+                                        </div>
                                     </div>
-                                    <p class="card-category">Valor a Pagar</p>
-                                    <h3 class="card-title">R$ @Fatura.Valor</h3>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon">
+                                                <i class="material-icons">payment</i>
+                                            </div>
+                                            <p class="card-category">Lançamentos</p>
+                                            <h3 class="card-title">@Lancamentos.Count</h3>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-warning card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons">group</i>
-                                    </div>
-                                    <p class="card-category">Compradores</p>
-                                    <h3 class="card-title">7</h3>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                </div>              
             </div>
             <div class="card">
                 <div class="card-header card-header-primary">
@@ -92,7 +94,7 @@
                                     <label class="bmd-label-floating">
                                         Descrição
                                     </label>
-                                    <textarea class="form-control" name="Descricao" rows="1"></textarea>
+                                    <textarea class="form-control" name="Descricao" rows="1" required></textarea>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -111,7 +113,7 @@
                                     <label class="bmd-label-floating">
                                         Numero de Parcelas
                                     </label>
-                                    <textarea class="form-control" name="QtdParcelas" rows="1"></textarea>
+                                    <input class="form-control" type="number" name="QtdParcelas" rows="1"></input>
                                 </div>
                             </div>
                         </div>
@@ -137,8 +139,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Faturas</h4>
-                            <p class="card-category">Lista de todas as faturas</p>
+                            <h4 class="card-title ">Lançamentos</h4>
+                            <p class="card-category">Lista de todos os Lançamentos</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -146,13 +148,13 @@
                                     <thead class=" text-primary">
                                         <tr>
                                             <th>
-                                                Data
-                                            </th>
-                                            <th>
                                                 Descrição
                                             </th>
                                             <th>
                                                 Valor
+                                            </th>
+                                            <th>
+                                                Parcela
                                             </th>
                                             <th class="text-center">
                                                 Ação
@@ -164,13 +166,13 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    @Lancamento.DataCompra
-                                                </td>
-                                                <td>
                                                     @Lancamento.Descricao
                                                 </td>
                                                 <td>
                                                     @Lancamento.Valor
+                                                </td>
+                                                <td>
+                                                    @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
                                                 </td>
                                                 <td align="center" style="width:250px">
                                                     <button type="button" rel="tooltip" title="Editar"
@@ -183,7 +185,7 @@
                                                         <i class="material-icons">description</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remover"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja apagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("RemoverFatura", "Cartao", new { Id = Fatura.Id, IdCartao = Fatura.IdCartao })')"
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja apagar o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">close</i>
                                                     </button>

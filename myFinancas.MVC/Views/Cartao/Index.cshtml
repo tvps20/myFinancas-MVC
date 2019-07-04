@@ -32,9 +32,9 @@
                                     <label for="inputState">Bandeira</label>
                                     <select id="inputState" name="Bandeira" class="form-control" style="background-color: #202940; color: #fff" required>
                                         <option selected>Choose...</option>
-                                        <option value="Mastercard">@EnumExtensions.TipoPontoToDescriptionString(TipoBandeira.MASTERCARD)</option>
-                                        <option value="Maestro">@EnumExtensions.TipoPontoToDescriptionString(TipoBandeira.MAESTRO)</option>
-                                        <option value="Visa">@EnumExtensions.TipoPontoToDescriptionString(TipoBandeira.VISA)</option>
+                                        <option value="Mastercard">@EnumExtensions.EnumToDescriptionString(TipoBandeira.MASTERCARD)</option>
+                                        <option value="Maestro">@EnumExtensions.EnumToDescriptionString(TipoBandeira.MAESTRO)</option>
+                                        <option value="Visa">@EnumExtensions.EnumToDescriptionString(TipoBandeira.VISA)</option>
                                     </select>
                                 </div>
                             </div>

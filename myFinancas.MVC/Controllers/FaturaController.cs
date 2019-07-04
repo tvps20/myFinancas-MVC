@@ -25,7 +25,7 @@ namespace myFinancas.MVC.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", "Dashboard").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+                return RedirectToAction("Index", "Dashboard").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }           
         }
 
@@ -35,11 +35,11 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 FaturaRepository.Salvar(Fatura);
-                return RedirectToAction("Index").Mensagem("A fatura " + Fatura.DataVencimento.ToString("dd/MM/yyyy") + " foi salva com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.SUCCESS), "add_alert");
+                return RedirectToAction("Index").Mensagem("A fatura " + Fatura.DataVencimento.ToString("dd/MM/yyyy") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
 
@@ -48,12 +48,12 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                //LancamentoRepository.Salvar(lancamento);
-                return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem("O lancamento de R$ " + Lancamento.Valor + " foi salvo com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.SUCCESS), "add_alert");
+                LancamentoRepository.Salvar(Lancamento);
+                return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem("O lancamento de R$ " + Lancamento.Valor + " foi salvo com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
             {
-                return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+                return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
 
@@ -63,14 +63,14 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 FaturaModel Fatura = FaturaRepository.RecuperarPeloId(id);
-                List<LancamentoModel> Lancamentos = new List<LancamentoModel>();
+                List<LancamentoModel> Lancamentos = LancamentoRepository.ListAllByFatura(id);
                 ViewBag.Fatura = Fatura != null ? Fatura : new FaturaModel();
                 ViewBag.Lancamentos = Lancamentos != null ? Lancamentos : new List<LancamentoModel>();
                 return View();
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
 
@@ -80,11 +80,11 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 FaturaRepository.Remover(id);
-                return RedirectToAction("Index").Mensagem("A fatura de id " + id + " foi removida com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.INFO), "add_alert");
+                return RedirectToAction("Index").Mensagem("A fatura de id " + id + " foi removida com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
 
@@ -93,12 +93,12 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                //LancamentoRepository.Remover(Id);
-                return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem("O lancamento de id " + Id + " foi Removido com sucesso!", "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.INFO), "add_alert");
+                LancamentoRepository.Remover(Id);
+                return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem("O lancamento de id " + Id + " foi Removido com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)
             {
-                return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem(e.Message, "", EnumExtensions.TipoPontoToDescriptionString(TipoMensagem.DANGER), "error");
+                return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
     }

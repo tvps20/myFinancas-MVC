@@ -130,21 +130,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907031309139_inicial.cs" />
-    <Compile Include="Migrations\201907031309139_inicial.Designer.cs">
-      <DependentUpon>201907031309139_inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907031310405_lancamentos.cs" />
-    <Compile Include="Migrations\201907031310405_lancamentos.Designer.cs">
-      <DependentUpon>201907031310405_lancamentos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907031313136_lancamentos2.cs" />
-    <Compile Include="Migrations\201907031313136_lancamentos2.Designer.cs">
-      <DependentUpon>201907031313136_lancamentos2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907031636154_lancamentos3.cs" />
-    <Compile Include="Migrations\201907031636154_lancamentos3.Designer.cs">
-      <DependentUpon>201907031636154_lancamentos3.cs</DependentUpon>
+    <Compile Include="Migrations\201907040116504_inicial.cs" />
+    <Compile Include="Migrations\201907040116504_inicial.Designer.cs">
+      <DependentUpon>201907040116504_inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
@@ -154,6 +142,7 @@
     <Compile Include="Models\Domain\LancamentoModel.cs" />
     <Compile Include="Models\Enuns\EnumExtensions.cs" />
     <Compile Include="Models\Enuns\TipoBandeira.cs" />
+    <Compile Include="Models\Enuns\TipoIcone.cs" />
     <Compile Include="Models\Enuns\TipoMensagem.cs" />
     <Compile Include="Models\Maps\CartaoMap.cs" />
     <Compile Include="Models\Maps\FaturaMap.cs" />
@@ -440,17 +429,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907031309139_inicial.resx">
-      <DependentUpon>201907031309139_inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907031310405_lancamentos.resx">
-      <DependentUpon>201907031310405_lancamentos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907031313136_lancamentos2.resx">
-      <DependentUpon>201907031313136_lancamentos2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907031636154_lancamentos3.resx">
-      <DependentUpon>201907031636154_lancamentos3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907040116504_inicial.resx">
+      <DependentUpon>201907040116504_inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
