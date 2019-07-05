@@ -169,6 +169,7 @@
     <Content Include="img\faces\avatar.jpg" />
     <Content Include="img\faces\card-profile1-square.jpg" />
     <Content Include="img\faces\card-profile2-square.jpg" />
+    <Content Include="img\faces\fatura.png" />
     <Content Include="img\faces\marc.jpg" />
     <Content Include="img\favicon.png" />
     <Content Include="img\logo.png" />

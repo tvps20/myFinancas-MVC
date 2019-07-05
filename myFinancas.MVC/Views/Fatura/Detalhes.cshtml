@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     FaturaModel Fatura = ViewBag.Fatura;
     List<LancamentoModel> Lancamentos = ViewBag.Lancamentos;
-    long idLancamento = 0;
 }
 
 <div class="container-fluid">
@@ -181,7 +180,7 @@
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="guardarId(1)"
+                                                            onclick="mostrarModal(@Lancamento.Id)"
                                                             @*data-toggle="modal" data-target="#exampleModal"*@
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
@@ -208,12 +207,13 @@
 
 @section Scripts {
     <script type="text/javascript">
-        function guardarId(id) {
+    function mostrarModal(Id) {
+            Id = "/" + Id;
             $(document).ready(function () {
                 $.ajax({
                 type: "GET",
-                traditional: true,
-                url: '@Url.Action("Detalhes", "Lancamento", new { id = 1})',
+                    traditional: true,
+                    url: '@Url.Action("Detalhes", "Lancamento")'.concat(Id),
                 success: function (data) {
                     document.getElementById('modalDetalhes').innerHTML = data;
                     $('#exampleModal').modal('show');

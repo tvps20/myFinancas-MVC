@@ -3,28 +3,22 @@
     LancamentoModel Lancamento = @ViewBag.Lancamento;
 }
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">         
+    <div class="modal-dialog" role="document">
         <div class="card card-profile" style="margin-top: 100px; background-color: white">
             <div class="card-avatar">
-                <div class="card-header card-header-success card-header-icon">
-                    <div class="card-avatar">                    </div>
-                        <img class="img" src="~/img/faces/marc.jpg" />
-
-                    @*<div class="card-icon">
-                        <i class="material-icons">monetization_on</i>
-                    </div>*@
-                </div>
+                <a href="#pablo">
+                    <img class="img" src="~/img/faces/fatura.png"/>
+                </a>
             </div>
-            @*<div class="card-header card-header-primary">
-                @Lancamento.Descricao
-            </div>*@
             <div class="card-body">
-                <h4 class="card-title">@Lancamento.Valor</h4>
-                <p class="card-text">@Lancamento.DataCompra.ToString("dd MMMM yyyy, HH:ss")</p>
-                <p class="card-text">@(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")</p>
-                <p class="card-text">@Lancamento.Observacao</p>
-                <a href="#" class="btn btn-primary">Fechar</a>
+                <h6 class="card-category" style="font-size: 11px">@Lancamento.DataCompra.ToString("dd MMMM yyyy, HH:ss")</h6>
+                <h3 class="card-category">@Lancamento.Descricao</h3>
+                <h3>R$ @Lancamento.Valor</h3>
+                <p class="card-description" style="font-size: 12px">@(Lancamento.IsParcelado ? "Parcela " + Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "")</p>
+                <p class="card-description">@Lancamento.Observacao</p>
+
+                <a href="#" class="btn btn-primary btn-round">Fechar</a>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
