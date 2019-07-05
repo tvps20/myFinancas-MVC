@@ -214,16 +214,14 @@
                 type: "GET",
                 traditional: true,
                 url: '@Url.Action("Detalhes", "Lancamento", new { id = 1})',
-                    success: function (data) {
-                        console.log(data);
+                success: function (data) {
                     document.getElementById('modalDetalhes').innerHTML = data;
+                    $('#exampleModal').modal('show');
                 },
                 error: function () {
                     alert("Erro na tentativa de emissão!");
                 }
             });
-
-            $('#exampleModal').modal('show');
         })
     }
     </script>

@@ -1,19 +1,30 @@
-﻿
+﻿@using myFinancas.MVC.Models.Domain;
+@{
+    LancamentoModel Lancamento = @ViewBag.Lancamento;
+}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="modal-dialog" role="document">         
+        <div class="card card-profile" style="margin-top: 100px; background-color: white">
+            <div class="card-avatar">
+                <div class="card-header card-header-success card-header-icon">
+                    <div class="card-avatar">                    </div>
+                        <img class="img" src="~/img/faces/marc.jpg" />
+
+                    @*<div class="card-icon">
+                        <i class="material-icons">monetization_on</i>
+                    </div>*@
+                </div>
             </div>
-            <div class="modal-body">
-                @ViewBag.Lancamento.Id
+            @*<div class="card-header card-header-primary">
+                @Lancamento.Descricao
+            </div>*@
+            <div class="card-body">
+                <h4 class="card-title">@Lancamento.Valor</h4>
+                <p class="card-text">@Lancamento.DataCompra.ToString("dd MMMM yyyy, HH:ss")</p>
+                <p class="card-text">@(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")</p>
+                <p class="card-text">@Lancamento.Observacao</p>
+                <a href="#" class="btn btn-primary">Fechar</a>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-            </div>
-        </div>
+        </div>        
     </div>
 </div>
