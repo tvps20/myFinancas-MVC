@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     FaturaModel Fatura = ViewBag.Fatura;
     List<LancamentoModel> Lancamentos = ViewBag.Lancamentos;
+    long idLancamento = 0;
 }
 
 <div class="container-fluid">
@@ -49,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                </div>              
+                </div>
             </div>
             <div class="card">
                 <div class="card-header card-header-primary">
@@ -61,33 +62,33 @@
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
-                    <div class="row">
-                        <input hidden class="form-control" value="@Fatura.Id" name="IdFatura" rows="2" />
+                        <div class="row">
+                            <input hidden class="form-control" value="@Fatura.Id" name="IdFatura" rows="2" />
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.DataCompra)
-                                <input style="margin-top: 12px;" type="date" name="DataCompra" class="form-control" required>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DataCompra)
+                                    <input style="margin-top: 12px;" type="date" name="DataCompra" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="inputState">Comprador</label>
+                                    <select class="form-control input-sm" style="background-color: #202940; color: white">
+                                        @foreach (LancamentoModel Cartao in Lancamentos)
+                                        {
+                                            <option value="@Cartao.Id"> @Cartao.Descricao </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-top: 6px;">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Valor, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.Valor, new { Class = "form-control money", required = true })
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="inputState">Comprador</label>
-                                <select class="form-control input-sm" style="background-color: #202940; color: white">
-                                    @foreach (LancamentoModel Cartao in Lancamentos)
-                                    {
-                                        <option value="@Cartao.Id"> @Cartao.Descricao </option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="margin-top: 6px;">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Valor, new { Class = "bmd-label-floating" })
-                                @Html.TextBoxFor(model => model.Valor, new { Class = "form-control money", required = true })
-                            </div>
-                        </div>
-                    </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -180,7 +181,8 @@
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
+                                                            onclick="guardarId(1)"
+                                                            @*data-toggle="modal" data-target="#exampleModal"*@
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
                                                     </button>
@@ -202,5 +204,27 @@
         </div>
     </div>
 </div>
+<div id="modalDetalhes"></div>
 
+@section Scripts {
+    <script type="text/javascript">
+        function guardarId(id) {
+            $(document).ready(function () {
+                $.ajax({
+                type: "GET",
+                traditional: true,
+                url: '@Url.Action("Detalhes", "Lancamento", new { id = 1})',
+                    success: function (data) {
+                        console.log(data);
+                    document.getElementById('modalDetalhes').innerHTML = data;
+                },
+                error: function () {
+                    alert("Erro na tentativa de emissão!");
+                }
+            });
 
+            $('#exampleModal').modal('show');
+        })
+    }
+    </script>
+}
