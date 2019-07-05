@@ -411,6 +411,7 @@
     <Content Include="Views\Cartao\Detalhes.cshtml" />
     <Content Include="Views\Fatura\Index.cshtml" />
     <Content Include="Views\Fatura\Detalhes.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

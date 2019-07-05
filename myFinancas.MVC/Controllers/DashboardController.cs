@@ -13,6 +13,12 @@ namespace myFinancas.MVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Sidebar(string active)
+        {
+            return PartialView("_Sidebar");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
