@@ -1,10 +1,10 @@
-﻿@model myFinancas.MVC.Models.Domain.CartaoModel
+﻿@model myFinancas.MVC.Models.Domain.CompradorModel
 @using myFinancas.MVC.Models.Domain;
 @using myFinancas.MVC.Models.Enuns;
 @{
-    ViewBag.Title = "Cartões";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<CartaoModel> Cartoes = ViewBag.Cartoes;
+    List<CompradorModel> Compradores = ViewBag.Compradores;
 }
 
 <div class="container-fluid">
@@ -12,32 +12,21 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title">Novo Cartão</h4>
-                    <p class="card-category">Adicionar um novo cartão</p>
+                    <h4 class="card-title">Novo Comprador</h4>
+                    <p class="card-category">Adicionar um novo comprador</p>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm("Salvar", "Cartao", null, FormMethod.Post))
+                    @using (Html.BeginForm("Salvar", "Comprador", null, FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
                         <div class="row">
                             <div class="col-md-6" style="margin-top: 12px;">
-                                <div class="form-group" >
+                                <div class="form-group">
                                     @Html.LabelFor(model => model.Nome, new { Class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.Nome, new { Class = "form-control", required = true })
                                 </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <div class="form-group">
-                                    <label for="inputState">Bandeira</label>
-                                    <select id="inputState" name="Bandeira" class="form-control" style="background-color: #202940; color: #fff" required>
-                                        <option selected>Choose...</option>
-                                        <option value="Mastercard">@EnumExtensions.EnumToDescriptionString(TipoBandeira.MASTERCARD)</option>
-                                        <option value="Maestro">@EnumExtensions.EnumToDescriptionString(TipoBandeira.MAESTRO)</option>
-                                        <option value="Visa">@EnumExtensions.EnumToDescriptionString(TipoBandeira.VISA)</option>
-                                    </select>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
                         <div class="clearfix"></div>
@@ -49,8 +38,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Cartões</h4>
-                            <p class="card-category">Lista de todos os cartões</p>
+                            <h4 class="card-title ">Compradores</h4>
+                            <p class="card-category">Lista de todos os Compradores</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -62,27 +51,21 @@
                                             </th>
                                             <th>
                                                 Nome
-                                            </th>
-                                            <th>
-                                                Bandeira
-                                            </th>
+                                            </th>                                           
                                             <th class="text-center">
                                                 Ação
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (CartaoModel Cartao in Cartoes)
+                                        @foreach (CompradorModel Comprador in Compradores)
                                         {
                                             <tr>
                                                 <td>
-                                                    @Cartao.Id
+                                                    @Comprador.Id
                                                 </td>
                                                 <td>
-                                                    @Cartao.Nome
-                                                </td>
-                                                <td>
-                                                    @Cartao.Bandeira
+                                                    @Comprador.Nome
                                                 </td>
                                                 <td align="center" style="width:250px">
                                                     <button type="button" rel="tooltip" title="Editar"
@@ -90,12 +73,12 @@
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="location.href='@Url.Action("Detalhes", "Cartao", new { id = Cartao.Id })'"
+                                                            onclick="location.href='@Url.Action("Detalhes", "Comprador", new { id = Comprador.Id })'"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remover"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja remover o cartão @Cartao.Nome?', '@Url.Action("Remover", "Cartao", new { id = Cartao.Id })')"
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja remover o comprador @Comprador.Nome?', '@Url.Action("Remover", "Comprador", new { id = Comprador.Id })')"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">close</i>
                                                     </button>

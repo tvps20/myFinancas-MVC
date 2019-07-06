@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     FaturaModel Fatura = ViewBag.Fatura;
     List<LancamentoModel> Lancamentos = ViewBag.Lancamentos;
+    List<CompradorModel> Compradores = ViewBag.Compradores;
 }
 
 <div class="container-fluid">
@@ -84,10 +85,10 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="inputState">Comprador</label>
-                                    <select class="form-control input-sm" style="background-color: #202940; color: white">
-                                        @foreach (LancamentoModel Cartao in Lancamentos)
+                                    <select class="form-control input-sm" name="IdComprador" style="background-color: #202940; color: white" required>
+                                        @foreach (CompradorModel Comprador in Compradores)
                                         {
-                                            <option value="@Cartao.Id"> @Cartao.Descricao </option>
+                                            <option value="@Comprador.Id"> @Comprador.Nome </option>
                                         }
                                     </select>
                                 </div>
@@ -124,7 +125,7 @@
                                     <label class="bmd-label-floating">
                                         Numero de Parcelas
                                     </label>
-                                    <input class="form-control" type="number" name="QtdParcelas" rows="1"></input>
+                                    <input class="form-control" type="number" name="QtdParcelas" rows="1"/>
                                 </div>
                             </div>
                         </div>
@@ -191,13 +192,12 @@
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="mostrarModal(@Lancamento.Id)"
-                                                            @*data-toggle="modal" data-target="#exampleModal"*@
+                                                            onclick="mostrarModal(@Lancamento.Id)"        
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">description</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remover"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja apagar o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
                                                             class="btn btn-white btn-link btn-sm">
                                                         <i class="material-icons">close</i>
                                                     </button>

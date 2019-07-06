@@ -64,8 +64,10 @@ namespace myFinancas.MVC.Controllers
             {
                 FaturaModel Fatura = FaturaRepository.RecuperarPeloId(id);
                 List<LancamentoModel> Lancamentos = LancamentoRepository.ListAllByFatura(id);
+                List<CompradorModel> Compradores = CompradorRepository.ListAll();
                 ViewBag.Fatura = Fatura != null ? Fatura : new FaturaModel();
                 ViewBag.Lancamentos = Lancamentos != null ? Lancamentos : new List<LancamentoModel>();
+                ViewBag.Compradores = Compradores != null ? Compradores : new List<CompradorModel>();
                 return View();
             }
             catch (Exception e)

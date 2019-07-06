@@ -17,10 +17,14 @@ namespace myFinancas.MVC.Models
             modelBuilder.Configurations.Add(new CartaoMap());
             modelBuilder.Configurations.Add(new FaturaMap());
             modelBuilder.Configurations.Add(new LancamentoMap());
+            modelBuilder.Configurations.Add(new CompradorMap());
+            modelBuilder.Configurations.Add(new DividaMap());
         }
 
         public DbSet<CartaoModel> Cartoes { get; set; }
         public DbSet<FaturaModel> Faturas { get; set; }
         public DbSet<LancamentoModel> Lancamentos { get; set; }
+        public DbSet<CompradorModel> Compradores { get; set; }
+        public DbSet<DividaModel> Dividas { get; set; }
     }
 }
