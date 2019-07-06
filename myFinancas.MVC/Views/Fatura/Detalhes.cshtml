@@ -13,7 +13,7 @@
             <div class="card card-stats">
                 <div class="card-header @(Fatura.IsPaga ? "card-header-success" : "card-header-danger" ) card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">monetization_on</i>
+                        <i class="material-icons">insert_drive_file</i>
                     </div>
                     <p class="card-category">@(Fatura.IsPaga ? "Paga" : "Não Pagou")</p>
                     <h3 class="card-title">R$ @Fatura.Valor</h3>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">local_offer</i>
+                        <i class="material-icons">cloud_download</i>
                         <a href="#" class="info-link">Download da Fatura</a>
                     </div>
                 </div>
@@ -48,14 +48,14 @@
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">payment</i>
+                        <i class="material-icons">shop</i>
                     </div>
                     <p class="card-category">Lançamentos</p>
                     <h3 class="card-title">@Lancamentos.Count</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">local_offer</i> Tracked from Github
+                        <i class="material-icons">info</i> Mais Informações
                     </div>
                 </div>
             </div>
