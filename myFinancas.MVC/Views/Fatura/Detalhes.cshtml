@@ -9,48 +9,59 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <div class="card card-profile">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-12">
-                                    <h6 class="card-category @(Fatura.IsPaga ? "text-success" : "text-danger")">@(Fatura.IsPaga ? "Paga" : "Ainda não foi paga")</h6>
-                                    <h4 class="card-title">Fatura de @Fatura.DataVencimento.ToString("MMMM")</h4>
-                                    <p>Vencimento para @Fatura.DataVencimento.ToString("dd/MM/yyyy")</p>
-                                    <p class="left">@(Fatura.Observacao != null ? Fatura.Observacao : "Sem Observações")</p>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                    <div class="card card-stats">
-                                        <div class="card-header card-header-success card-header-icon">
-                                            <div class="card-icon">
-                                                <i class="material-icons">store</i>
-                                                @*<i class="material-icons">monetization_on</i>*@
-                                            </div>
-                                            <p class="card-category">Valor a Pagar</p>
-                                            <h3 class="card-title">R$ @Fatura.Valor</h3>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                    <div class="card card-stats">
-                                        <div class="card-header card-header-warning card-header-icon">
-                                            <div class="card-icon">
-                                                <i class="material-icons">payment</i>
-                                            </div>
-                                            <p class="card-category">Lançamentos</p>
-                                            <h3 class="card-title">@Lancamentos.Count</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-header @(Fatura.IsPaga ? "card-header-success" : "card-header-danger" ) card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">monetization_on</i>
+                    </div>
+                    <p class="card-category">@(Fatura.IsPaga ? "Paga" : "Não Pagou")</p>
+                    <h3 class="card-title">R$ @Fatura.Valor</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> Vencimento @Fatura.DataVencimento.ToString("dd/MM/yyyy")
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">info</i>
+                    </div>
+                    <p class="card-category">Observação</p>
+                    <p class="card-title">@(Fatura.Observacao != null ? Fatura.Observacao : "Sem Observações")</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">local_offer</i>
+                        <a href="#" class="info-link">Download da Fatura</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">payment</i>
+                    </div>
+                    <p class="card-category">Lançamentos</p>
+                    <h3 class="card-title">@Lancamentos.Count</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">local_offer</i> Tracked from Github
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">Novo Lançamento</h4>
