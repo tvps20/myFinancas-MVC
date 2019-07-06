@@ -11,6 +11,5 @@ namespace myFinancas.MVC.Models.Domain
         public Decimal DividaTotal { get; set; }
         public Decimal DividaTotalPaga { get; set; }
         public Decimal DividaTotalRestante { get; set; }
-        public virtual List<DividaModel> Dividas { get; set; }
     }
 }

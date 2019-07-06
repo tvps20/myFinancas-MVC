@@ -22,7 +22,7 @@
                         @Html.ValidationSummary(true)
                         <div class="row">
                             <div class="col-md-6" style="margin-top: 12px;">
-                                <div class="form-group" >
+                                <div class="form-group">
                                     @Html.LabelFor(model => model.Nome, new { Class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.Nome, new { Class = "form-control", required = true })
                                 </div>
@@ -39,68 +39,68 @@
                     }
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Cartões</h4>
-                            <p class="card-category">Lista de todos os cartões</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                        <tr>
-                                            <th>
-                                                ID
-                                            </th>
-                                            <th>
-                                                Nome
-                                            </th>
-                                            <th>
-                                                Bandeira
-                                            </th>
-                                            <th class="text-center">
-                                                Ação
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (CartaoModel Cartao in Cartoes)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Cartao.Id
-                                                </td>
-                                                <td>
-                                                    @Cartao.Nome
-                                                </td>
-                                                <td>
-                                                    @Cartao.Bandeira
-                                                </td>
-                                                <td align="center" style="width:250px">
-                                                    <button type="button" rel="tooltip" title="Editar"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="location.href='@Url.Action("Detalhes", "Cartao", new { id = Cartao.Id })'"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remover"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja remover o cartão @Cartao.Nome?', '@Url.Action("Remover", "Cartao", new { id = Cartao.Id })')"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Cartões</h4>
+                    <p class="card-category">Lista de todos os cartões</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nome
+                                    </th>
+                                    <th>
+                                        Bandeira
+                                    </th>
+                                    <th class="text-center">
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (CartaoModel Cartao in Cartoes)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Cartao.Id
+                                        </td>
+                                        <td>
+                                            @Cartao.Nome
+                                        </td>
+                                        <td>
+                                            @Cartao.Bandeira
+                                        </td>
+                                        <td align="center" style="width:250px">
+                                            <button type="button" rel="tooltip" title="Editar"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Detalhes"
+                                                    onclick="location.href='@Url.Action("Detalhes", "Cartao", new { id = Cartao.Id })'"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remover"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o cartão @Cartao.Nome?', '@Url.Action("Remover", "Cartao", new { id = Cartao.Id })')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

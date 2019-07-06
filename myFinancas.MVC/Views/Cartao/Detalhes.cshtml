@@ -61,7 +61,9 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
@@ -78,8 +80,8 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.DataVencimento, new { required = true })
-                                    <input style="margin-top: 12px;" type="date" name="DataVencimento" class="form-control">
+                                    @Html.LabelFor(model => model.DataVencimento)
+                                    <input style="margin-top: 12px;" type="date" name="DataVencimento" class="form-control" required>
                                 </div>
                             </div>
 
@@ -123,71 +125,73 @@
                     }
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Faturas</h4>
-                            <p class="card-category">Lista de todas as faturas</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                        <tr>
-                                            <th>
-                                                Data de Vencimento
-                                            </th>
-                                            <th>
-                                                Valor
-                                            </th>
-                                            <th>
-                                                Paga
-                                            </th>
-                                            <th class="text-center">
-                                                Ação
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (FaturaModel Fatura in Faturas)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Fatura.DataVencimento.ToString("dd/MM/yyyy")
-                                                </td>
-                                                <td>
-                                                    @Fatura.Valor
-                                                </td>
-                                                <td>
-                                                    @(Fatura.IsPaga ? "Paga" : "Não foi paga")
-                                                </td>
-                                                <td align="center" style="width:250px">
-                                                    <button type="button" rel="tooltip" title="Editar"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remover"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja remover a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("RemoverFatura", "Cartao", new { Id = Fatura.Id, IdCartao = Fatura.IdCartao })')"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Faturas</h4>
+                    <p class="card-category">Lista de todas as faturas</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>
+                                        Data de Vencimento
+                                    </th>
+                                    <th>
+                                        Valor
+                                    </th>
+                                    <th>
+                                        Paga
+                                    </th>
+                                    <th class="text-center">
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (FaturaModel Fatura in Faturas)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Fatura.DataVencimento.ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td>
+                                            @Fatura.Valor
+                                        </td>
+                                        <td>
+                                            @(Fatura.IsPaga ? "Paga" : "Não foi paga")
+                                        </td>
+                                        <td align="center" style="width:250px">
+                                            <button type="button" rel="tooltip" title="Editar"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Detalhes"
+                                                    onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remover"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("RemoverFatura", "Cartao", new { Id = Fatura.Id, IdCartao = Fatura.IdCartao })')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+

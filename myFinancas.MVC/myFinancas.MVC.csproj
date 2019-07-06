@@ -132,13 +132,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907061446102_inicial.cs" />
-    <Compile Include="Migrations\201907061446102_inicial.Designer.cs">
-      <DependentUpon>201907061446102_inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907061508587_compradroDivida.cs" />
-    <Compile Include="Migrations\201907061508587_compradroDivida.Designer.cs">
-      <DependentUpon>201907061508587_compradroDivida.cs</DependentUpon>
+    <Compile Include="Migrations\201907061726108_inicial.cs" />
+    <Compile Include="Migrations\201907061726108_inicial.Designer.cs">
+      <DependentUpon>201907061726108_inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
@@ -426,6 +422,7 @@
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Lancamento\Detalhes.cshtml" />
     <Content Include="Views\Comprador\Index.cshtml" />
+    <Content Include="Views\Comprador\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -444,11 +441,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907061446102_inicial.resx">
-      <DependentUpon>201907061446102_inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907061508587_compradroDivida.resx">
-      <DependentUpon>201907061508587_compradroDivida.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907061726108_inicial.resx">
+      <DependentUpon>201907061726108_inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

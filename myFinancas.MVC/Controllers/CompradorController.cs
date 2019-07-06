@@ -42,6 +42,21 @@ namespace myFinancas.MVC.Controllers
         }
 
         [HttpGet]
+        public ActionResult Detalhes(long id)
+        {
+            try
+            {
+                CompradorModel Comprador = CompradorRepository.RecuperarPeloId(id);
+                ViewBag.Comprador = Comprador != null ? Comprador : new CompradorModel();
+                return View();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
+            }
+        }
+
+        [HttpGet]
         public ActionResult Remover(long id)
         {
             try
