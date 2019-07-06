@@ -69,6 +69,9 @@ namespace myFinancas.MVC.Migrations
                     {
                         id = c.Long(nullable: false, identity: true),
                         nome = c.String(),
+                        divida_total = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        divida_total_paga = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        divida_total_restante = c.Decimal(nullable: false, precision: 18, scale: 2),
                         created_at = c.DateTime(nullable: false),
                         update_at = c.DateTime(nullable: false),
                         is_ativo = c.Boolean(nullable: false),
@@ -83,7 +86,11 @@ namespace myFinancas.MVC.Migrations
                         data = c.DateTime(nullable: false),
                         valor_divida = c.Decimal(nullable: false, precision: 18, scale: 2),
                         valor_pago = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        valor_restante = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        observacao = c.String(),
+                        is_paga = c.Boolean(nullable: false),
                         id_comprador = c.Long(nullable: false),
+                        id_fatura = c.Long(nullable: false),
                         created_at = c.DateTime(nullable: false),
                         update_at = c.DateTime(nullable: false),
                         is_ativo = c.Boolean(nullable: false),
@@ -91,8 +98,10 @@ namespace myFinancas.MVC.Migrations
                     })
                 .PrimaryKey(t => t.id)
                 .ForeignKey("dbo.compradores", t => t.id_comprador, cascadeDelete: true)
+                .ForeignKey("dbo.faturas", t => t.id_fatura, cascadeDelete: true)
                 .ForeignKey("dbo.compradores", t => t.CompradorModel_Id)
                 .Index(t => t.id_comprador)
+                .Index(t => t.id_fatura)
                 .Index(t => t.CompradorModel_Id);
             
         }
@@ -100,11 +109,13 @@ namespace myFinancas.MVC.Migrations
         public override void Down()
         {
             DropIndex("dbo.dividas", new[] { "CompradorModel_Id" });
+            DropIndex("dbo.dividas", new[] { "id_fatura" });
             DropIndex("dbo.dividas", new[] { "id_comprador" });
             DropIndex("dbo.lancamentos", new[] { "id_comprador" });
             DropIndex("dbo.lancamentos", new[] { "id_fatura" });
             DropIndex("dbo.faturas", new[] { "id_cartao" });
             DropForeignKey("dbo.dividas", "CompradorModel_Id", "dbo.compradores");
+            DropForeignKey("dbo.dividas", "id_fatura", "dbo.faturas");
             DropForeignKey("dbo.dividas", "id_comprador", "dbo.compradores");
             DropForeignKey("dbo.lancamentos", "id_comprador", "dbo.compradores");
             DropForeignKey("dbo.lancamentos", "id_fatura", "dbo.faturas");

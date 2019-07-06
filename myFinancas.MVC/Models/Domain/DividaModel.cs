@@ -10,7 +10,12 @@ namespace myFinancas.MVC.Models.Domain
         public DateTime Data { get; set; }
         public Decimal ValorDivida { get; set; }
         public Decimal ValorPago { get; set; }
+        public Decimal ValorRestante { get; set; }
+        public string Observacao { get; set; }
+        public bool isPaga { get; set; }
         public long IdComprador { get; set; }
         public virtual CompradorModel Comprador { get; set; }
+        public long? IdFatura { get; set; }
+        public virtual FaturaModel Fatura { get; set; }
     }
 }

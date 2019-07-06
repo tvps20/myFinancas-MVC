@@ -11,7 +11,7 @@ namespace myFinancas.MVC.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201907060141079_inicial"; }
+            get { return "201907061446102_inicial"; }
         }
         
         string IMigrationMetadata.Source

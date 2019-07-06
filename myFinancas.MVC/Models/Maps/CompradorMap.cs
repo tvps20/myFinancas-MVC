@@ -21,6 +21,9 @@ namespace myFinancas.MVC.Models.Maps
             Property(x => x.IsAtivo).HasColumnName("is_ativo");
 
             Property(x => x.Nome).HasColumnName("nome");
+            Property(x => x.DividaTotal).HasColumnName("divida_total");
+            Property(x => x.DividaTotalPaga).HasColumnName("divida_total_paga");
+            Property(x => x.DividaTotalRestante).HasColumnName("divida_total_restante");
         }
     }
 }
