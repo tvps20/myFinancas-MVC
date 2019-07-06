@@ -1,38 +1,39 @@
-﻿<div class="sidebar-wrapper">
+﻿@using myFinancas.MVC.Models.Enuns;
+<div class="sidebar-wrapper">
     <ul class="nav">
         <li class="nav-item active  ">
             <a class="nav-link" href="@Url.Action("Index", "Dashboard")">
-                <i class="material-icons">dashboard</i>
+                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DASHBOARD)</i>
                 <p>Dashboard</p>
             </a>
         </li>
         <li class="nav-item ">
             <a class="nav-link" href="@Url.Action("Index", "Cartao")">
-                <i class="material-icons">payment</i>
+                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.CARTOES)</i>
                 <p>Cartões</p>
             </a>
         </li>
         <li class="nav-item ">
             <a class="nav-link" href="@Url.Action("Index", "Fatura")">
-                <i class="material-icons">picture_as_pdf</i>
+                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.FATURAS)</i>
                 <p>Faturas</p>
             </a>
         </li>
         <li class="nav-item ">
             <a class="nav-link" href="@Url.Action("Index", "Comprador")">
-                <i class="material-icons">assignment_ind</i>
+                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRADORES)</i>
                 <p>Compradores</p>
             </a>
         </li>
         <li class="nav-item ">
             <a class="nav-link" href="#">
-                <i class="material-icons">shop_two</i>
+                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DIVIDAS)</i>
                 <p>Dividas</p>
             </a>
         </li>
         <li class="nav-item ">
             <a class="nav-link" href="#">
-                <i class="material-icons">library_books</i>
+                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.RELATORIOS)</i>
                 <p>Relatórios</p>
             </a>
         </li>

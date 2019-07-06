@@ -1,5 +1,6 @@
 ﻿@model myFinancas.MVC.Models.Domain.FaturaModel
 @using myFinancas.MVC.Models.Domain;
+@using myFinancas.MVC.Models.Enuns;
 @{
     ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,14 +14,14 @@
             <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">payment</i>
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.CARTAO)</i>
                     </div>
                     <p class="card-category">@Cartao.Bandeira</p>
                     <h3 class="card-title">Cartão @Cartao.Nome</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">library_books</i>
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.RELATORIOS)</i>
                         <a href="#" class="info-link">Ver Relatórios</a>
                     </div>
                 </div>
@@ -31,14 +32,14 @@
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">picture_as_pdf</i>
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.FATURAS)</i>
                     </div>
                     <p class="card-category">Faturas</p>
                     <h3 class="card-title">@Faturas.Count</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">info</i> Mais informações
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.INFO)</i> Mais informações
                     </div>
                 </div>
             </div>
@@ -48,14 +49,14 @@
             <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">store</i>
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.CONTAS)</i>
                     </div>
                     <p class="card-category">Total</p>
                     <h3 class="card-title">$34,245</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">local_offer</i> Soma das faturas desse mês
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.NOTA)</i> Soma das faturas desse mês
                     </div>
                 </div>
             </div>
@@ -165,17 +166,17 @@
                                                 <td align="center" style="width:250px">
                                                     <button type="button" rel="tooltip" title="Editar"
                                                             class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">edit</i>
+                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Detalhes"
                                                             onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
                                                             class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">description</i>
+                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remover"
                                                             onclick="MensagemConfirma('Ateção', 'Deseja remover a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("RemoverFatura", "Cartao", new { Id = Fatura.Id, IdCartao = Fatura.IdCartao })')"
                                                             class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">close</i>
+                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
                                                     </button>
                                                 </td>
                                             </tr>
