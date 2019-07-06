@@ -14,6 +14,5 @@ namespace myFinancas.MVC.Models.Enuns
         ERRO = 0,
         [Description("info")]
         INFO = 1
-
     }
 }

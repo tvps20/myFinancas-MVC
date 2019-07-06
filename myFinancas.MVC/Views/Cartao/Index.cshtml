@@ -27,15 +27,10 @@
                                     @Html.TextBoxFor(model => model.Nome, new { Class = "form-control", required = true })
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="col-md-6" style="margin-top: 12px;">
                                 <div class="form-group">
-                                    <label for="inputState">Bandeira</label>
-                                    <select id="inputState" name="Bandeira" class="form-control" style="background-color: #202940; color: #fff" required>
-                                        <option selected>Choose...</option>
-                                        <option value="Mastercard">@EnumExtensions.EnumToDescriptionString(TipoBandeira.MASTERCARD)</option>
-                                        <option value="Maestro">@EnumExtensions.EnumToDescriptionString(TipoBandeira.MAESTRO)</option>
-                                        <option value="Visa">@EnumExtensions.EnumToDescriptionString(TipoBandeira.VISA)</option>
-                                    </select>
+                                    @Html.LabelFor(model => model.Bandeira, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.Bandeira, new { Class = "form-control", required = true })
                                 </div>
                             </div>
                         </div>

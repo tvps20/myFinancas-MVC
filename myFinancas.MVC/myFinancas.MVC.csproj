@@ -145,7 +145,6 @@
     <Compile Include="Models\Domain\FaturaModel.cs" />
     <Compile Include="Models\Domain\LancamentoModel.cs" />
     <Compile Include="Models\Enuns\EnumExtensions.cs" />
-    <Compile Include="Models\Enuns\TipoBandeira.cs" />
     <Compile Include="Models\Enuns\TipoIcone.cs" />
     <Compile Include="Models\Enuns\TipoMensagem.cs" />
     <Compile Include="Models\Maps\CartaoMap.cs" />
