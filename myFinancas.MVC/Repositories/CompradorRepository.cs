@@ -1,4 +1,5 @@
-﻿using myFinancas.MVC.Models;
+﻿using myFinancas.MVC.Interfaces.Repository;
+using myFinancas.MVC.Models;
 using myFinancas.MVC.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,24 @@ using System.Web;
 
 namespace myFinancas.MVC.Repositories
 {
-    public class CompradorRepository
+    public class CompradorRepository : IRepository<CompradorModel>
     {
-        public static List<CompradorModel> ListAll()
+        // Instancia unica
+        private static CompradorRepository uniqueInstance;
+
+        // Construtor privado. Usando o padrão Sngleton
+        private CompradorRepository() { }
+
+        // retornando a instância unica.
+        public static CompradorRepository getInstance()
+        {
+            if (uniqueInstance == null)
+                uniqueInstance = new CompradorRepository();
+
+            return uniqueInstance;
+        }
+
+        public List<CompradorModel> ListAll()
         {
             using (var db = new ContextoDB())
             {
@@ -18,7 +34,7 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static CompradorModel RecuperarPeloId(long id)
+        public CompradorModel GetById(long id)
         {
             using (var db = new ContextoDB())
             {
@@ -26,30 +42,30 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static int Salvar(CompradorModel Comprador)
+        public int Save(CompradorModel entity)
         {
             using (var db = new ContextoDB())
             {
-                var cartaoBd = RecuperarPeloId(Comprador.Id);
+                var cartaoBd = GetById(entity.Id);
 
                 if (cartaoBd == null)
                 {
-                    Comprador.CreatedAt = DateTime.UtcNow;
-                    Comprador.UpdateAt = DateTime.UtcNow;
-                    db.Compradores.Add(Comprador);
+                    entity.CreatedAt = DateTime.UtcNow;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Compradores.Add(entity);
                 }
                 else
                 {
-                    Comprador.UpdateAt = DateTime.UtcNow;
-                    db.Compradores.Attach(Comprador);
-                    db.Entry(Comprador).State = EntityState.Modified;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Compradores.Attach(entity);
+                    db.Entry(entity).State = EntityState.Modified;
                 }
 
                 return db.SaveChanges();
             }
         }
 
-        public static bool Remover(long id)
+        public bool Delete(long id)
         {
             using (var db = new ContextoDB())
             {

@@ -132,6 +132,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\Repository\IRepository.cs" />
+    <Compile Include="Interfaces\Service\IService.cs" />
     <Compile Include="Migrations\201907061726108_inicial.cs" />
     <Compile Include="Migrations\201907061726108_inicial.Designer.cs">
       <DependentUpon>201907061726108_inicial.cs</DependentUpon>
@@ -158,6 +160,13 @@
     <Compile Include="Repositories\DividaRepository.cs" />
     <Compile Include="Repositories\FaturaRepository.cs" />
     <Compile Include="Repositories\LancamentoRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\CartaoService.cs" />
+    <Compile Include="Services\CompradorService.cs" />
+    <Compile Include="Services\DividaService.cs" />
+    <Compile Include="Services\FaturaService.cs" />
+    <Compile Include="Services\LancamentoService.cs" />
     <Compile Include="Util\ActionResultExtensions.cs" />
     <Compile Include="Util\DataBrasilAttribute.cs" />
   </ItemGroup>

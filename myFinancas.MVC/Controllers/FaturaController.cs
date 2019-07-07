@@ -1,6 +1,7 @@
 ﻿using myFinancas.MVC.Models.Domain;
 using myFinancas.MVC.Models.Enuns;
 using myFinancas.MVC.Repositories;
+using myFinancas.MVC.Services;
 using myFinancas.MVC.Util;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,17 @@ namespace myFinancas.MVC.Controllers
 {
     public class FaturaController : Controller
     {
+        private CartaoService cartaoService = new CartaoService(CartaoRepository.getInstance());
+        private FaturaService faturaService = new FaturaService(FaturaRepository.getInstance());
+        private LancamentoService lancamentoService = new LancamentoService(LancamentoRepository.getInstance());
+        private CompradorService compradorService = new CompradorService(CompradorRepository.getInstance());
         // GET: Fatura
         public ActionResult Index()
         {
             try
             {
-                List<FaturaModel> Faturas = FaturaRepository.ListAll();
-                List<CartaoModel> Cartoes = CartaoRepository.ListAll();
-                ViewBag.Faturas = Faturas != null ? Faturas : new List<FaturaModel>();
-                ViewBag.Cartoes = Cartoes != null ? Cartoes : new List<CartaoModel>();
+                ViewBag.Faturas = faturaService.ListarTodos();
+                ViewBag.Cartoes = cartaoService.ListarTodos();
                 return View();
             }
             catch (Exception e)
@@ -34,7 +37,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaRepository.Salvar(Fatura);
+                this.faturaService.Salvar(Fatura);
                 return RedirectToAction("Index").Mensagem("A fatura " + Fatura.DataVencimento.ToString("dd/MM/yyyy") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
@@ -48,7 +51,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                LancamentoRepository.Salvar(Lancamento);
+                this.lancamentoService.Salvar(Lancamento);
                 return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem("O lancamento de R$ " + Lancamento.Valor + " foi salvo com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
@@ -62,12 +65,9 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaModel Fatura = FaturaRepository.RecuperarPeloId(id);
-                List<LancamentoModel> Lancamentos = LancamentoRepository.ListAllByFatura(id);
-                List<CompradorModel> Compradores = CompradorRepository.ListAll();
-                ViewBag.Fatura = Fatura != null ? Fatura : new FaturaModel();
-                ViewBag.Lancamentos = Lancamentos != null ? Lancamentos : new List<LancamentoModel>();
-                ViewBag.Compradores = Compradores != null ? Compradores : new List<CompradorModel>();
+                ViewBag.Fatura = this.faturaService.RecuperarPeloId(id);
+                ViewBag.Lancamentos = this.lancamentoService.ListarTodosPelaFatura(id);
+                ViewBag.Compradores = this.compradorService.ListarTodos();
                 return View();
             }
             catch (Exception e)
@@ -81,7 +81,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaRepository.Remover(id);
+                this.faturaService.Remover(id);
                 return RedirectToAction("Index").Mensagem("A fatura de id " + id + " foi removida com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)
@@ -95,7 +95,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                LancamentoRepository.Remover(Id);
+                this.lancamentoService.Remover(Id);
                 return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem("O lancamento de id " + Id + " foi Removido com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)

@@ -1,6 +1,7 @@
 ﻿using myFinancas.MVC.Models.Domain;
 using myFinancas.MVC.Models.Enuns;
 using myFinancas.MVC.Repositories;
+using myFinancas.MVC.Services;
 using myFinancas.MVC.Util;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,14 @@ namespace myFinancas.MVC.Controllers
 {
     public class CartaoController : Controller
     {
+        private CartaoService cartaoService = new CartaoService(CartaoRepository.getInstance());
+        private FaturaService faturaService = new FaturaService(FaturaRepository.getInstance());
         // GET: Cartao
         public ActionResult Index()
         {
             try
             {
-                List<CartaoModel> Cartoes = CartaoRepository.ListAll();
-                ViewBag.Cartoes = Cartoes != null ? Cartoes : new List<CartaoModel>();
+                ViewBag.Cartoes = this.cartaoService.ListarTodos();
                 return View("Index");
             }
             catch (Exception e)
@@ -32,7 +34,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                CartaoRepository.Salvar(Cartao);
+                this.cartaoService.Salvar(Cartao);
                 return RedirectToAction("Index").Mensagem("O cartão " + Cartao.Nome + " foi salvo com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
@@ -46,7 +48,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaRepository.Salvar(Fatura);
+                this.faturaService.Salvar(Fatura);
                 return RedirectToAction("Detalhes", "Cartao", new { id = Fatura.IdCartao }).Mensagem("A fatura de " + Fatura.DataVencimento.ToString("MMMM") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
@@ -60,10 +62,8 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                CartaoModel Cartao = CartaoRepository.RecuperarPeloId(id);
-                List<FaturaModel> Faturas = FaturaRepository.ListAllByCartao(id);
-                ViewBag.Cartao = Cartao != null ? Cartao : new CartaoModel();
-                ViewBag.Faturas = Faturas != null ? Faturas : new List<FaturaModel>();
+                ViewBag.Cartao = this.cartaoService.RecuperarPeloId(id);
+                ViewBag.Faturas = this.faturaService.ListarTodosPeloCartao(id);
                 return View();
             }
             catch (Exception e)
@@ -77,7 +77,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                CartaoRepository.Remover(id);
+                this.cartaoService.Remover(id);
                 return RedirectToAction("Index").Mensagem("O cartão de id " + id + " foi removido com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)
@@ -91,7 +91,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaRepository.Remover(Id);
+                this.faturaService.Remover(Id);
                 return RedirectToAction("Detalhes", "Cartao", new { id = IdCartao }).Mensagem("A fatura de id " + Id + " foi Removida com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)

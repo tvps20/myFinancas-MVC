@@ -1,4 +1,5 @@
-﻿using myFinancas.MVC.Models;
+﻿using myFinancas.MVC.Interfaces.Repository;
+using myFinancas.MVC.Models;
 using myFinancas.MVC.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,24 @@ using System.Web;
 
 namespace myFinancas.MVC.Repositories
 {
-    public class DividaRepository
+    public class DividaRepository : IRepository<DividaModel>
     {
-        public static List<DividaModel> ListAll()
+        // Instancia unica
+        private static DividaRepository uniqueInstance;
+
+        // Construtor privado. Usando o padrão Sngleton
+        private DividaRepository() { }
+
+        // retornando a instância unica.
+        public static DividaRepository getInstance()
+        {
+            if (uniqueInstance == null)
+                uniqueInstance = new DividaRepository();
+
+            return uniqueInstance;
+        }
+
+        public List<DividaModel> ListAll()
         {
             using (var db = new ContextoDB())
             {
@@ -18,7 +34,16 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static DividaModel RecuperarPeloId(long id)
+        public List<DividaModel> ListAllByComprador(long id)
+        {
+            using (var db = new ContextoDB())
+            {
+                List<DividaModel> dividas = db.Dividas.Where(d => d.IdComprador == id).ToList();
+                return dividas;
+            }
+        }
+
+        public DividaModel GetById(long id)
         {
             using (var db = new ContextoDB())
             {
@@ -26,30 +51,30 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static int Salvar(DividaModel Divida)
+        public int Save(DividaModel entity)
         {
             using (var db = new ContextoDB())
             {
-                var cartaoBd = RecuperarPeloId(Divida.Id);
+                var cartaoBd = GetById(entity.Id);
 
                 if (cartaoBd == null)
                 {
-                    Divida.CreatedAt = DateTime.UtcNow;
-                    Divida.UpdateAt = DateTime.UtcNow;
-                    db.Dividas.Add(Divida);
+                    entity.CreatedAt = DateTime.UtcNow;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Dividas.Add(entity);
                 }
                 else
                 {
-                    Divida.UpdateAt = DateTime.UtcNow;
-                    db.Dividas.Attach(Divida);
-                    db.Entry(Divida).State = EntityState.Modified;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Dividas.Attach(entity);
+                    db.Entry(entity).State = EntityState.Modified;
                 }
 
                 return db.SaveChanges();
             }
         }
 
-        public static bool Remover(long id)
+        public bool Delete(long id)
         {
             using (var db = new ContextoDB())
             {

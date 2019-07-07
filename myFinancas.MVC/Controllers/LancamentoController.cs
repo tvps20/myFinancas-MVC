@@ -1,5 +1,6 @@
 ﻿using myFinancas.MVC.Models.Domain;
 using myFinancas.MVC.Repositories;
+using myFinancas.MVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,13 @@ namespace myFinancas.MVC.Controllers
 {
     public class LancamentoController : Controller
     {
+        private LancamentoService lancamentoService = new LancamentoService(LancamentoRepository.getInstance());
         // GET: Lancamento
         public ActionResult Detalhes(long id)
         {
             LancamentoModel Lancamento = new LancamentoModel();
 
-            if (id != 0) { Lancamento = LancamentoRepository.RecuperarPeloId(id); }
+            if (id != 0) { Lancamento = this.lancamentoService.RecuperarPeloId(id); }
             ViewBag.Lancamento = Lancamento;    
             
             return PartialView();

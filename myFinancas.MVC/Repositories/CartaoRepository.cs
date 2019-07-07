@@ -1,4 +1,5 @@
-﻿using myFinancas.MVC.Models;
+﻿using myFinancas.MVC.Interfaces.Repository;
+using myFinancas.MVC.Models;
 using myFinancas.MVC.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,32 @@ using System.Web;
 
 namespace myFinancas.MVC.Repositories
 {
-    public class CartaoRepository
+    public class CartaoRepository : IRepository<CartaoModel>
     {
-        public static List<CartaoModel> ListAll()
+        // Instancia unica
+        private static CartaoRepository uniqueInstance;
+
+        // Construtor privado. Usando o padrão Sngleton
+        private CartaoRepository() {}
+
+        // retornando a instância unica.
+        public static CartaoRepository getInstance()
         {
-            using(var db = new ContextoDB())
+            if (uniqueInstance == null)
+                uniqueInstance = new CartaoRepository();
+
+            return uniqueInstance;
+        }
+
+        public List<CartaoModel> ListAll()
+        {
+            using (var db = new ContextoDB())
             {
                 return db.Cartoes.OrderBy(c => c.Id).ToList();
             }
         }
 
-        public static CartaoModel RecuperarPeloId(long id)
+        public CartaoModel GetById(long id)
         {
             using (var db = new ContextoDB())
             {
@@ -26,32 +42,32 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static int Salvar(CartaoModel Cartao)
+        public int Save(CartaoModel entity)
         {
-            using(var db = new ContextoDB())
+            using (var db = new ContextoDB())
             {
-                var cartaoBd = RecuperarPeloId(Cartao.Id);
+                var cartaoBd = GetById(entity.Id);
 
-                if(cartaoBd == null)
+                if (cartaoBd == null)
                 {
-                    Cartao.CreatedAt = DateTime.UtcNow;
-                    Cartao.UpdateAt = DateTime.UtcNow;
-                    db.Cartoes.Add(Cartao);
+                    entity.CreatedAt = DateTime.UtcNow;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Cartoes.Add(entity);
                 }
                 else
                 {
-                    Cartao.UpdateAt = DateTime.UtcNow;
-                    db.Cartoes.Attach(Cartao);
-                    db.Entry(Cartao).State = EntityState.Modified;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Cartoes.Attach(entity);
+                    db.Entry(entity).State = EntityState.Modified;
                 }
 
                 return db.SaveChanges();
             }
         }
 
-        public static bool Remover(long id)
+        public bool Delete(long id)
         {
-            using(var db = new ContextoDB())
+            using (var db = new ContextoDB())
             {
                 var Cartao = new CartaoModel { Id = id };
                 db.Cartoes.Attach(Cartao);

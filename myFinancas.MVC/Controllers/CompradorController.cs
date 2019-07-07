@@ -1,6 +1,7 @@
 ﻿using myFinancas.MVC.Models.Domain;
 using myFinancas.MVC.Models.Enuns;
 using myFinancas.MVC.Repositories;
+using myFinancas.MVC.Services;
 using myFinancas.MVC.Util;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,15 @@ namespace myFinancas.MVC.Controllers
 {
     public class CompradorController : Controller
     {
+        private CompradorService compradorService = new CompradorService(CompradorRepository.getInstance());
+        private DividaService dividaService = new DividaService(DividaRepository.getInstance());
+        private LancamentoService lancamentoService = new LancamentoService(LancamentoRepository.getInstance());
         // GET: Comprador
         public ActionResult Index()
         {
             try
             {
-                List<CompradorModel> Compradores = CompradorRepository.ListAll();
-                ViewBag.Compradores = Compradores != null ? Compradores : new List<CompradorModel>();
+                ViewBag.Compradores = this.compradorService.ListarTodos();
                 return View("Index");
             }
             catch (Exception e)
@@ -32,7 +35,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                CompradorRepository.Salvar(Comprador);
+                this.compradorService.Salvar(Comprador);
                 return RedirectToAction("Index").Mensagem("O comprador " + Comprador.Nome + " foi salvo com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
@@ -46,8 +49,9 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                CompradorModel Comprador = CompradorRepository.RecuperarPeloId(id);
-                ViewBag.Comprador = Comprador != null ? Comprador : new CompradorModel();
+                ViewBag.Comprador = this.compradorService.RecuperarPeloId(id);
+                ViewBag.Dividas = this.dividaService.ListarTodosPeloComprador(id);
+                ViewBag.Lancamentos = this.lancamentoService.ListarTodosPeloComprador(id);
                 return View();
             }
             catch (Exception e)
@@ -61,7 +65,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                CompradorRepository.Remover(id);
+                this.compradorService.Remover(id);
                 return RedirectToAction("Index").Mensagem("O comprador de id " + id + " foi removido com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)

@@ -1,4 +1,5 @@
-﻿using myFinancas.MVC.Models;
+﻿using myFinancas.MVC.Interfaces.Repository;
+using myFinancas.MVC.Models;
 using myFinancas.MVC.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,24 @@ using System.Web;
 
 namespace myFinancas.MVC.Repositories
 {
-    public class LancamentoRepository
+    public class LancamentoRepository : IRepository<LancamentoModel>
     {
-        public static List<LancamentoModel> ListAll()
+        // Instancia unica
+        private static LancamentoRepository uniqueInstance;
+
+        // Construtor privado. Usando o padrão Sngleton
+        private LancamentoRepository() { }
+
+        // retornando a instância unica.
+        public static LancamentoRepository getInstance()
+        {
+            if (uniqueInstance == null)
+                uniqueInstance = new LancamentoRepository();
+
+            return uniqueInstance;
+        }
+
+        public List<LancamentoModel> ListAll()
         {
             using (var db = new ContextoDB())
             {
@@ -18,16 +34,25 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static List<LancamentoModel> ListAllByFatura(long id)
+        public List<LancamentoModel> ListAllByComprador(long id)
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Where(f => f.IdFatura == id).ToList();
+                List<LancamentoModel> faturas = db.Lancamentos.Where(l => l.IdComprador == id).ToList();
+                return faturas;
+            }
+        }
+
+        public List<LancamentoModel> ListAllByFatura(long id)
+        {
+            using (var db = new ContextoDB())
+            {
+                List<LancamentoModel> lancamentos = db.Lancamentos.Where(l => l.IdFatura == id).ToList();
                 return lancamentos;
             }
         }
 
-        public static LancamentoModel RecuperarPeloId(long id)
+        public LancamentoModel GetById(long id)
         {
             using (var db = new ContextoDB())
             {
@@ -35,30 +60,30 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static int Salvar(LancamentoModel Lancamento)
+        public int Save(LancamentoModel entity)
         {
             using (var db = new ContextoDB())
             {
-                var lancamentoBd = RecuperarPeloId(Lancamento.Id);
+                var lancamentoBd = GetById(entity.Id);
 
                 if (lancamentoBd == null)
                 {
-                    Lancamento.CreatedAt = DateTime.UtcNow;
-                    Lancamento.UpdateAt = DateTime.UtcNow;
-                    db.Lancamentos.Add(Lancamento);
+                    entity.CreatedAt = DateTime.UtcNow;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Lancamentos.Add(entity);
                 }
                 else
                 {
-                    Lancamento.UpdateAt = DateTime.UtcNow;
-                    db.Lancamentos.Attach(Lancamento);
-                    db.Entry(Lancamento).State = EntityState.Modified;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Lancamentos.Attach(entity);
+                    db.Entry(entity).State = EntityState.Modified;
                 }
 
                 return db.SaveChanges();
             }
         }
 
-        public static bool Remover(long id)
+        public bool Delete(long id)
         {
             using (var db = new ContextoDB())
             {

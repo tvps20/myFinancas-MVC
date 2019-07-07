@@ -1,4 +1,5 @@
-﻿using myFinancas.MVC.Models;
+﻿using myFinancas.MVC.Interfaces.Repository;
+using myFinancas.MVC.Models;
 using myFinancas.MVC.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,24 @@ using System.Web;
 
 namespace myFinancas.MVC.Repositories
 {
-    public class FaturaRepository
+    public class FaturaRepository : IRepository<FaturaModel>
     {
-        public static List<FaturaModel> ListAll()
+        // Instancia unica
+        private static FaturaRepository uniqueInstance;
+
+        // Construtor privado. Usando o padrão Sngleton
+        private FaturaRepository() { }
+
+        // retornando a instância unica.
+        public static FaturaRepository getInstance()
+        {
+            if (uniqueInstance == null)
+                uniqueInstance = new FaturaRepository();
+
+            return uniqueInstance;
+        }
+
+        public List<FaturaModel> ListAll()
         {
             using (var db = new ContextoDB())
             {
@@ -18,7 +34,7 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static List<FaturaModel> ListAllByCartao(long id)
+        public List<FaturaModel> ListAllByCartao(long id)
         {
             using (var db = new ContextoDB())
             {
@@ -27,7 +43,7 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static FaturaModel RecuperarPeloId(long id)
+        public FaturaModel GetById(long id)
         {
             using (var db = new ContextoDB())
             {
@@ -35,30 +51,30 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public static int Salvar(FaturaModel Fatura)
+        public int Save(FaturaModel entity)
         {
             using (var db = new ContextoDB())
             {
-                var faturaBd = RecuperarPeloId(Fatura.Id);
+                var faturaBd = GetById(entity.Id);
 
                 if (faturaBd == null)
                 {
-                    Fatura.CreatedAt = DateTime.UtcNow;
-                    Fatura.UpdateAt = DateTime.UtcNow;
-                    db.Faturas.Add(Fatura);
+                    entity.CreatedAt = DateTime.UtcNow;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Faturas.Add(entity);
                 }
                 else
                 {
-                    Fatura.UpdateAt = DateTime.UtcNow;
-                    db.Faturas.Attach(Fatura);
-                    db.Entry(Fatura).State = EntityState.Modified;
+                    entity.UpdateAt = DateTime.UtcNow;
+                    db.Faturas.Attach(entity);
+                    db.Entry(entity).State = EntityState.Modified;
                 }
 
                 return db.SaveChanges();
             }
         }
 
-        public static bool Remover(long id)
+        public bool Delete(long id)
         {
             using (var db = new ContextoDB())
             {
