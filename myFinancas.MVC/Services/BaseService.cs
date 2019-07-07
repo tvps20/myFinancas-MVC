@@ -1,4 +1,5 @@
-﻿using myFinancas.MVC.Interfaces.Repository;
+﻿using myFinancas.MVC.Erros;
+using myFinancas.MVC.Interfaces.Repository;
 using myFinancas.MVC.Interfaces.Service;
 using myFinancas.MVC.Models.Domain;
 using System;
@@ -35,6 +36,12 @@ namespace myFinancas.MVC.Services
             try
             {
                 T entity = this.repository.GetById(id);
+
+                if(entity == null)
+                {
+                    throw new EntityNotFoundException("Não encontrado um objeto para o id " + id);
+                }
+
                 return entity;
             }
             catch(Exception ex)
