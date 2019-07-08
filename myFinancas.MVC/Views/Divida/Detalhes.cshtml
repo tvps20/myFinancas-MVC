@@ -1,0 +1,24 @@
+﻿@using myFinancas.MVC.Models.Domain;
+@{
+    DividaModel Divida = @ViewBag.Divida;
+}
+<div class="modal fade" id="detalhesModalLancamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="card card-profile" style="margin-top: 100px; background-color: white">
+            <div class="card-avatar">
+                <a href="#pablo">
+                    <img class="img" src="~/img/faces/divida.png" />
+                </a>
+            </div>
+            <div class="card-body">
+                <h6 class="card-category" style="font-size: 11px">@Divida.Data.ToString("dd MMMM yyyy")</h6>
+                <h3 class="card-category">@Divida.Descricao</h3>
+                <h3>R$ @Divida.ValorDivida</h3>
+                <p class="card-description" >Já foi pago R$ @Divida.ValorPago</p>
+                <p class="card-description" style="font-size: 12px">Falta ser pago R$ @Divida.ValorRestante</p>
+
+                <a href="#" class="btn btn-primary btn-round">Fechar</a>
+            </div>
+        </div>
+    </div>
+</div>

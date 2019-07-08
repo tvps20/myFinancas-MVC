@@ -127,7 +127,7 @@
                                             <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
                                         </button>
                                         <button type="button" rel="tooltip" title="Detalhes"
-                                                onclick="mostrarModal(@Divida.Id)"
+                                                onclick="mostrarModalDetalhes(@Divida.Id, '@Url.Action("Detalhes", "Divida")')"
                                                 class="btn btn-white btn-link btn-sm">
                                             <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
                                         </button>
@@ -191,7 +191,7 @@
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
                                             </button>
                                             <button type="button" rel="tooltip" title="Detalhes"
-                                                    onclick="mostrarModal(@Lancamento.Id)"
+                                                    onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
                                                     class="btn btn-white btn-link btn-sm">
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
                                             </button>

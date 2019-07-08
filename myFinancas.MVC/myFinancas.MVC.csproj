@@ -185,16 +185,13 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\apple-icon.png" />
-    <Content Include="img\cover.jpg" />
-    <Content Include="img\faces\avatar.jpg" />
-    <Content Include="img\faces\card-profile1-square.jpg" />
-    <Content Include="img\faces\card-profile2-square.jpg" />
+    <Content Include="img\faces\anotacao.jpg" />
+    <Content Include="img\faces\dinheiro.png" />
+    <Content Include="img\faces\divida.png" />
     <Content Include="img\faces\fatura.png" />
-    <Content Include="img\faces\marc.jpg" />
     <Content Include="img\favicon.png" />
     <Content Include="img\logo.png" />
     <Content Include="img\mask.png" />
-    <Content Include="img\new_logo.png" />
     <Content Include="img\sidebar-1.jpg" />
     <Content Include="img\sidebar-2.jpg" />
     <Content Include="img\sidebar-3.jpg" />
@@ -438,6 +435,7 @@
     <Content Include="Views\Comprador\Detalhes.cshtml" />
     <Content Include="Views\Divida\Index.cshtml" />
     <Content Include="Views\Shared\_ModalFuncao.cshtml" />
+    <Content Include="Views\Divida\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

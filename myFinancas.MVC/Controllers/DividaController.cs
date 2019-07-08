@@ -40,16 +40,12 @@ namespace myFinancas.MVC.Controllers
         [HttpGet]
         public ActionResult Detalhes(long id)
         {
-            try
-            {
-                ViewBag.Divida = this.dividaService.RecuperarPeloId(id);
-                ViewBag.Compradores = this.compradorService.ListarTodos();
-                return View();
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
-            }
+            DividaModel Divida = new DividaModel();
+
+            if (id != 0) { Divida = this.dividaService.RecuperarPeloId(id); }
+            ViewBag.Divida = Divida;
+
+            return PartialView();
         }
 
         [HttpGet]

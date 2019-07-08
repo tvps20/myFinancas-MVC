@@ -26,7 +26,7 @@
                                     @Html.LabelFor(model => model.Nome, new { Class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.Nome, new { Class = "form-control", required = true })
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
                         <div class="clearfix"></div>
@@ -51,7 +51,7 @@
                                             </th>
                                             <th>
                                                 Nome
-                                            </th>                                           
+                                            </th>
                                             <th class="text-center">
                                                 Ação
                                             </th>
@@ -95,3 +95,9 @@
         </div>
     </div>
 </div>
+
+<div id="modalDetalhes"></div>
+
+@section Scripts {
+    @Html.Partial("_ModalFuncao")
+}
