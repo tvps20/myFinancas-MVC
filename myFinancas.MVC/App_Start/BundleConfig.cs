@@ -12,8 +12,7 @@ namespace myFinancas.MVC
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*",
-                        "~/Scripts/CustomValidacoes.js"));
+                        "~/Scripts/jquery.validate*"));
 
             // Scripts para mascaras
             bundles.Add(new ScriptBundle("~/bundles/Mascaras").Include(

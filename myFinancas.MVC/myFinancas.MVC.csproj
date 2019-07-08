@@ -127,6 +127,7 @@
     <Compile Include="Controllers\CartaoController.cs" />
     <Compile Include="Controllers\CompradorController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DividaController.cs" />
     <Compile Include="Controllers\FaturaController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Erros\EntityNotFoundException.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="Services\FaturaService.cs" />
     <Compile Include="Services\LancamentoService.cs" />
     <Compile Include="Util\ActionResultExtensions.cs" />
-    <Compile Include="Util\DataBrasilAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -397,7 +397,6 @@
     <Content Include="Content\assets\scss\material-dashboard\_type.scss" />
     <Content Include="Content\assets\scss\material-dashboard\_variables.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\CustomValidacoes.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -436,6 +435,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Divida\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
