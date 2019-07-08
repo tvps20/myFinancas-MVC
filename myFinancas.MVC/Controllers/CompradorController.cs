@@ -51,7 +51,7 @@ namespace myFinancas.MVC.Controllers
             {
                 ViewBag.Comprador = this.compradorService.RecuperarPeloId(id);
                 ViewBag.Dividas = this.dividaService.ListarTodosPeloComprador(id);
-                ViewBag.Lancamentos = this.lancamentoService.ListarTodosPeloComprador(id);
+                ViewBag.Lancamentos = this.compradorService.ListarTodosLancamentosData(DateTime.Now, id);
                 return View();
             }
             catch (Exception e)

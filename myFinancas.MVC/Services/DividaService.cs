@@ -26,7 +26,7 @@ namespace myFinancas.MVC.Services
 
         public DividaRepository GetRepository()
         {
-            return (DividaRepository)this.repository;
+            return (DividaRepository) this.repository;
         }
     }
 }

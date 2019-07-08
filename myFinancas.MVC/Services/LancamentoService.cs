@@ -29,6 +29,18 @@ namespace myFinancas.MVC.Services
             }
         }
 
+        public List<LancamentoModel> ListarTodosPeloCompradorComFatura(long id)
+        {
+            try
+            {
+                return this.GetRepository().ListAllByCompradorIncludeFatura(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<LancamentoModel> ListarTodosPelaFatura(long id)
         {
             try
