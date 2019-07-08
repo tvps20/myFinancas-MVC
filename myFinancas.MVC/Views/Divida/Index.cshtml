@@ -55,10 +55,10 @@
                                     <textarea class="form-control" name="Descricao" rows="1"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox" })
+                                        @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox", value = true })
                                         Divida Paga
                                         <span class="form-check-sign">
                                             <span class="check"></span>
@@ -66,7 +66,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3" style="margin-top: 6px;">
+                            <div class="col-md-4" style="margin-top: 6px;" id="valorPagoDiv">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ValorPago, new { Class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.ValorPago, new { Class = "form-control money" })
@@ -158,4 +158,20 @@
 
 @section Scripts {
     @Html.Partial("_ModalFuncao")
+
+    <script type="text/javascript">
+        $("#valorPagoDiv").css("visibility", "hidden");
+   
+        $("#IsPaga").click(function(){	
+		    if($(this).val()=="true"){
+			    $("#valorPagoDiv").css("visibility","hidden");
+			    $(this).val("false");
+		    }
+            else
+            {
+			    $("#valorPagoDiv").css("visibility","visible");
+			    $(this).val("true");
+		    }
+	    }); 
+    </script>
 }
