@@ -66,7 +66,7 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 ViewBag.Fatura = this.faturaService.RecuperarPeloId(id);
-                ViewBag.Lancamentos = this.lancamentoService.ListarTodosPelaFatura(id);
+                ViewBag.Lancamentos = this.lancamentoService.ListarTodosPelaFaturaIncludeComprador(id);
                 ViewBag.Compradores = this.compradorService.ListarTodos();
                 return View();
             }

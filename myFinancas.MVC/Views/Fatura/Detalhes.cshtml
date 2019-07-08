@@ -165,6 +165,9 @@
                             <thead class=" text-primary">
                                 <tr>
                                     <th>
+                                        Comprador
+                                    </th>
+                                    <th>
                                         Descrição
                                     </th>
                                     <th>
@@ -181,33 +184,36 @@
                             <tbody>
                                 @foreach (LancamentoModel Lancamento in Lancamentos)
                                 {
-                                    <tr>
-                                        <td>
-                                            @Lancamento.Descricao
-                                        </td>
-                                        <td>
-                                            @Lancamento.Valor
-                                        </td>
-                                        <td>
-                                            @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
-                                        </td>
-                                        <td align="center" style="width:250px">
-                                            <button type="button" rel="tooltip" title="Editar"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Detalhes"
-                                                    onclick="mostrarModal(@Lancamento.Id)"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Remover"
-                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        @Lancamento.Comprador.Nome
+                                    </td>
+                                    <td>
+                                        @Lancamento.Descricao
+                                    </td>
+                                    <td>
+                                        @Lancamento.Valor
+                                    </td>
+                                    <td>
+                                        @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
+                                    </td>
+                                    <td align="center" style="width:250px">
+                                        <button type="button" rel="tooltip" title="Editar"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Detalhes"
+                                                onclick="mostrarModal(@Lancamento.Id)"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Remover"
+                                                onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                        </button>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>

@@ -52,5 +52,17 @@ namespace myFinancas.MVC.Services
                 throw ex;
             }
         }
+
+        public List<LancamentoModel> ListarTodosPelaFaturaIncludeComprador(long id)
+        {
+            try
+            {
+                return this.GetRepository().ListAllByFaturaIncludeComprador(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

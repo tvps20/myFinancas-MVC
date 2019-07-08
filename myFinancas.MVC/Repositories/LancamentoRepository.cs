@@ -61,6 +61,15 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        public List<LancamentoModel> ListAllByFaturaIncludeComprador(long id)
+        {
+            using (var db = new ContextoDB())
+            {
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Comprador").Where(l => l.IdFatura == id).ToList();
+                return lancamentos;
+            }
+        }
+
         public LancamentoModel GetById(long id)
         {
             using (var db = new ContextoDB())
