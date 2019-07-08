@@ -34,5 +34,16 @@ namespace myFinancas.MVC.Services
 
             return LancamentosByFatura;
         }
+
+        public int ContaLancamentos(Dictionary<string, List<LancamentoModel>> Lancamentos)
+        {
+            int count = 0;
+            foreach(List<LancamentoModel> LancamentosList in Lancamentos.Values)
+            {
+                count += LancamentosList.Count;
+            }
+
+            return count;
+        }
     }
 }

@@ -48,6 +48,9 @@ namespace myFinancas.MVC.Models.Enuns
         [Description("shop_two")]
         DIVIDAS = 17,
         [Description("library_books")]
-        RELATORIOS = 18
+        RELATORIOS = 18,
+
+        [Description("monetization_on")]
+        MONEY = 19
     }
 }

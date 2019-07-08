@@ -49,9 +49,11 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                Dictionary<string, List<LancamentoModel>> Lancamentos = this.compradorService.ListarTodosLancamentosData(DateTime.Now, id);
                 ViewBag.Comprador = this.compradorService.RecuperarPeloId(id);
                 ViewBag.Dividas = this.dividaService.ListarTodosPeloComprador(id);
-                ViewBag.Lancamentos = this.compradorService.ListarTodosLancamentosData(DateTime.Now, id);
+                ViewBag.Lancamentos = Lancamentos;
+                ViewBag.DividasCount = this.compradorService.ContaLancamentos(Lancamentos);
                 return View();
             }
             catch (Exception e)

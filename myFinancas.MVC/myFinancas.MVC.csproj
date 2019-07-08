@@ -135,9 +135,9 @@
     </Compile>
     <Compile Include="Interfaces\Repository\IRepository.cs" />
     <Compile Include="Interfaces\Service\IService.cs" />
-    <Compile Include="Migrations\201907061726108_inicial.cs" />
-    <Compile Include="Migrations\201907061726108_inicial.Designer.cs">
-      <DependentUpon>201907061726108_inicial.cs</DependentUpon>
+    <Compile Include="Migrations\201907081249504_inicial.cs" />
+    <Compile Include="Migrations\201907081249504_inicial.Designer.cs">
+      <DependentUpon>201907081249504_inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
@@ -451,8 +451,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907061726108_inicial.resx">
-      <DependentUpon>201907061726108_inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907081249504_inicial.resx">
+      <DependentUpon>201907081249504_inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

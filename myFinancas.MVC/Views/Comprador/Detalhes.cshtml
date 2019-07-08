@@ -4,58 +4,56 @@
     ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Dictionary<string, List<LancamentoModel>> Lancamentos = ViewBag.Lancamentos;
+    List<DividaModel> Dividas = ViewBag.Dividas;
 }
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">content_copy</i>
-                    </div>
-                    <p class="card-category">Used Space</p>
-                    <h3 class="card-title">
-                        49/50
-                        <small>GB</small>
-                    </h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <i class="material-icons text-warning">warning</i>
-                        <a href="#pablo" class="warning-link">Get More Space...</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                     <div class="card-icon">
                         <i class="material-icons">store</i>
                     </div>
-                    <p class="card-category">Revenue</p>
-                    <h3 class="card-title">$34,245</h3>
+                    <p class="card-category">Dividas do mês</p>
+                    <h3 class="card-title">R$34,245</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">date_range</i> Last 24 Hours
+                        <i class="material-icons">date_range</i> Dados referente a @DateTime.Now.ToString("dd/MM/yyyy")
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
+                <div class="card-header @(Dividas.Count < 0 ? "card-header-default" : "card-header-danger" ) card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">info_outline</i>
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.MONEY)</i>
                     </div>
-                    <p class="card-category">Fixed Issues</p>
-                    <h3 class="card-title">75</h3>
+                    <p class="card-category">Restante</p>
+                    <h3 class="card-title">R$34,245</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">local_offer</i> Tracked from Github
+                        <i class="material-icons">local_offer</i> Valor que ainda não foi pago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
+                    </div>
+                    <p class="card-category">Lancamentos</p>
+                    <h3 class="card-title">@ViewBag.DividasCount</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons text-warning">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
+                        <a href="#pablo" class="warning-link">Todos os Lançamentos</a>
                     </div>
                 </div>
             </div>
@@ -66,25 +64,94 @@
                     <div class="card-icon">
                         <i class="fa fa-twitter"></i>
                     </div>
-                    <p class="card-category">Followers</p>
-                    <h3 class="card-title">+245</h3>
+                    <p class="card-category">Relatório</p>
+                    <h3 class="card-title">Download</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">update</i> Just Updated
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DONWLOAD)</i>
+                        <a href="#" class="info-link">Gerar Relatório</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-warning">
+                    <h4 class="card-title">Dividas</h4>
+                    <p class="card-category">Suas dividas do mês</p>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <tr>
+                                <th>
+                                    Descrição
+                                </th>
+                                <th>
+                                    Pago
+                                </th>
+                                <th>
+                                    Valor
+                                </th>
+                                <th>
+                                    Restante
+                                </th>
+                                <th class="text-center">
+                                    Ação
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DividaModel Divida in Dividas)
+                            {
+                                <tr>
+                                    <td>
+                                        @Divida.Descricao;
+                                    </td>
+                                    <td>
+                                        @Divida.ValorPago
+                                    </td>
+                                    <td>
+                                        @Divida.ValorDivida;
+                                    </td>
+                                    <td class="@(Divida.ValorRestante > 0 ? "text-success" : "text-danger")">
+                                        <i class="fa @(Divida.ValorRestante > 0 ? "fa-long-arrow-up" : "fa-long-arrow-down")"
+                                           style="margin-right: 5px;"></i>@Divida.ValorRestante
+                                    </td>
+                                    <td align="center" style="width:250px">
+                                        <button type="button" rel="tooltip" title="Editar"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Detalhes"
+                                                onclick="mostrarModal(@Divida.Id)"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Remover"
+                                                onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Divida.ValorDivida?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Divida.Id, IdFatura = Divida.Id })')"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         @foreach (string key in Lancamentos.Keys)
         {
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title">@key</h4>
-                        <p class="card-category">New employees on 15th September, 2016</p>
+                        <p class="card-category">@Lancamentos[key][0].Fatura.DataVencimento.ToString("'Vencimento para' dd 'de' MMMM 'de' yyyy")</p>
                     </div>
                     <div class="card-body table-responsive">
                         <table class="table">
@@ -144,3 +211,26 @@
     </div>
 </div>
 
+<div id="modalDetalhes"></div>
+
+@section Scripts {
+    <script type="text/javascript">
+    function mostrarModal(Id) {
+            Id = "/" + Id;
+            $(document).ready(function () {
+                $.ajax({
+                type: "GET",
+                    traditional: true,
+                    url: '@Url.Action("Detalhes", "Lancamento")'.concat(Id),
+                success: function (data) {
+                    document.getElementById('modalDetalhes').innerHTML = data;
+                    $('#exampleModal').modal('show');
+                },
+                error: function () {
+                    alert("Erro na tentativa de emissão!");
+                }
+            });
+        })
+    }
+    </script>
+}
