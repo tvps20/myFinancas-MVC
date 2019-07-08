@@ -1,0 +1,156 @@
+﻿@model myFinancas.MVC.Models.Domain.DividaModel
+@using myFinancas.MVC.Models.Enuns;
+@using myFinancas.MVC.Models.Domain;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<DividaModel> Dividas = ViewBag.Dividas;
+    List<CompradorModel> Compradores = ViewBag.Compradores;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Novo Divida</h4>
+                    <p class="card-category">Adicionar uma nova divida</p>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Salvar", "Divida", null, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Data)
+                                    <input style="margin-top: 12px;" type="date" name="Data" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="inputState">Comprador</label>
+                                    <select class="form-control input-sm" name="IdComprador" style="background-color: #202940; color: white" required>
+                                        @foreach (CompradorModel Comprador in Compradores)
+                                        {
+                                            <option value="@Comprador.Id"> @Comprador.Nome </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-top: 6px;">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ValorDivida, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.ValorDivida, new { Class = "form-control money", required = true })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">
+                                        Descrição
+                                    </label>
+                                    <textarea class="form-control" name="Descricao" rows="1"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox" })
+                                        Divida Paga
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="margin-top: 6px;">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ValorPago, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.ValorPago, new { Class = "form-control money"})
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
+                        <div class="clearfix"></div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Dividas</h4>
+                    <p class="card-category">Lista de todas as dividas</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>
+                                        Nome
+                                    </th>
+                                    <th>
+                                        Valor da Divida
+                                    </th>
+                                    <th>
+                                        Valor Pago
+                                    </th>
+                                    <th>
+                                        Valor Restante
+                                    </th>
+                                    <th class="text-center">
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DividaModel Divida in Dividas)
+                                {
+                                <tr>
+                                    <td>
+                                        @Divida.Comprador.Nome
+                                    </td>
+                                    <td>
+                                        @Divida.ValorDivida
+                                    </td>
+                                    <td>
+                                        @Divida.ValorPago
+                                    </td>
+                                    <td class="@(Divida.ValorRestante >= 0 ? "text-success" : "text-danger")">
+                                        <i class="fa @(Divida.ValorRestante >= 0 ? "fa-long-arrow-up" : "fa-long-arrow-down")"
+                                           style="margin-right: 5px;"></i>@Divida.ValorRestante
+                                    </td>
+                                    <td align="center" style="width:250px">
+                                        <button type="button" rel="tooltip" title="Editar"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Detalhes"
+                                                onclick="location.href='@Url.Action("Detalhes", "Divida", new { id = Divida.Id })'"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Remover"
+                                                onclick="MensagemConfirma('Ateção', 'Deseja remover a divida de @Divida.ValorDivida?', '@Url.Action("Remover", "Divida", new { id = Divida.Id })')"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

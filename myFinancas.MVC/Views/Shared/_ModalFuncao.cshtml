@@ -1,0 +1,19 @@
+﻿<script type="text/javascript">
+    function mostrarModal(Id) {
+            Id = "/" + Id;
+            $(document).ready(function () {
+                $.ajax({
+                type: "GET",
+                    traditional: true,
+                    url: '@Url.Action("Detalhes", "Lancamento")'.concat(Id),
+                success: function (data) {
+                    document.getElementById('modalDetalhes').innerHTML = data;
+                    $('#detalhesModal').modal('show');
+                },
+                error: function () {
+                    alert("Erro na tentativa de emissão!");
+                }
+            });
+        })
+    }
+</script>

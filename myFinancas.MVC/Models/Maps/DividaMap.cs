@@ -21,7 +21,7 @@ namespace myFinancas.MVC.Models.Maps
             Property(x => x.IsAtivo).HasColumnName("is_ativo");
 
             Property(x => x.Data).HasColumnName("data").IsRequired();
-            Property(x => x.ValorDivida).HasColumnName("valor_divida");
+            Property(x => x.ValorDivida).HasColumnName("valor_divida").IsRequired();
             Property(x => x.ValorPago).HasColumnName("valor_pago");
             Property(x => x.ValorRestante).HasColumnName("valor_restante");
             Property(x => x.Descricao).HasColumnName("descricao");

@@ -34,6 +34,14 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        public List<DividaModel> ListAllIncludeComprador()
+        {
+            using (var db = new ContextoDB())
+            {
+                return db.Dividas.Include("Comprador").OrderBy(c => c.Id).ToList();
+            }
+        }
+
         public List<DividaModel> ListAllByComprador(long id)
         {
             using (var db = new ContextoDB())

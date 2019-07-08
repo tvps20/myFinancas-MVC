@@ -24,6 +24,18 @@ namespace myFinancas.MVC.Services
             }
         }
 
+        public List<DividaModel> ListarTodosIncludeComprador()
+        {
+            try
+            {
+                return this.GetRepository().ListAllIncludeComprador();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public DividaRepository GetRepository()
         {
             return (DividaRepository) this.repository;

@@ -140,6 +140,10 @@
     <Compile Include="Migrations\201907081249504_inicial.Designer.cs">
       <DependentUpon>201907081249504_inicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907081647081_inicial2.cs" />
+    <Compile Include="Migrations\201907081647081_inicial2.Designer.cs">
+      <DependentUpon>201907081647081_inicial2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
     <Compile Include="Models\Domain\CartaoModel.cs" />
@@ -432,10 +436,11 @@
     <Content Include="Views\Lancamento\Detalhes.cshtml" />
     <Content Include="Views\Comprador\Index.cshtml" />
     <Content Include="Views\Comprador\Detalhes.cshtml" />
+    <Content Include="Views\Divida\Index.cshtml" />
+    <Content Include="Views\Shared\_ModalFuncao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Divida\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -453,6 +458,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907081249504_inicial.resx">
       <DependentUpon>201907081249504_inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907081647081_inicial2.resx">
+      <DependentUpon>201907081647081_inicial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
