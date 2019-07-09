@@ -25,7 +25,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Data)
-                                    <input style="margin-top: 12px;" type="date" name="Data" class="form-control" required>
+                                    <input style="margin-top: 12px;" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="Data" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -118,14 +118,14 @@
                                             @Divida.Comprador.Nome
                                         </td>
                                         <td>
-                                            @Divida.ValorDivida
+                                            @Html.DisplayFor(divida => Divida.ValorDivida)
                                         </td>
                                         <td>
-                                            @Divida.ValorPago
+                                            @Html.DisplayFor(divida => Divida.ValorPago)
                                         </td>
                                         <td class="@(Divida.ValorRestante >= 0 ? "text-success" : "text-danger")">
                                             <i class="fa @(Divida.ValorRestante >= 0 ? "fa-long-arrow-up" : "fa-long-arrow-down")"
-                                               style="margin-right: 5px;"></i>@Divida.ValorRestante
+                                               style="margin-right: 5px;"></i>@Html.DisplayFor(divida => Divida.ValorRestante)
                                         </td>
                                         <td align="center" style="width:250px">
                                             <button type="button" rel="tooltip" title="Editar"
@@ -138,7 +138,7 @@
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
                                             </button>
                                             <button type="button" rel="tooltip" title="Remover"
-                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover a divida de @Divida.ValorDivida?', '@Url.Action("Remover", "Divida", new { id = Divida.Id })')"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover a divida de @Html.DisplayFor(divida => Divida.ValorDivida)?', '@Url.Action("Remover", "Divida", new { id = Divida.Id })')"
                                                     class="btn btn-white btn-link btn-sm">
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
                                             </button>

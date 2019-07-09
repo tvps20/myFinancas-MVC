@@ -13,9 +13,9 @@
             <div class="card-body">
                 <h6 class="card-category" style="font-size: 11px">@Divida.Data.ToString("dd MMMM yyyy")</h6>
                 <h3 class="card-category">@Divida.Descricao</h3>
-                <h3>R$ @Divida.ValorDivida</h3>
-                <p class="card-description" >Já foi pago R$ @Divida.ValorPago</p>
-                <p class="card-description" style="font-size: 12px">Falta ser pago R$ @Divida.ValorRestante</p>
+                <h3>R$ @Html.DisplayFor(divida => Divida.ValorDivida)</h3>
+                <p class="card-description">Já foi pago R$ @Html.DisplayFor(divida => Divida.ValorPago)</p>
+                <p class="card-description" style="font-size: 12px">Falta ser pago R$  @Html.DisplayFor(divida => Divida.ValorRestante)</p>
 
                 <a href="#" class="btn btn-primary btn-round">Fechar</a>
             </div>

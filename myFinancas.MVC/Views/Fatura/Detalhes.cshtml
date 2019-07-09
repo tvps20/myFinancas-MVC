@@ -142,7 +142,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
+                        <button type="submit" onclick="formatarValor()" class="btn btn-primary pull-right">Adicionar</button>
                         <div class="clearfix"></div>
                     }
                 </div>
@@ -190,7 +190,7 @@
                                             @Lancamento.Descricao
                                         </td>
                                         <td>
-                                            @Lancamento.Valor
+                                            @Html.DisplayFor(lancamento => Lancamento.Valor)
                                         </td>
                                         <td>
                                             @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")

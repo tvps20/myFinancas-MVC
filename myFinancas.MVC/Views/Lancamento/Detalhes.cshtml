@@ -13,7 +13,7 @@
             <div class="card-body">
                 <h6 class="card-category" style="font-size: 11px">@Lancamento.DataCompra.ToString("dd MMMM yyyy, HH:ss")</h6>
                 <h3 class="card-category">@Lancamento.Descricao</h3>
-                <h3>R$ @Lancamento.Valor</h3>
+                <h3>R$ @Html.DisplayFor(lancamento => Lancamento.Valor)</h3>
                 <p class="card-description" style="font-size: 12px">@(Lancamento.IsParcelado ? "Parcela " + Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "")</p>
                 <p class="card-description">@Lancamento.Observacao</p>
 

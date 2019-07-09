@@ -29,7 +29,7 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 this.dividaService.Salvar(Divida);
-                return RedirectToAction("Index").Mensagem("A divida de " + Divida.ValorDivida + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
+                return RedirectToAction("Index").Mensagem("A divida de " + Divida.ValorDivida.ToString("C") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
             {

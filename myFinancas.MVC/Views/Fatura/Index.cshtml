@@ -124,7 +124,7 @@
                                             @Fatura.Cartao.Nome
                                         </td>
                                         <td>
-                                            @Fatura.Valor
+                                            @Html.DisplayFor(fatura => Fatura.Valor)
                                         </td>
                                         <td>
                                             @(Fatura.IsPaga ? "Paga" : "Não foi paga")

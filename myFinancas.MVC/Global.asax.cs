@@ -17,6 +17,14 @@ namespace myFinancas.MVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            // Trocando o binder padrão por uma constomização
+            ModelBinders.Binders.Add(typeof(double), new DoubleModelBinder());
+            ModelBinders.Binders.Add(typeof(double?), new DoubleModelBinder());
+            ModelBinders.Binders.Add(typeof(int), new Int32ModelBinder());
+            ModelBinders.Binders.Add(typeof(int?), new Int32ModelBinder());
+            ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
+            ModelBinders.Binders.Add(typeof(decimal?), new DecimalModelBinder());
+
             // Extensão Mensagem para ActionResult
             ClientDataTypeModelValidatorProvider.ResourceClassKey = "Mensagens";
             DefaultModelBinder.ResourceClassKey = "Mensagens";

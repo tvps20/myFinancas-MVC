@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace myFinancas.MVC.Models.Domain
 {
     public class LancamentoModel : EntityModel
     {
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal Valor { get; set; }
         public string Descricao { get; set; }
         public string Observacao { get; set; }
