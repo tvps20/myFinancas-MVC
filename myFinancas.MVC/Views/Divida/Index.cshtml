@@ -165,7 +165,8 @@
         $("#IsPaga").click(function(){	
 		    if($(this).val()=="true"){
 			    $("#valorPagoDiv").css("visibility","hidden");
-			    $(this).val("false");
+                $(this).val("false");
+                document.getElementById('ValorPago').value = '';
 		    }
             else
             {

@@ -112,7 +112,7 @@
                                     <textarea class="form-control" name="Descricao" rows="1" required></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         @Html.TextBox("IsParcelado", true, new { Class = "form-check-input", Type = "checkbox" })
@@ -123,12 +123,10 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4" id="parcelasDiv">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">
-                                        Numero de Parcelas
-                                    </label>
-                                    <input class="form-control" type="number" name="QtdParcelas" rows="1" />
+                                    @Html.LabelFor(model => model.QtdParcelas, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.QtdParcelas, new { Class = "form-control", type = "number" })
                                 </div>
                             </div>
                         </div>
@@ -228,4 +226,20 @@
 
 @section Scripts {
     @Html.Partial("_ModalFuncao")
+  
+    <script type="text/javascript">
+        $("#parcelasDiv").css("visibility", "hidden");
+
+        $("#IsParcelado").click(function () {
+            if ($(this).val() == "true") {
+                $("#parcelasDiv").css("visibility", "hidden");
+                $(this).val("false");
+                document.getElementById('QtdParcelas').value = null;
+            }
+            else {
+                $("#parcelasDiv").css("visibility", "visible");
+                $(this).val("true");
+            }
+        });
+    </script>
 }
