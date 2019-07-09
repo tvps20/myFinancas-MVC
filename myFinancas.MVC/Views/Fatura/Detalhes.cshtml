@@ -82,7 +82,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.DataCompra)
-                                    <input style="margin-top: 12px;" type="date" name="DataCompra" class="form-control" required>
+                                    <input style="margin-top: 12px;" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="DataCompra" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
