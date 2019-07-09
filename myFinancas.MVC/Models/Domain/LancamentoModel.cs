@@ -13,8 +13,14 @@ namespace myFinancas.MVC.Models.Domain
         public string Descricao { get; set; }
         public string Observacao { get; set; }
         public bool IsParcelado { get; set; }
+
+        [Display(Name = "Total de Parcelas")]
         public int QtdParcelas { get; set; }
+
+        [Display(Name = "Parcela Atual")]
         public int ParcelaAtual { get; set; }
+
+        [Display(Name = "Data da Compra")]
         public DateTime DataCompra { get; set; }
         public long IdFatura { get; set; }
         public virtual FaturaModel Fatura { get; set; }
