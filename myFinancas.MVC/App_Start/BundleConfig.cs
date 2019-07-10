@@ -40,12 +40,11 @@ namespace myFinancas.MVC
             bundles.Add(new StyleBundle("~/Content/assets/demo-css").Include(
                 "~/Content/assets/demo/demo.css"));
 
-            // Core JS Files 
+            // Core JS Files
             bundles.Add(new ScriptBundle("~/Content/assets/js/core").Include(
                 "~/Content/assets/js/core/jquery.min.js",
                 "~/Content/assets/js/core/popper.min.js",
-                "~/Content/assets/js/core/bootstrap-material-design.min.js",
-                "~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js"));
+                "~/Content/assets/js/core/bootstrap-material-design.min.js"));
 
             // Chartist JS and Notifications Plugin
             bundles.Add(new ScriptBundle("~/Content/js/plugins").Include(
