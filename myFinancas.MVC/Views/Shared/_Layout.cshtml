@@ -8,7 +8,7 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
     <!--     Fonts and icons     -->
-    @Styles.Render("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" )
+    @Styles.Render("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons")
     @Styles.Render("https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css")
     <!-- CSS Files -->
     @Styles.Render("~/Content/assets/css/material-dashboard")
@@ -16,7 +16,7 @@
     @Styles.Render("~/Content/assets/demo-css")
 </head>
 
-<body class="dark-edition">
+<body class="dark-edition"  onLoad=hidden()>
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="black" data-image="../../img/sidebar-2.jpg">
             <div class="logo" style="text-align: center">
@@ -297,3 +297,10 @@
     @{Html.RenderPartial("~/Views/Shared/_Mensagem.cshtml");}
 </body>
 </html>
+
+
+
+<!-- Tirando a barra de rolagem do navegador -->
+<SCRIPT language="JavaScript">
+    function hidden() { document.body.style.overflow = 'hidden'; }
+</SCRIPT>
