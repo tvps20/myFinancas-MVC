@@ -160,18 +160,17 @@
     @Html.Partial("_ModalFuncao")
 
     <script type="text/javascript">
-        $("#valorPagoDiv").css("visibility", "hidden");
-   
         $("#IsPaga").click(function(){	
 		    if($(this).val()=="true"){
-			    $("#valorPagoDiv").css("visibility","hidden");
+                $("#ValorPago").prop("disabled", false);
                 $(this).val("false");
                 document.getElementById('ValorPago').value = '';
 		    }
             else
             {
-			    $("#valorPagoDiv").css("visibility","visible");
-			    $(this).val("true");
+                $("#ValorPago").prop("disabled", true);
+                $(this).val("true");
+                document.getElementById('ValorPago').value = document.getElementById('ValorDivida').value;
 		    }
 	    }); 
     </script>
