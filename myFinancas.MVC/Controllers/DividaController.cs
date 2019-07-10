@@ -28,6 +28,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                Divida.CalcularValorRestante();
                 this.dividaService.Salvar(Divida);
                 return RedirectToAction("Index").Mensagem("A divida de " + Divida.ValorDivida.ToString("C") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }

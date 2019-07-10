@@ -27,5 +27,11 @@ namespace myFinancas.MVC.Models.Domain
         public virtual CompradorModel Comprador { get; set; }
         public long? IdFatura { get; set; }
         public virtual FaturaModel Fatura { get; set; }
+
+
+        public void CalcularValorRestante()
+        {
+            this.ValorRestante = this.ValorPago - this.ValorDivida;
+        }
     }
 }
