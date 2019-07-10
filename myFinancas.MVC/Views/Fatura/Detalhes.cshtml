@@ -28,11 +28,11 @@
             </div>
         </div>
 
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
             <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
+                <div class="card-header card-header-default card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">info</i>
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.NOTA)</i>
                     </div>
                     <p class="card-category">Observação</p>
                     <p class="card-title">@(Fatura.Observacao != null ? Fatura.Observacao : "Sem Observações")</p>
@@ -41,6 +41,24 @@
                     <div class="stats">
                         <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DONWLOAD)</i>
                         <a href="#" class="info-link">Download da Fatura</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <div class="card card-stats">
+                <div class="card-header @(Fatura.IsFechada ? "card-header-danger" : "card-header-info" ) card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.INFO)</i>
+                    </div>
+                    <p class="card-category">Situação</p>
+                    <p class="card-title">@(Fatura.IsFechada ? "Fatura Fechada" : "Fatura Aberta")</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.NOTA)</i>
+                        @(Fatura.IsFechada ? "Não se pode adicinar novos lançamentos." : "Adicone novos lançamentos")
                     </div>
                 </div>
             </div>
@@ -57,7 +75,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.INFO)</i> Mais Informações
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DONWLOAD)</i>
+                        <a href="#" class="warning-link">Todos os Lançamentos</a>
                     </div>
                 </div>
             </div>
@@ -142,7 +161,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" onclick="formatarValor()" class="btn btn-primary pull-right">Adicionar</button>
+                        <button type="submit" onclick="formatarValor()" class="btn btn-primary pull-right" disabled="@(Fatura.IsFechada ? true : false)">Adicionar</button>
                         <div class="clearfix"></div>
                     }
                 </div>
