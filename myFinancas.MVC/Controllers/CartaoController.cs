@@ -99,5 +99,18 @@ namespace myFinancas.MVC.Controllers
                 return RedirectToAction("Detalhes", "Cartao", new { id = IdCartao }).Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
+
+        // Validando o campo Nome da model Cartão
+        public ActionResult ValidarNome(string Nome)
+        {
+            CartaoModel cartao = this.cartaoService.BuscarPeloNome(Nome);
+
+            if(cartao != null)
+            {
+                return Json(string.Format("O Nome '{0}' já esta cadastrado.", Nome), JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
 }

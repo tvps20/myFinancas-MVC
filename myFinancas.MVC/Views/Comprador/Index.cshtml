@@ -25,6 +25,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Nome, new { Class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.Nome, new { Class = "form-control", required = true })
+                                    @Html.ValidationMessageFor(model => model.Nome, "", new { Class = "text-danger" })
                                 </div>
                             </div>
                         </div>

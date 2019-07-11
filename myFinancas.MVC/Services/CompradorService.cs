@@ -14,6 +14,11 @@ namespace myFinancas.MVC.Services
 
         public CompradorService(IRepository<CompradorModel> repository) : base(repository) { }
 
+        public CompradorRepository GetRepository()
+        {
+            return (CompradorRepository) this.repository;
+        }
+
         public Dictionary<string, List<LancamentoModel>> ListarTodosLancamentosData(DateTime data, long id)
         {
             Dictionary<string, List<LancamentoModel>> LancamentosByFatura = new Dictionary<string, List<LancamentoModel>>();
@@ -44,6 +49,11 @@ namespace myFinancas.MVC.Services
             }
 
             return count;
+        }
+
+        public CompradorModel BuscarPeloNome(string Nome)
+        {
+            return this.GetRepository().GetByName(Nome);
         }
     }
 }

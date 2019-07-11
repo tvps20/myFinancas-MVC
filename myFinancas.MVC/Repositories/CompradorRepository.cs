@@ -42,6 +42,14 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        public CompradorModel GetByName(string name)
+        {
+            using (var db = new ContextoDB())
+            {
+                return db.Compradores.FirstOrDefault(x => x.Nome == name);
+            }
+        }
+
         public int Save(CompradorModel entity)
         {
             using (var db = new ContextoDB())

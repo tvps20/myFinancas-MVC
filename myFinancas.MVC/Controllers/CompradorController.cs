@@ -75,5 +75,18 @@ namespace myFinancas.MVC.Controllers
                 return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
+
+        // Validando o campo Nome da model Cartão
+        public ActionResult ValidarNome(string Nome)
+        {
+            CompradorModel comprador = this.compradorService.BuscarPeloNome(Nome);
+
+            if (comprador != null)
+            {
+                return Json(string.Format("O Nome '{0}' já esta cadastrado.", Nome), JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
 }

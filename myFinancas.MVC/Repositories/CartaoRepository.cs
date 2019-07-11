@@ -42,6 +42,14 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        public CartaoModel GetByName(string name)
+        {
+            using (var db = new ContextoDB())
+            {
+                return db.Cartoes.FirstOrDefault(x => x.Nome == name);
+            }
+        }
+
         public int Save(CartaoModel entity)
         {
             using (var db = new ContextoDB())
