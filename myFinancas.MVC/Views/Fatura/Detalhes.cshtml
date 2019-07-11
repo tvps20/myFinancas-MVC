@@ -225,7 +225,7 @@
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
                                             </button>
                                             <button type="button" rel="tooltip" title="Remover"
-                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.IdFatura })')"
                                                     class="btn btn-white btn-link btn-sm">
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
                                             </button>

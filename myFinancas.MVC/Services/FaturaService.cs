@@ -27,6 +27,6 @@ namespace myFinancas.MVC.Services
         public FaturaRepository GetRepository()
         {
             return (FaturaRepository) this.repository;
-        }
+        }        
     }
 }

@@ -51,7 +51,10 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                FaturaModel fatura = this.faturaService.RecuperarPeloId(Lancamento.IdFatura);
+                fatura.Valor += Lancamento.Valor;
                 this.lancamentoService.Salvar(Lancamento);
+                this.faturaService.Salvar(fatura);
                 return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem("O lancamento de R$ " + Lancamento.Valor.ToString("C") + " foi salvo com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
             catch (Exception e)
@@ -65,9 +68,11 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                List<LancamentoModel> lancamentos = this.lancamentoService.ListarTodosPelaFaturaIncludeComprador(id);
                 ViewBag.Fatura = this.faturaService.RecuperarPeloId(id);
-                ViewBag.Lancamentos = this.lancamentoService.ListarTodosPelaFaturaIncludeComprador(id);
+                ViewBag.Lancamentos = lancamentos;
                 ViewBag.Compradores = this.compradorService.ListarTodos();
+                //ViewBag.ValorFatura = this.faturaService.CalcularValorFatura(lancamentos);
                 return View();
             }
             catch (Exception e)
@@ -95,7 +100,11 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                LancamentoModel lancamento = this.lancamentoService.RecuperarPeloId(Id);
+                FaturaModel fatura = this.faturaService.RecuperarPeloId(IdFatura);
+                fatura.Valor -= lancamento.Valor;
                 this.lancamentoService.Remover(Id);
+                this.faturaService.Salvar(fatura);
                 return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem("O lancamento de id " + Id + " foi Removido com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)

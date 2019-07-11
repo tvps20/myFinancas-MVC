@@ -64,5 +64,11 @@ namespace myFinancas.MVC.Services
                 throw ex;
             }
         }
+
+        public decimal CalcularValorLancamentos(List<LancamentoModel> lancamentos)
+        {
+            decimal valorTotal = lancamentos.Sum(x => x.Valor);
+            return valorTotal;
+        } 
     }
 }
