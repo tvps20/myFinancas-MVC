@@ -10,7 +10,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                     <div class="card-icon">
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
@@ -94,6 +94,7 @@
                                             <span class="check"></span>
                                         </span>
                                     </label>
+                                    <p>Não aceita novos lançamentos.</p>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -146,8 +147,8 @@
                                     <th>
                                         Valor
                                     </th>
-                                    <th>
-                                        Paga
+                                    <th class="text-center">
+                                        Situação
                                     </th>
                                     <th class="text-center">
                                         Ação
@@ -164,8 +165,22 @@
                                         <td>
                                             @Html.DisplayFor(fatura => Fatura.Valor)
                                         </td>
-                                        <td>
-                                            @(Fatura.IsPaga ? "Paga" : "Não foi paga")
+                                        <td class="text-center">
+                                            @if (Fatura.IsFechada)
+                                            {
+                                                if (Fatura.IsPaga)
+                                                {
+                                                    <button class="btn btn-default" style="width: 100px" disabled>Paga</button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-success" style="width: 100px">Pagar</button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-warning" style="width: 100px">Fechar</button>
+                                            }
                                         </td>
                                         <td align="center" style="width:250px">
                                             <button type="button" rel="tooltip" title="Editar"

@@ -49,9 +49,9 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                Dictionary<string, List<LancamentoModel>> Lancamentos = this.compradorService.ListarTodosLancamentosData(DateTime.Now, id);
+                Dictionary<string, List<LancamentoModel>> Lancamentos = this.lancamentoService.ListarTodosLancamentosCompradorNPagos(id);
                 ViewBag.Comprador = this.compradorService.RecuperarPeloId(id);
-                ViewBag.Dividas = this.dividaService.ListarTodosPeloComprador(id);
+                ViewBag.Dividas = this.dividaService.ListarTodasDividasCompradorNPagos(id);
                 ViewBag.Lancamentos = Lancamentos;
                 ViewBag.DividasCount = this.compradorService.ContaLancamentos(Lancamentos);
                 return View();

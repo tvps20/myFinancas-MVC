@@ -65,6 +65,34 @@ namespace myFinancas.MVC.Services
             }
         }
 
+        public Dictionary<string, List<LancamentoModel>> ListarTodosLancamentosCompradorNPagos(long idComprador)
+        {
+            try
+            {
+                Dictionary<string, List<LancamentoModel>> LancamentosByFatura = new Dictionary<string, List<LancamentoModel>>();
+                List<LancamentoModel> Lancamentos = this.ListarTodosPeloCompradorComFatura(idComprador);
+
+                foreach (LancamentoModel lancamento in Lancamentos)
+                {
+                    if (!lancamento.Fatura.IsPaga)
+                    {
+                        if (!LancamentosByFatura.Keys.Contains(lancamento.Fatura.Cartao.Nome))
+                        {
+                            LancamentosByFatura.Add(lancamento.Fatura.Cartao.Nome, new List<LancamentoModel>());
+                        }
+
+                        LancamentosByFatura[lancamento.Fatura.Cartao.Nome].Add(lancamento);
+                    }
+                }
+
+                return LancamentosByFatura;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public decimal CalcularValorLancamentos(List<LancamentoModel> lancamentos)
         {
             decimal valorTotal = lancamentos.Sum(x => x.Valor);

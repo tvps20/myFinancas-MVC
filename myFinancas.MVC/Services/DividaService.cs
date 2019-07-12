@@ -36,6 +36,13 @@ namespace myFinancas.MVC.Services
             }
         }
 
+        public List<DividaModel> ListarTodasDividasCompradorNPagos(long idComprador)
+        {
+            List<DividaModel> dividas = this.ListarTodosPeloComprador(idComprador).Where(x => x.IdComprador == idComprador && !x.isPaga).ToList();
+
+            return dividas;
+        }
+
         public DividaRepository GetRepository()
         {
             return (DividaRepository) this.repository;
