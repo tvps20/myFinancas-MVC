@@ -161,7 +161,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" onclick="formatarValor()" class="btn btn-primary pull-right" disabled="@(Fatura.IsFechada ? true : false)">Adicionar</button>
+                        <button type="submit" onclick="formatarValor()" class="btn btn-primary pull-right" disabled="@(Fatura.IsFechada || Fatura.IsFechada ? true : false)">Adicionar</button>
                         <div class="clearfix"></div>
                     }
                 </div>

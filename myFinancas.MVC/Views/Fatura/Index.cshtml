@@ -143,7 +143,9 @@
                                         }
                                         else
                                         {
-                                            <button class="btn btn-warning" style="width: 100px">Fechar</button>
+                                            <button class="btn btn-warning" 
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja fechar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? As dividas serão geradas para cada comprador e não se poderar mais adicionar novos lancamentos.', '@Url.Action("FecharFatura", "Fatura", new { Id = Fatura.Id })')"
+                                                    style="width: 100px">Fechar</button>
                                         }
                                     </td>
                                     <td align="center" style="width:250px">

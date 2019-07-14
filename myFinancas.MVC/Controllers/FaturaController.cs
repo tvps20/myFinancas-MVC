@@ -72,7 +72,6 @@ namespace myFinancas.MVC.Controllers
                 ViewBag.Fatura = this.faturaService.RecuperarPeloId(id);
                 ViewBag.Lancamentos = lancamentos;
                 ViewBag.Compradores = this.compradorService.ListarTodos();
-                //ViewBag.ValorFatura = this.faturaService.CalcularValorFatura(lancamentos);
                 return View();
             }
             catch (Exception e)
@@ -122,6 +121,22 @@ namespace myFinancas.MVC.Controllers
                 fatura.IsPaga = true;
                 this.faturaService.Salvar(fatura);
                 return RedirectToAction("Index").Mensagem("A fatura de id " + Id + " foi paga com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult FecharFatura(long Id)
+        {
+            try
+            {
+                FaturaModel fatura = this.faturaService.RecuperarPeloId(Id);
+                fatura.IsFechada = true;
+                this.faturaService.Salvar(fatura);
+                return RedirectToAction("Index").Mensagem("A fatura de id " + Id + " foi fechada com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)
             {
