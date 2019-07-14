@@ -51,6 +51,14 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        public FaturaModel GetByIdIncludeCartao(long id)
+        {
+            using (var db = new ContextoDB())
+            {
+                return db.Faturas.Include("Cartao").Single(x=> x.Id == id);
+            }
+        }
+
         public int Save(FaturaModel entity)
         {
             using (var db = new ContextoDB())

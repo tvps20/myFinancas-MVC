@@ -118,9 +118,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaModel fatura = this.faturaService.RecuperarPeloId(Id);
-                fatura.IsPaga = true;
-                this.faturaService.Salvar(fatura);
+                this.faturaService.PagarFatura(Id);
                 return RedirectToAction("Detalhes", new { id = IdCartao }).Mensagem("A fatura de id " + Id + " foi paga com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)
@@ -134,9 +132,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaModel fatura = this.faturaService.RecuperarPeloId(Id);
-                fatura.IsFechada = true;
-                this.faturaService.Salvar(fatura);
+                this.faturaService.FecharFatura(Id);
                 return RedirectToAction("Detalhes", new { id = IdCartao }).Mensagem("A fatura de id " + Id + " foi fechada com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
             }
             catch (Exception e)
