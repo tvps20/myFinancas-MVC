@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<FaturaModel> Faturas = ViewBag.Faturas;
     List<CartaoModel> Cartoes = ViewBag.Cartoes;
+    List<string> meses = new List<string>() { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
 }
 
 <div class="container-fluid">
@@ -22,13 +23,29 @@
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.DataVencimento)
                                     <input style="margin-top: 12px;" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="DataVencimento" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="inputState">Mês Refente</label>
+                                    <select class="form-control input-sm" style="background-color: #202940; color: white" required>
+                                        @foreach (string mes in meses)
+                                        {
+                                            <option @if (mes.ToLower().Equals(DateTime.Now.ToString("MMMM"))) { @: selected
+                                                    }>
+                                                @mes
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="inputState">Cartao</label>
                                     <select id="IdCartao" name="IdCartao" class="form-control input-sm" style="background-color: #202940; color: white" required>
@@ -39,9 +56,8 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+
+                            <div class="col-md-3">
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         @Html.TextBox("IsFechada", true, new { Class = "form-check-input", Type = "checkbox" })
@@ -53,7 +69,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox" })
@@ -65,7 +81,6 @@
                                 </div>
                             </div>
                         </div>
-                        <br />
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -117,54 +132,58 @@
                             <tbody>
                                 @foreach (FaturaModel Fatura in Faturas)
                                 {
-                                <tr>
-                                    <td>
-                                        @Fatura.DataVencimento.ToString("dd/MM/yyyy")
-                                    </td>
-                                    <td>
-                                        @Fatura.Cartao.Nome
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(fatura => Fatura.Valor)
-                                    </td>
-                                    <td class="text-center">
-                                        @if (Fatura.IsFechada)
-                                        {
-                                            if (Fatura.IsPaga)
+                                    <tr>
+                                        <td>
+                                            @Fatura.DataVencimento.ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td>
+                                            @Fatura.Cartao.Nome
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(fatura => Fatura.Valor)
+                                        </td>
+                                        <td class="text-center">
+                                            @if (Fatura.IsFechada)
                                             {
-                                                <button class="btn btn-default" style="width: 100px" disabled>Paga</button>
+                                                if (Fatura.IsPaga)
+                                                {
+                                                    <button class="btn btn-default" style="width: 100px" disabled>Paga</button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-success"
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja pagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? Novos lançamentos não porderão ser adicionados a esta fatura.', '@Url.Action("PagarFatura", "Fatura", new { Id = Fatura.Id })')"
+                                                            style="width: 100px">
+                                                        Pagar
+                                                    </button>
+                                                }
                                             }
                                             else
                                             {
-                                                <button class="btn btn-success"
-                                                        onclick="MensagemConfirma('Ateção', 'Deseja pagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? Novos lançamentos não porderão ser adicionados a esta fatura.', '@Url.Action("PagarFatura", "Fatura", new { Id = Fatura.Id })')"
-                                                        style="width: 100px">Pagar</button>
+                                                <button class="btn btn-warning"
+                                                        onclick="MensagemConfirma('Ateção', 'Deseja fechar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? As dividas serão geradas para cada comprador e não se poderá mais adicionar novos lancamentos.', '@Url.Action("FecharFatura", "Fatura", new { Id = Fatura.Id })')"
+                                                        style="width: 100px">
+                                                    Fechar
+                                                </button>
                                             }
-                                        }
-                                        else
-                                        {
-                                            <button class="btn btn-warning" 
-                                                    onclick="MensagemConfirma('Ateção', 'Deseja fechar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? As dividas serão geradas para cada comprador e não se poderá mais adicionar novos lancamentos.', '@Url.Action("FecharFatura", "Fatura", new { Id = Fatura.Id })')"
-                                                    style="width: 100px">Fechar</button>
-                                        }
-                                    </td>
-                                    <td align="center" style="width:250px">
-                                        <button type="button" rel="tooltip" title="Editar"
-                                                class="btn btn-white btn-link btn-sm">
-                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" title="Detalhes"
-                                                onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
-                                                class="btn btn-white btn-link btn-sm">
-                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" title="Remover"
-                                                onclick="MensagemConfirma('Ateção', 'Deseja remover a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("Remover", "Fatura", new { Id = Fatura.Id })')"
-                                                class="btn btn-white btn-link btn-sm">
-                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td align="center" style="width:250px">
+                                            <button type="button" rel="tooltip" title="Editar"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Detalhes"
+                                                    onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remover"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("Remover", "Fatura", new { Id = Fatura.Id })')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                            </button>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
