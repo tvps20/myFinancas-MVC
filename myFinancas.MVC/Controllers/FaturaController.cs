@@ -112,5 +112,21 @@ namespace myFinancas.MVC.Controllers
                 return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
+
+        [HttpGet]
+        public ActionResult PagarFatura(long Id)
+        {
+            try
+            {
+                FaturaModel fatura = this.faturaService.RecuperarPeloId(Id);
+                fatura.IsPaga = true;
+                this.faturaService.Salvar(fatura);
+                return RedirectToAction("Index").Mensagem("A fatura de id " + Id + " foi paga com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
+            }
+        }
     }
 }

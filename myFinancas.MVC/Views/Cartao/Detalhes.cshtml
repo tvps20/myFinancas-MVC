@@ -174,7 +174,9 @@
                                                 }
                                                 else
                                                 {
-                                                    <button class="btn btn-success" style="width: 100px">Pagar</button>
+                                                    <button class="btn btn-success" 
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja pagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? Novos lançamentos não porderão ser adicionados a esta fatura.', '@Url.Action("PagarFatura", "Cartao", new { Id = Fatura.Id, IdCartao = Cartao.Id })')"
+                                                            style="width: 100px">Pagar</button>
                                                 }
                                             }
                                             else
