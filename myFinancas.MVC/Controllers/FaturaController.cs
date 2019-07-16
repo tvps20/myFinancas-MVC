@@ -37,6 +37,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                Fatura.MesReferente += Fatura.DataVencimento.ToString("'/'yyyy");
                 this.faturaService.Salvar(Fatura);
                 return RedirectToAction("Index").Mensagem("A fatura " + Fatura.DataVencimento.ToString("dd/MM/yyyy") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }
@@ -138,6 +139,20 @@ namespace myFinancas.MVC.Controllers
             {
                 return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
+        }
+
+        // Validando o campo Mes da model Cartão
+        public ActionResult ValidarFatura(string MesReferente, long IdCartao)
+        {
+            MesReferente += DateTime.Now.ToString("'/'yyyy");
+            FaturaModel fatura = this.faturaService.BuscarPeloMes(MesReferente, IdCartao);
+
+            if (fatura != null)
+            {
+                return Json(string.Format("Já existe uma fatura de '{0}'.", MesReferente.Split('/')[0]), JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

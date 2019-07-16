@@ -30,7 +30,12 @@ namespace myFinancas.MVC.Services
         public FaturaRepository GetRepository()
         {
             return (FaturaRepository) this.repository;
-        }        
+        }
+
+        public FaturaModel BuscarPeloMes(string MesRefente, long IdCartao)
+        {
+            return this.GetRepository().getByMes(MesRefente, IdCartao);
+        }
 
         public void PagarFatura(long Id)
         {

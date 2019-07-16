@@ -48,6 +48,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                Fatura.MesReferente += Fatura.DataVencimento.ToString("'/'yyyy");
                 this.faturaService.Salvar(Fatura);
                 return RedirectToAction("Detalhes", "Cartao", new { id = Fatura.IdCartao }).Mensagem("A fatura de " + Fatura.DataVencimento.ToString("MMMM") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
             }

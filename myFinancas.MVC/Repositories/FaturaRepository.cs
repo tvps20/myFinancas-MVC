@@ -43,6 +43,14 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        internal FaturaModel getByMes(string mesRefente, long idCartao)
+        {
+            using (var db = new ContextoDB())
+            {
+                return db.Faturas.FirstOrDefault(x => x.MesReferente == mesRefente && x.IdCartao == idCartao);
+            }
+        }
+
         public FaturaModel GetById(long id)
         {
             using (var db = new ContextoDB())

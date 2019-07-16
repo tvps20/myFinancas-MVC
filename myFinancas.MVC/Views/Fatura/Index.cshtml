@@ -7,6 +7,7 @@
     List<FaturaModel> Faturas = ViewBag.Faturas;
     List<CartaoModel> Cartoes = ViewBag.Cartoes;
     List<string> meses = new List<string>() { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+    string MesFormatado = @DateTime.Now.ToString("MMMM")[0].ToString().ToUpper() + DateTime.Now.ToString("MMMM").Substring(1);
 }
 
 <div class="container-fluid">
@@ -32,22 +33,15 @@
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label for="inputState">Mês Refente</label>
-                                    <select class="form-control input-sm" style="background-color: #202940; color: white" required>
-                                        @foreach (string mes in meses)
-                                        {
-                                            <option @if (mes.ToLower().Equals(DateTime.Now.ToString("MMMM"))) { @: selected
-                                                    }>
-                                                @mes
-                                            </option>
-                                        }
-                                    </select>
+                                    @Html.LabelFor(model => model.MesReferente, new { Classe = "inputState" })
+                                    @Html.DropDownListFor(x => x.MesReferente, new SelectList(meses, @MesFormatado), "-Selecione-", new { Class = "form-control input-sm", style = "background-color: #202940; color: white", required = true })
+                                    @Html.ValidationMessageFor(model => model.MesReferente, "", new { Class = "text-danger" })
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="inputState">Cartao</label>
+                                    @Html.LabelFor(model => model.Cartao, new { Classe = "inputState" })
                                     <select id="IdCartao" name="IdCartao" class="form-control input-sm" style="background-color: #202940; color: white" required>
                                         @foreach (CartaoModel Cartao in Cartoes)
                                         {
@@ -61,7 +55,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         @Html.TextBox("IsFechada", true, new { Class = "form-check-input", Type = "checkbox" })
-                                        Fatura Fechada
+                                        @Html.LabelFor(model => model.IsFechada, new { Classe = "inputState" })
                                         <span class="form-check-sign">
                                             <span class="check"></span>
                                         </span>
@@ -73,7 +67,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox" })
-                                        Fatura Paga
+                                        @Html.LabelFor(model => model.IsPaga, new { Classe = "inputState" })
                                         <span class="form-check-sign">
                                             <span class="check"></span>
                                         </span>
@@ -194,3 +188,6 @@
     </div>
 </div>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
