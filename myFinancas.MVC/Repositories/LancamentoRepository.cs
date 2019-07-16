@@ -74,7 +74,7 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura.Cartao").Where(l => l.IdComprador == idComprador && !l.Fatura.IsPaga || !l.Fatura.IsFechada).ToList();
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura.Cartao").Where(l => (l.IdComprador == idComprador) && (!l.Fatura.IsPaga || !l.Fatura.IsFechada)).ToList();
                 return lancamentos;
             }
         }
