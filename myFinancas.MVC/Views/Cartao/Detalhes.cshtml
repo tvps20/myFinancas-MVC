@@ -90,7 +90,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.MesReferente, new { Classe = "inputState"})
-                                    @Html.DropDownListFor(x => x.MesReferente, new SelectList(meses, @MesFormatado), "-Selecione-", new { Class = "form-control input-sm", style = "background-color: #202940; color: white", required = true })
+                                    @Html.DropDownListFor(x => x.MesReferente, new SelectList(meses, @MesFormatado), "-Selecione-", new { Class = "form-control", style = "background-color: #202940; color: white", required = true })
                                     @Html.ValidationMessageFor(model => model.MesReferente, "", new { Class = "text-danger" })
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         @Html.TextBox("IsFechada", true, new { Class = "form-check-input", Type = "checkbox" })
-                                        Fatura Fechada
+                                        @Html.LabelFor(model => model.IsFechada, new { Classe = "inputState" })
                                         <span class="form-check-sign">
                                             <span class="check"></span>
                                         </span>
@@ -111,7 +111,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox" })
-                                        Fatura Paga
+                                        @Html.LabelFor(model => model.IsPaga, new { Classe = "inputState" })
                                         <span class="form-check-sign">
                                             <span class="check"></span>
                                         </span>
@@ -123,10 +123,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">
-                                        Observações teste
-                                    </label>
-                                    <textarea class="form-control" id="Observacao" name="Observacao" rows="1"></textarea>
+                                    @Html.LabelFor(model => model.Observacao, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.Observacao, new { Class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -152,7 +150,7 @@
                             <thead class=" text-primary">
                                 <tr>
                                     <th>
-                                        Data de Vencimento
+                                        Fatura
                                     </th>
                                     <th>
                                         Valor
@@ -170,7 +168,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Fatura.DataVencimento.ToString("dd/MM/yyyy")
+                                            @Fatura.MesReferente
                                         </td>
                                         <td>
                                             @Html.DisplayFor(fatura => Fatura.Valor)

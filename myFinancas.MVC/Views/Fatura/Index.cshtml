@@ -34,7 +34,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.MesReferente, new { Classe = "inputState" })
-                                    @Html.DropDownListFor(x => x.MesReferente, new SelectList(meses, @MesFormatado), "-Selecione-", new { Class = "form-control input-sm", style = "background-color: #202940; color: white", required = true })
+                                    @Html.DropDownListFor(x => x.MesReferente, new SelectList(meses, @MesFormatado), "-Selecione-", new { Class = "form-control", style = "background-color: #202940; color: white", required = true })
                                     @Html.ValidationMessageFor(model => model.MesReferente, "", new { Class = "text-danger" })
                                 </div>
                             </div>
@@ -78,10 +78,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">
-                                        Observações
-                                    </label>
-                                    <textarea class="form-control" name="Observacao" rows="2"></textarea>
+                                    @Html.LabelFor(model => model.Observacao, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.Observacao, new { Class = "form-control"})
                                 </div>
                             </div>
                         </div>
@@ -107,7 +105,7 @@
                             <thead class=" text-primary">
                                 <tr>
                                     <th>
-                                        Data de Vencimento
+                                        Fatura
                                     </th>
                                     <th>
                                         Cartão
@@ -128,7 +126,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Fatura.DataVencimento.ToString("dd/MM/yyyy")
+                                            @Fatura.MesReferente
                                         </td>
                                         <td>
                                             @Fatura.Cartao.Nome
