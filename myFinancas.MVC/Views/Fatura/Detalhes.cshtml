@@ -35,7 +35,7 @@
                         <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.NOTA)</i>
                     </div>
                     <p class="card-category">Observação</p>
-                    <p class="card-title">@(Fatura.Observacao != null ? Fatura.Observacao : "")</p>
+                    <p class="card-title">@(Fatura.Observacao != null ? Fatura.Observacao : Fatura.MesReferente)</p>
                 </div>
                 <div class="card-footer">
                     <div class="stats">

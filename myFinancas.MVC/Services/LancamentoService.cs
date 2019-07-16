@@ -70,18 +70,20 @@ namespace myFinancas.MVC.Services
             try
             {
                 Dictionary<string, List<LancamentoModel>> LancamentosByFatura = new Dictionary<string, List<LancamentoModel>>();
-                List<LancamentoModel> Lancamentos = this.ListarTodosPeloCompradorComFatura(idComprador);
+                List<LancamentoModel> Lancamentos = this.GetRepository().ListarTodosLancamentosCompradorNPagos(idComprador);
 
                 foreach (LancamentoModel lancamento in Lancamentos)
                 {
                     if (!lancamento.Fatura.IsPaga)
                     {
-                        if (!LancamentosByFatura.Keys.Contains(lancamento.Fatura.Cartao.Nome))
+                        string chave = lancamento.Fatura.MesReferente + " " + lancamento.Fatura.Cartao.Nome;
+
+                        if (!LancamentosByFatura.Keys.Contains(chave))
                         {
-                            LancamentosByFatura.Add(lancamento.Fatura.Cartao.Nome, new List<LancamentoModel>());
+                            LancamentosByFatura.Add(chave, new List<LancamentoModel>());
                         }
 
-                        LancamentosByFatura[lancamento.Fatura.Cartao.Nome].Add(lancamento);
+                        LancamentosByFatura[chave].Add(lancamento);
                     }
                 }
 
