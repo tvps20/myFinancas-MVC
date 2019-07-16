@@ -144,6 +144,10 @@
     <Compile Include="Migrations\201907081647081_inicial2.Designer.cs">
       <DependentUpon>201907081647081_inicial2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907161658045_faturaUp.cs" />
+    <Compile Include="Migrations\201907161658045_faturaUp.Designer.cs">
+      <DependentUpon>201907161658045_faturaUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
     <Compile Include="Models\Domain\CartaoModel.cs" />
@@ -460,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907081647081_inicial2.resx">
       <DependentUpon>201907081647081_inicial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907161658045_faturaUp.resx">
+      <DependentUpon>201907161658045_faturaUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

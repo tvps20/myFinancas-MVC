@@ -11,6 +11,8 @@ namespace myFinancas.MVC.Models.Domain
     {
         [Display(Name = "Data de Vencimento")]
         public DateTime DataVencimento { get; set; }
+        // Mes referente da fatura. Salvo no fomato MMMM/yyyy
+        public string MesReferente { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal Valor { get; set; }
