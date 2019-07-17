@@ -78,6 +78,21 @@ namespace myFinancas.MVC.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult RemoverDivida(long Id, long IdComprador)
+        {
+            try
+            {
+                DividaModel divida = this.dividaService.RecuperarPeloId(Id);
+                this.dividaService.Remover(Id);
+                return RedirectToAction("Detalhes", "Comprador", new { id = IdComprador }).Mensagem("A dívida de id " + Id + " foi Removida com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Detalhes", "Fatura", new { id = IdComprador }).Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
+            }
+        }
+
         // Validando o campo Nome da model Cartão
         public ActionResult ValidarNome(string Nome)
         {

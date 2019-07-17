@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    CompradorModel Comprador = ViewBag.Comprador;
     Dictionary<string, List<LancamentoModel>> Lancamentos = ViewBag.Lancamentos;
     List<DividaModel> Dividas = ViewBag.Dividas;
 }
@@ -132,7 +133,7 @@
                                             <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
                                         </button>
                                         <button type="button" rel="tooltip" title="Remover"
-                                                onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Divida.ValorDivida?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Divida.Id, IdFatura = Divida.Id })')"
+                                                onclick="MensagemConfirma('Ateção', 'Deseja remover a dívida de @Divida.ValorDivida?', '@Url.Action("RemoverDivida", "Comprador", new { Id = Divida.Id, IdComprador = Comprador.Id })')"
                                                 class="btn btn-white btn-link btn-sm">
                                             <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
                                         </button>
