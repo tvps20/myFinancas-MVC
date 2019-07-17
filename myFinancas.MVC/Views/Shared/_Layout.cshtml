@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="../../img/favicon.png">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+
     <!--     Fonts and icons     -->
     @Styles.Render("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons")
     @Styles.Render("https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css")
@@ -292,7 +293,7 @@
 
     <!--RenderSection-->
     @RenderSection("scripts", required: false);
-   
+
     <!-- Scripts de Mascaras-->
     @Scripts.Render("~/bundles/Mascaras")
     <!-- Cerregando o HTML do modal na pagina -->
@@ -303,6 +304,7 @@
 
 
 <!-- Tirando a barra de rolagem do navegador -->
-<SCRIPT language="JavaScript">
+<script language="JavaScript">
     function hidden() { document.body.style.overflow = 'hidden'; }
-</SCRIPT>
+</script>
+

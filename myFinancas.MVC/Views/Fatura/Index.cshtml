@@ -20,7 +20,7 @@
                     <p class="card-category">Adicionar uma nova Fatura</p>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm("Salvar", "Fatura", null, FormMethod.Post))
+                    @using (Html.BeginForm("Salvar", "Fatura", null, FormMethod.Post, new {  autocomplete="off" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
