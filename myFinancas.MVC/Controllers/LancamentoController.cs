@@ -18,8 +18,9 @@ namespace myFinancas.MVC.Controllers
             LancamentoModel Lancamento = new LancamentoModel();
 
             if (id != 0) { Lancamento = this.lancamentoService.RecuperarPeloId(id); }
-            ViewBag.Lancamento = Lancamento;    
-            
+            ViewBag.Lancamento = Lancamento;
+            ViewBag.active = "Lancamentos";
+
             return PartialView();
         }
     }

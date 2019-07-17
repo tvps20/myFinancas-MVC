@@ -21,8 +21,9 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                ViewBag.active = "Compradores";
                 ViewBag.Compradores = this.compradorService.ListarTodos();
-                return View("Index");
+                return View();
             }
             catch (Exception e)
             {
@@ -49,6 +50,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                ViewBag.active = "Compradores";
                 Dictionary<string, List<LancamentoModel>> Lancamentos = this.lancamentoService.ListarTodosLancamentosCompradorNPagos(id);
                 ViewBag.Comprador = this.compradorService.RecuperarPeloId(id);
                 ViewBag.Dividas = this.dividaService.ListarTodasDividasCompradorNPagos(id);

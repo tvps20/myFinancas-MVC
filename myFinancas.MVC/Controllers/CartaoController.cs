@@ -20,8 +20,9 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                ViewBag.active = "Cartoes";
                 ViewBag.Cartoes = this.cartaoService.ListarTodos();
-                return View("Index");
+                return View();
             }
             catch (Exception e)
             {
@@ -63,6 +64,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
+                ViewBag.active = "Cartoes";
                 ViewBag.Cartao = this.cartaoService.RecuperarPeloId(id);
                 ViewBag.Faturas = this.faturaService.ListarTodosPeloCartao(id);
                 return View();

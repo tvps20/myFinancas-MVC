@@ -10,12 +10,14 @@ namespace myFinancas.MVC.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.active = "Dashboard";
             return View();
         }
 
         [HttpGet]
         public ActionResult Sidebar(string active)
         {
+            ViewBag.active = active;
             return PartialView("_Sidebar");
         }
 

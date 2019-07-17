@@ -18,6 +18,7 @@ namespace myFinancas.MVC.Controllers
         // GET: Divida
         public ActionResult Index()
         {
+            ViewBag.active = "Dividas";
             ViewBag.Compradores = this.compradorService.ListarTodos();
             ViewBag.Dividas = this.dividaService.ListarTodosIncludeComprador();
             return View();
@@ -45,6 +46,7 @@ namespace myFinancas.MVC.Controllers
 
             if (id != 0) { Divida = this.dividaService.RecuperarPeloId(id); }
             ViewBag.Divida = Divida;
+            ViewBag.active = "Dividas";
 
             return PartialView();
         }
