@@ -4,6 +4,7 @@ using myFinancas.MVC.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 
 namespace myFinancas.MVC.Services
@@ -55,16 +56,21 @@ namespace myFinancas.MVC.Services
         {
             try
             {
-                FaturaModel fatura = this.GetRepository().GetByIdIncludeCartao(Id);
-                List<LancamentoModel> lancamentos = this.lancamentoService.ListarTodosPelaFaturaIncludeComprador(Id);
-                Dictionary<long, decimal> dividas = new Dictionary<long, decimal>();
+                using (TransactionScope transaction = new TransactionScope())
+                {
+                    FaturaModel fatura = this.GetRepository().GetByIdIncludeCartao(Id);
+                    List<LancamentoModel> lancamentos = this.lancamentoService.ListarTodosPelaFaturaIncludeComprador(Id);
+                    Dictionary<long, decimal> dividas = new Dictionary<long, decimal>();
 
-                this.GerarDividas(dividas, lancamentos);
-                this.SalvarDividas(dividas, fatura);
-                this.GerarProximaFatura(fatura, lancamentos);
+                    this.GerarDividas(dividas, lancamentos);
+                    this.SalvarDividas(dividas, fatura);
+                    this.GerarProximaFatura(fatura, lancamentos);
 
-                fatura.IsFechada = true;
-                this.Salvar(fatura);
+                    fatura.IsFechada = true;
+                    this.Salvar(fatura);
+
+                    transaction.Complete();
+                }
             }
             catch (Exception ex)
             {
@@ -113,7 +119,7 @@ namespace myFinancas.MVC.Services
 
             if(busca == null)
             {
-                long idFaturaSalva = this.Salvar(novaFatura);
+                long idFaturaSalva = this.Salvar(novaFatura);          
 
                 foreach(LancamentoModel lancamento in lancamentos)
                 {
