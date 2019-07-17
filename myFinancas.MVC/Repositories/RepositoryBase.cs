@@ -43,7 +43,7 @@ namespace myFinancas.MVC.Repositories
             throw new NotImplementedException();
         }
 
-        public int Save(T entity)
+        public long Save(T entity)
         {
             throw new NotImplementedException();
         }

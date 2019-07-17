@@ -62,7 +62,7 @@ namespace myFinancas.MVC.Services
             }
         }
 
-        public int Salvar(T entity)
+        public long Salvar(T entity)
         {
             try
             {

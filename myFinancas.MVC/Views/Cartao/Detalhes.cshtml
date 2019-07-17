@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     CartaoModel Cartao = ViewBag.Cartao;
     List<FaturaModel> Faturas = ViewBag.Faturas;
-    List<string> meses = new List<string>() { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+    List<string> meses = EnumExtensions.getDescriptionsTipoMes();
     string MesFormatado = @DateTime.Now.ToString("MMMM")[0].ToString().ToUpper() + DateTime.Now.ToString("MMMM").Substring(1);
 }
 

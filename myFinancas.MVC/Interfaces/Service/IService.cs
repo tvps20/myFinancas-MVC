@@ -11,7 +11,7 @@ namespace myFinancas.MVC.Interfaces.Service
     {
         List<T> ListarTodos();
         T RecuperarPeloId(long id);
-        int Salvar(T entity);
+        long Salvar(T entity);
         bool Remover(long id);
     }
 }

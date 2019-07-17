@@ -159,6 +159,7 @@
     <Compile Include="Models\Enuns\EnumExtensions.cs" />
     <Compile Include="Models\Enuns\TipoIcone.cs" />
     <Compile Include="Models\Enuns\TipoMensagem.cs" />
+    <Compile Include="Models\Enuns\TipoMes.cs" />
     <Compile Include="Models\Maps\CartaoMap.cs" />
     <Compile Include="Models\Maps\CompradorMap.cs" />
     <Compile Include="Models\Maps\DividaMap.cs" />
