@@ -6,6 +6,7 @@ using myFinancas.MVC.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -53,11 +54,15 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                FaturaModel fatura = this.faturaService.RecuperarPeloId(Lancamento.IdFatura);
-                fatura.Valor += Lancamento.Valor;
-                this.lancamentoService.Salvar(Lancamento);
-                this.faturaService.Salvar(fatura);
-                return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem("O lancamento de R$ " + Lancamento.Valor.ToString("C") + " foi salvo com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
+                using (TransactionScope transaction = new TransactionScope()) {
+                    FaturaModel fatura = this.faturaService.RecuperarPeloId(Lancamento.IdFatura);
+                    fatura.Valor += Lancamento.Valor;
+                    this.lancamentoService.Salvar(Lancamento);
+                    this.faturaService.Salvar(fatura);
+
+                    transaction.Complete();
+                    return RedirectToAction("Detalhes", "Fatura", new { id = Lancamento.IdFatura }).Mensagem("O lancamento de R$ " + Lancamento.Valor.ToString("C") + " foi salvo com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
+                }
             }
             catch (Exception e)
             {
@@ -102,12 +107,17 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                LancamentoModel lancamento = this.lancamentoService.RecuperarPeloId(Id);
-                FaturaModel fatura = this.faturaService.RecuperarPeloId(IdFatura);
-                fatura.Valor -= lancamento.Valor;
-                this.lancamentoService.Remover(Id);
-                this.faturaService.Salvar(fatura);
-                return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem("O lancamento de id " + Id + " foi Removido com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
+                using (TransactionScope transaction = new TransactionScope())
+                {
+                    LancamentoModel lancamento = this.lancamentoService.RecuperarPeloId(Id);
+                    FaturaModel fatura = this.faturaService.RecuperarPeloId(IdFatura);
+                    fatura.Valor -= lancamento.Valor;
+                    this.lancamentoService.Remover(Id);
+                    this.faturaService.Salvar(fatura);
+
+                    transaction.Complete();
+                    return RedirectToAction("Detalhes", "Fatura", new { id = IdFatura }).Mensagem("O lancamento de id " + Id + " foi Removido com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
+                }
             }
             catch (Exception e)
             {
