@@ -5,155 +5,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     CompradorModel Comprador = ViewBag.Comprador;
     Dictionary<string, List<LancamentoModel>> Lancamentos = ViewBag.Lancamentos;
+    Dictionary<string, List<LancamentoModel>> LancamentosAtuais = ViewBag.LancamentosAtuais;
     List<DividaModel> Dividas = ViewBag.Dividas;
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-success card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">store</i>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Valor Pago</p>
+                        <h3 class="card-title">@Dividas.Sum(x => x.ValorPago)</h3>
                     </div>
-                    <p class="card-category">Dividas do mês</p>
-                    <h3 class="card-title">R$34,245</h3>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">date_range</i> Dados referente a @DateTime.Now.ToString("dd/MM/yyyy")
+                        </div>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <i class="material-icons">date_range</i> Dados referente a @DateTime.Now.ToString("dd/MM/yyyy")
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header @(Lancamentos.Sum(x => x.Value.Count) < 0 ? "card-header-default" : "card-header-danger" ) card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.MONEY)</i>
+                        </div>
+                        <p class="card-category">Restante</p>
+                        <h3 class="card-title">@Dividas.Sum(x => x.ValorRestante)</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i> Valor que ainda não foi pago
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
+                        </div>
+                        <p class="card-category">Lancamentos</p>
+                        <h3 class="card-title">@(Lancamentos.Sum(x => x.Value.Count) + LancamentosAtuais.Sum(x => x.Value.Count))</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
+                            <a href="#" class="info-link">Todos os Lançamentos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DIVIDAS)</i>
+                        </div>
+                        <p class="card-category">Dividas</p>
+                        <h3 class="card-title">@Dividas.Count</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-warning">@EnumExtensions.EnumToDescriptionString(TipoIcone.DONWLOAD)</i>
+                            <a href="#pablo" class="warning-link">Gerar Relatório</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header @(Dividas.Count < 0 ? "card-header-default" : "card-header-danger" ) card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.MONEY)</i>
-                    </div>
-                    <p class="card-category">Restante</p>
-                    <h3 class="card-title">R$34,245</h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <i class="material-icons">local_offer</i> Valor que ainda não foi pago
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
-                    </div>
-                    <p class="card-category">Lancamentos</p>
-                    <h3 class="card-title">@ViewBag.DividasCount</h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
-                        <a href="#" class="info-link">Todos os Lançamentos</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DIVIDAS)</i>
-                    </div>
-                    <p class="card-category">Dividas</p>
-                    <h3 class="card-title">@Dividas.Count</h3>
-                </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <i class="material-icons text-warning">@EnumExtensions.EnumToDescriptionString(TipoIcone.DONWLOAD)</i>
-                        <a href="#pablo" class="warning-link">Gerar Relatório</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="card">
-                <div class="card-header card-header-warning">
-                    <h4 class="card-title">Dividas</h4>
-                    <p class="card-category">Suas dividas do mês</p>
-                </div>
-                <div class="card-body table-responsive">
-                    <table class="table">
-                        <thead class=" text-primary">
-                            <tr>
-                                <th>
-                                    Descrição
-                                </th>
-                                <th>
-                                    Valor da Divida
-                                </th>
-                                <th>
-                                    Valor Pago
-                                </th>
-                                <th>
-                                    Valor Restante
-                                </th>
-                                <th class="text-center">
-                                    Ação
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (DividaModel Divida in Dividas)
-                            {
-                                <tr>
-                                    <td>
-                                        @Divida.Descricao
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(divida => Divida.ValorDivida)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(divida => Divida.ValorPago)
-                                    </td>
-                                    <td class="@(Divida.ValorRestante >= 0 ? "text-success" : "text-danger")">
-                                        <i class="fa @(Divida.ValorRestante >= 0 ? "fa-long-arrow-up" : "fa-long-arrow-down")"
-                                           style="margin-right: 5px;"></i>@Html.DisplayFor(divida => Divida.ValorRestante)
-                                    </td>
-                                    <td align="center" style="width:250px">
-                                        <button type="button" rel="tooltip" title="Editar"
-                                                class="btn btn-white btn-link btn-sm">
-                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" title="Detalhes"
-                                                onclick="mostrarModalDetalhes(@Divida.Id, '@Url.Action("Detalhes", "Divida")')"
-                                                class="btn btn-white btn-link btn-sm">
-                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" title="Remover"
-                                                onclick="MensagemConfirma('Ateção', 'Deseja remover a dívida de @Divida.ValorDivida?', '@Url.Action("RemoverDivida", "Comprador", new { Id = Divida.Id, IdComprador = Comprador.Id })')"
-                                                class="btn btn-white btn-link btn-sm">
-                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        @foreach (string key in Lancamentos.Keys)
-        {
-            <div class="col-lg-6 col-md-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">@key</h4>
-                        <p class="card-category">@Lancamentos[key][0].Fatura.DataVencimento.ToString("'Vencimento para' dd 'de' MMMM 'de' yyyy")</p>
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Dividas</h4>
+                        <p class="card-category">Valor de total de R$ @Dividas.Sum(x => x.ValorDivida)</p>
                     </div>
                     <div class="card-body table-responsive">
                         <table class="table">
@@ -163,10 +93,13 @@
                                         Descrição
                                     </th>
                                     <th>
-                                        Valor
+                                        Valor da Divida
                                     </th>
                                     <th>
-                                        Parcela
+                                        Valor Pago
+                                    </th>
+                                    <th>
+                                        Valor Restante
                                     </th>
                                     <th class="text-center">
                                         Ação
@@ -174,17 +107,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (LancamentoModel Lancamento in Lancamentos[key])
+                                @foreach (DividaModel Divida in Dividas)
                                 {
                                     <tr>
                                         <td>
-                                            @Lancamento.Descricao
+                                            @Divida.Descricao
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(lancamento => Lancamento.Valor)
+                                            @Html.DisplayFor(divida => Divida.ValorDivida)
                                         </td>
                                         <td>
-                                            @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
+                                            @Html.DisplayFor(divida => Divida.ValorPago)
+                                        </td>
+                                        <td class="@(Divida.ValorRestante >= 0 ? "text-success" : "text-danger")">
+                                            <i class="fa @(Divida.ValorRestante >= 0 ? "fa-long-arrow-up" : "fa-long-arrow-down")"
+                                               style="margin-right: 5px;"></i>@Html.DisplayFor(divida => Divida.ValorRestante)
                                         </td>
                                         <td align="center" style="width:250px">
                                             <button type="button" rel="tooltip" title="Editar"
@@ -192,12 +129,12 @@
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
                                             </button>
                                             <button type="button" rel="tooltip" title="Detalhes"
-                                                    onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
+                                                    onclick="mostrarModalDetalhes(@Divida.Id, '@Url.Action("Detalhes", "Divida")')"
                                                     class="btn btn-white btn-link btn-sm">
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
                                             </button>
                                             <button type="button" rel="tooltip" title="Remover"
-                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover a dívida de @Divida.ValorDivida?', '@Url.Action("RemoverDivida", "Comprador", new { Id = Divida.Id, IdComprador = Comprador.Id })')"
                                                     class="btn btn-white btn-link btn-sm">
                                                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
                                             </button>
@@ -209,9 +146,138 @@
                     </div>
                 </div>
             </div>
-        }
+        </div>
+        <div class="row">
+            @foreach (string key in LancamentosAtuais.Keys)
+            {
+                <div class="@(LancamentosAtuais.Count > 1 ? "col-lg-6" : "col-lg-12") col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-success">
+                            <h4 class="card-title">Compras atuais de @key</h4>
+                            <p class="card-category">Valor de total de R$ @LancamentosAtuais[key].Sum(x => x.Valor)</p>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <tr>
+                                        <th>
+                                            Descrição
+                                        </th>
+                                        <th>
+                                            Valor
+                                        </th>
+                                        <th>
+                                            Parcela
+                                        </th>
+                                        <th class="text-center">
+                                            Ação
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (LancamentoModel Lancamento in LancamentosAtuais[key])
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Lancamento.Descricao
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(lancamento => Lancamento.Valor)
+                                            </td>
+                                            <td>
+                                                @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
+                                            </td>
+                                            <td align="center" style="width:250px">
+                                                <button type="button" rel="tooltip" title="Editar"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Detalhes"
+                                                        onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Remover"
+                                                        onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            @foreach (string key in Lancamentos.Keys)
+            {
+                <div class="@(LancamentosAtuais.Count > 1 ? "col-lg-6" : "col-lg-12") col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">@key</h4>
+                            <p class="card-category">Valor de total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <tr>
+                                        <th>
+                                            Descrição
+                                        </th>
+                                        <th>
+                                            Valor
+                                        </th>
+                                        <th>
+                                            Parcela
+                                        </th>
+                                        <th class="text-center">
+                                            Ação
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (LancamentoModel Lancamento in Lancamentos[key])
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Lancamento.Descricao
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(lancamento => Lancamento.Valor)
+                                            </td>
+                                            <td>
+                                                @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
+                                            </td>
+                                            <td align="center" style="width:250px">
+                                                <button type="button" rel="tooltip" title="Editar"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Detalhes"
+                                                        onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Remover"
+                                                        onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.Id })')"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
 
 <div id="modalDetalhes"></div>
 

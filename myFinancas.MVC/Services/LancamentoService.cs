@@ -17,11 +17,11 @@ namespace myFinancas.MVC.Services
             return (LancamentoRepository) this.repository;
         }
 
-        public List<LancamentoModel> ListarTodosPeloComprador(long id)
+        public List<LancamentoModel> ListarTodosPelaFaturaIncludeComprador(long idFatura)
         {
             try
             {
-                return this.GetRepository().ListAllByComprador(id);
+                return this.GetRepository().ListAllByFaturaIncludeComprador(idFatura);
             }
             catch (Exception ex)
             {
@@ -29,77 +29,41 @@ namespace myFinancas.MVC.Services
             }
         }
 
-        public List<LancamentoModel> ListarTodosPeloCompradorComFatura(long id)
+        public Dictionary<string, List<LancamentoModel>> ListarLancamentosPorDividas(List<DividaModel> dividas)
         {
-            try
-            {
-                return this.GetRepository().ListAllByCompradorIncludeFatura(id);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+            Dictionary<string, List<LancamentoModel>> lancamentosByDivida = new Dictionary<string, List<LancamentoModel>>();
 
-        public List<LancamentoModel> ListarTodosPelaFatura(long id)
-        {
-            try
+            foreach(DividaModel divida in dividas)
             {
-                return this.GetRepository().ListAllByFatura(id);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public List<LancamentoModel> ListarTodosPelaFaturaIncludeComprador(long id)
-        {
-            try
-            {
-                return this.GetRepository().ListAllByFaturaIncludeComprador(id);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public Dictionary<string, List<LancamentoModel>> ListarTodosLancamentosCompradorNPagos(long idComprador)
-        {
-            try
-            {
-                Dictionary<string, List<LancamentoModel>> LancamentosByFatura = new Dictionary<string, List<LancamentoModel>>();
-                List<LancamentoModel> Lancamentos = this.GetRepository().ListarTodosLancamentosCompradorNPagos(idComprador);
-
-                foreach (LancamentoModel lancamento in Lancamentos)
+                if(divida.IdFatura != null)
                 {
-                    if (!lancamento.Fatura.IsPaga)
-                    {
-                        string chave = lancamento.Fatura.MesReferente + " " + lancamento.Fatura.Cartao.Nome;
+                    List<LancamentoModel> lancamentos = this.GetRepository().ListAllByCompradorAndFatura(divida.IdComprador, (long) divida.IdFatura);
+                    lancamentosByDivida.Add(divida.Descricao, lancamentos);
+                }
+            }
 
-                        if (!LancamentosByFatura.Keys.Contains(chave))
-                        {
-                            LancamentosByFatura.Add(chave, new List<LancamentoModel>());
-                        }
+            return lancamentosByDivida;
+        }
 
-                        LancamentosByFatura[chave].Add(lancamento);
-                    }
+        public Dictionary<string, List<LancamentoModel>> ListarLancamentosDoCompradorAtuais(long idComprador)
+        {
+            Dictionary<string, List<LancamentoModel>> lancamentosByComprador = new Dictionary<string, List<LancamentoModel>>();
+            List<LancamentoModel> lancamentos = this.GetRepository().ListAllByCompradorWithFaturaIsFechadaAndIsPagaFalse(idComprador);
+
+            foreach(LancamentoModel lancamento in lancamentos)
+            {
+                string chave = lancamento.Fatura.MesReferente;
+
+                if (!lancamentosByComprador.Keys.Contains(chave))
+                {
+                    lancamentosByComprador.Add(chave, new List<LancamentoModel>());
                 }
 
-                return LancamentosByFatura;
+                lancamentosByComprador[chave].Add(lancamento);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
 
-        public decimal CalcularValorLancamentos(List<LancamentoModel> lancamentos)
-        {
-            decimal valorTotal = lancamentos.Sum(x => x.Valor);
-            return valorTotal;
-        } 
+            return lancamentosByComprador;
+        }
 
         public Dictionary<string, List<LancamentoModel>> OrganizarLancamentosPorComprador(List<LancamentoModel> lancamentos)
         {
@@ -118,6 +82,6 @@ namespace myFinancas.MVC.Services
             }
 
             return LancamentosByComprador;
-        }
+        }       
     }
 }

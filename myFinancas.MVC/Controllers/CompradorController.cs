@@ -51,11 +51,12 @@ namespace myFinancas.MVC.Controllers
             try
             {
                 ViewBag.active = "Compradores";
-                Dictionary<string, List<LancamentoModel>> Lancamentos = this.lancamentoService.ListarTodosLancamentosCompradorNPagos(id);
+                List<DividaModel> dividas = this.dividaService.ListarTodasDividasCompradorNPagas(id);
+                Dictionary<string, List<LancamentoModel>> Lancamentos = this.lancamentoService.ListarLancamentosPorDividas(dividas);
                 ViewBag.Comprador = this.compradorService.RecuperarPeloId(id);
-                ViewBag.Dividas = this.dividaService.ListarTodasDividasCompradorNPagos(id);
+                ViewBag.Dividas = dividas;
                 ViewBag.Lancamentos = Lancamentos;
-                ViewBag.DividasCount = this.compradorService.ContaLancamentos(Lancamentos);
+                ViewBag.LancamentosAtuais = this.lancamentoService.ListarLancamentosDoCompradorAtuais(id);
                 return View();
             }
             catch (Exception e)

@@ -96,7 +96,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-header-primary">
+                <div class="card-header card-header-info">
                     <h4 class="card-title ">Faturas</h4>
                     <p class="card-category">Lista de todas as faturas</p>
                 </div>
@@ -149,6 +149,11 @@
                                                             style="width: 100px">
                                                         Pagar
                                                     </button>
+                                                    @*<button class="btn btn-warning"
+                                                            onclick="MensagemConfirma('Ateção', 'Deseja fechar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? As dividas serão geradas para cada comprador e não se poderá mais adicionar novos lancamentos.', '@Url.Action("FecharFatura", "Fatura", new { Id = Fatura.Id })')"
+                                                            style="width: 100px">
+                                                        Fechar
+                                                    </button>*@
                                                 }
                                             }
                                             else

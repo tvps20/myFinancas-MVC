@@ -12,18 +12,6 @@ namespace myFinancas.MVC.Services
     {
         public DividaService(IRepository<DividaModel> repository) : base(repository) { }
 
-        public List<DividaModel> ListarTodosPeloComprador(long id)
-        {
-            try
-            {
-                return this.GetRepository().ListAllByComprador(id);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         public List<DividaModel> ListarTodosIncludeComprador()
         {
             try
@@ -36,10 +24,9 @@ namespace myFinancas.MVC.Services
             }
         }
 
-        public List<DividaModel> ListarTodasDividasCompradorNPagos(long idComprador)
+        public List<DividaModel> ListarTodasDividasCompradorNPagas(long idComprador)
         {
-            List<DividaModel> dividas = this.ListarTodosPeloComprador(idComprador).Where(x => x.IdComprador == idComprador && !x.isPaga).ToList();
-
+            List<DividaModel> dividas = this.GetRepository().ListAllByCompradorIsPagoFalse(idComprador);
             return dividas;
         }
 

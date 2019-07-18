@@ -34,47 +34,29 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public List<LancamentoModel> ListAllByComprador(long id)
+        public List<LancamentoModel> ListAllByFaturaIncludeComprador(long idFatura)
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> faturas = db.Lancamentos.Where(l => l.IdComprador == id).ToList();
-                return faturas;
-            }
-        }
-
-        public List<LancamentoModel> ListAllByCompradorIncludeFatura(long id)
-        {
-            using (var db = new ContextoDB())
-            {
-                List<LancamentoModel> faturas = db.Lancamentos.Include("Fatura.Cartao").Where(l => l.IdComprador == id).ToList();
-                return faturas;
-            }
-        }
-
-        public List<LancamentoModel> ListAllByFatura(long id)
-        {
-            using (var db = new ContextoDB())
-            {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Where(l => l.IdFatura == id).ToList();
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Comprador").Where(l => l.IdFatura == idFatura).ToList();
                 return lancamentos;
             }
         }
 
-        public List<LancamentoModel> ListAllByFaturaIncludeComprador(long id)
+        public List<LancamentoModel> ListAllByCompradorAndFatura(long idComprador, long idFatura)
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Comprador").Where(l => l.IdFatura == id).ToList();
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura").Where(x => (x.IdComprador == idComprador) && (x.IdFatura == idFatura)).ToList();
                 return lancamentos;
             }
         }
 
-        public List<LancamentoModel> ListarTodosLancamentosCompradorNPagos(long idComprador)
+        public List<LancamentoModel> ListAllByCompradorWithFaturaIsFechadaAndIsPagaFalse(long idComprador)
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura.Cartao").Where(l => (l.IdComprador == idComprador) && (!l.Fatura.IsPaga || !l.Fatura.IsFechada)).ToList();
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura").Where(l => (l.IdComprador == idComprador) && (l.Fatura.IsFechada == false) && (l.Fatura.IsPaga == false)).ToList();
                 return lancamentos;
             }
         }

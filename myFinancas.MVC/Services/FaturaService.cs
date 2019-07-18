@@ -101,6 +101,7 @@ namespace myFinancas.MVC.Services
                 novaDivida.Data = DateTime.Now;
                 novaDivida.IdComprador = id;
                 novaDivida.Descricao = "Divida da fatura " + fatura.MesReferente + " do " + fatura.Cartao.Nome;
+                novaDivida.IdFatura = fatura.Id;
                 novaDivida.ValorDivida = dividas[id];
                 novaDivida.CalcularValorRestante();
 

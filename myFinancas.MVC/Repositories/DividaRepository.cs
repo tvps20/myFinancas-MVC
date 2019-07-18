@@ -42,11 +42,11 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public List<DividaModel> ListAllByComprador(long id)
+        public List<DividaModel> ListAllByCompradorIsPagoFalse(long idComprador)
         {
             using (var db = new ContextoDB())
             {
-                List<DividaModel> dividas = db.Dividas.Where(d => d.IdComprador == id).ToList();
+                List<DividaModel> dividas = db.Dividas.Where(d => (d.IdComprador == idComprador) && (d.isPaga == false)).ToList();
                 return dividas;
             }
         }

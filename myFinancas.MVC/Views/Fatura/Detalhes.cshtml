@@ -48,7 +48,7 @@
 
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
-                <div class="card-header @(Fatura.IsFechada ? "card-header-danger" : "card-header-info" ) card-header-icon">
+                <div class="card-header @(Fatura.IsFechada ? "card-header-danger" : "card-header-warning" ) card-header-icon">
                     <div class="card-icon">
                         <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.INFO)</i>
                     </div>
@@ -66,7 +66,7 @@
 
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
             <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
+                <div class="card-header card-header-info card-header-icon">
                     <div class="card-icon">
                         <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
                     </div>
@@ -178,9 +178,9 @@
     <div class="row">
         @foreach (string key in Lancamentos.Keys)
         {
-            <div class="col-lg-6 col-md-12">
+            <div class="@(Lancamentos.Count > 1 ? "col-lg-6" : "col-lg-12") col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-info">
                         <h4 class="card-title ">@key</h4>
                         <p class="card-category">Valor de total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
                     </div>
