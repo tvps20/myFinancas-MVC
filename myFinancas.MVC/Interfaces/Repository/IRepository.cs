@@ -11,7 +11,7 @@ namespace myFinancas.MVC.Interfaces.Repository
     {
         List<T> ListAll();
         T GetById(long id);
-        long Save(T entity);
+        T Save(T entity);
         bool Delete(long id);
     }
 }

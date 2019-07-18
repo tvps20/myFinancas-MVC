@@ -87,7 +87,7 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public long Save(LancamentoModel entity)
+        public LancamentoModel Save(LancamentoModel entity)
         {
             using (var db = new ContextoDB())
             {
@@ -107,7 +107,7 @@ namespace myFinancas.MVC.Repositories
                 }
 
                 db.SaveChanges();
-                return entity.Id;
+                return entity;
             }
         }
 

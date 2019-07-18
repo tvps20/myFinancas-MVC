@@ -5,7 +5,7 @@
     ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
     FaturaModel Fatura = ViewBag.Fatura;
-    List<LancamentoModel> Lancamentos = ViewBag.Lancamentos;
+    Dictionary<string, List<LancamentoModel>> Lancamentos = ViewBag.Lancamentos;
     List<CompradorModel> Compradores = ViewBag.Compradores;
 }
 
@@ -71,7 +71,7 @@
                         <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
                     </div>
                     <p class="card-category">Lançamentos</p>
-                    <h3 class="card-title">@Lancamentos.Count</h3>
+                    <h3 class="card-title">@Lancamentos.Sum(x => x.Value.Count)</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -142,7 +142,13 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-4" id="parcelasDiv">
+                            <div class="col-md-2" id="parcelaAtualDiv">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ParcelaAtual, new { Class = "bmd-label-floating" })
+                                    @Html.TextBoxFor(model => model.ParcelaAtual, new { Class = "form-control", type = "number" })
+                                </div>
+                            </div>
+                            <div class="col-md-2" id="qtdParcelasDiv">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.QtdParcelas, new { Class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.QtdParcelas, new { Class = "form-control", type = "number" })
@@ -170,74 +176,71 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title ">Lançamentos</h4>
-                    <p class="card-category">Lista de todos os Lançamentos</p>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class=" text-primary">
-                                <tr>
-                                    <th>
-                                        Comprador
-                                    </th>
-                                    <th>
-                                        Descrição
-                                    </th>
-                                    <th>
-                                        Valor
-                                    </th>
-                                    <th>
-                                        Parcela
-                                    </th>
-                                    <th class="text-center">
-                                        Ação
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (LancamentoModel Lancamento in Lancamentos)
-                                {
+        @foreach (string key in Lancamentos.Keys)
+        {
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">@key</h4>
+                        <p class="card-category">Valor de total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
                                     <tr>
-                                        <td>
-                                            @Lancamento.Comprador.Nome
-                                        </td>
-                                        <td>
-                                            @Lancamento.Descricao
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(lancamento => Lancamento.Valor)
-                                        </td>
-                                        <td>
-                                            @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
-                                        </td>
-                                        <td align="center" style="width:250px">
-                                            <button type="button" rel="tooltip" title="Editar"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Detalhes"
-                                                    onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Remover"
-                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.IdFatura })')"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                            </button>
-                                        </td>
+                                        <th>
+                                            Descrição
+                                        </th>
+                                        <th>
+                                            Valor
+                                        </th>
+                                        <th>
+                                            Parcela
+                                        </th>
+                                        <th class="text-center">
+                                            Ação
+                                        </th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (LancamentoModel Lancamento in Lancamentos[key])
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Lancamento.Descricao
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(lancamento => Lancamento.Valor)
+                                            </td>
+                                            <td>
+                                                @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
+                                            </td>
+                                            <td align="center" style="width:250px">
+                                                <button type="button" rel="tooltip" title="Editar"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Detalhes"
+                                                        onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Remover"
+                                                        onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.IdFatura })')"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 
@@ -247,16 +250,20 @@
     @Html.Partial("_ModalFuncao")
   
     <script type="text/javascript">
-        $("#parcelasDiv").css("visibility", "hidden");
+        $("#parcelaAtualDiv").css("visibility", "hidden");
+        $("#qtdParcelasDiv").css("visibility", "hidden");
 
         $("#IsParcelado").click(function () {
             if ($(this).val() == "true") {
-                $("#parcelasDiv").css("visibility", "hidden");
+                $("#parcelaAtualDiv").css("visibility", "hidden");
+                $("#qtdParcelasDiv").css("visibility", "hidden");
                 $(this).val("false");
                 document.getElementById('QtdParcelas').value = null;
+                document.getElementById('ParcelaAtual').value = null;
             }
             else {
-                $("#parcelasDiv").css("visibility", "visible");
+                $("#parcelaAtualDiv").css("visibility", "visible");
+                $("#qtdParcelasDiv").css("visibility", "visible");
                 $(this).val("true");
             }
         });

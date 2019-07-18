@@ -100,5 +100,24 @@ namespace myFinancas.MVC.Services
             decimal valorTotal = lancamentos.Sum(x => x.Valor);
             return valorTotal;
         } 
+
+        public Dictionary<string, List<LancamentoModel>> OrganizarLancamentosPorComprador(List<LancamentoModel> lancamentos)
+        {
+            Dictionary<string, List<LancamentoModel>> LancamentosByComprador = new Dictionary<string, List<LancamentoModel>>();
+
+            foreach (LancamentoModel lancamento in lancamentos)
+            {
+                string chave = lancamento.Comprador.Nome;
+
+                if (!LancamentosByComprador.Keys.Contains(chave))
+                {
+                    LancamentosByComprador.Add(chave, new List<LancamentoModel>());
+                }
+
+                LancamentosByComprador[chave].Add(lancamento);
+            }
+
+            return LancamentosByComprador;
+        }
     }
 }

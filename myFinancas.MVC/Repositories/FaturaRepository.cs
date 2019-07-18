@@ -67,7 +67,7 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public long Save(FaturaModel entity)
+        public FaturaModel Save(FaturaModel entity)
         {
             using (var db = new ContextoDB())
             {
@@ -87,7 +87,7 @@ namespace myFinancas.MVC.Repositories
                 }
 
                 db.SaveChanges();
-                return entity.Id;
+                return entity;
             }
         }
 

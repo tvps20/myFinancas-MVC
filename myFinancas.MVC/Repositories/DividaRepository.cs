@@ -59,7 +59,7 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public long Save(DividaModel entity)
+        public DividaModel Save(DividaModel entity)
         {
             using (var db = new ContextoDB())
             {
@@ -79,7 +79,7 @@ namespace myFinancas.MVC.Repositories
                 }
 
                 db.SaveChanges();
-                return entity.Id;
+                return entity;
             }
         }
 

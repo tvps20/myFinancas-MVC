@@ -50,7 +50,7 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
-        public long Save(CompradorModel entity)
+        public CompradorModel Save(CompradorModel entity)
         {
             using (var db = new ContextoDB())
             {
@@ -70,7 +70,7 @@ namespace myFinancas.MVC.Repositories
                 }
 
                 db.SaveChanges();
-                return entity.Id;
+                return entity;
             }
         }
 

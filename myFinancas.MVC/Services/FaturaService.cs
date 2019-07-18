@@ -100,7 +100,7 @@ namespace myFinancas.MVC.Services
                 DividaModel novaDivida = new DividaModel();
                 novaDivida.Data = DateTime.Now;
                 novaDivida.IdComprador = id;
-                novaDivida.Descricao = "Divida da fatura " + fatura.DataVencimento.ToString("dd/MM/yyyy") + " do " + fatura.Cartao.Nome;
+                novaDivida.Descricao = "Divida da fatura " + fatura.MesReferente + " do " + fatura.Cartao.Nome;
                 novaDivida.ValorDivida = dividas[id];
                 novaDivida.CalcularValorRestante();
 
@@ -119,7 +119,8 @@ namespace myFinancas.MVC.Services
 
             if(busca == null)
             {
-                long idFaturaSalva = this.Salvar(novaFatura);          
+                FaturaModel faturaSalva = this.Salvar(novaFatura);
+                decimal totalValor = faturaSalva.Valor;
 
                 foreach(LancamentoModel lancamento in lancamentos)
                 {
@@ -127,7 +128,7 @@ namespace myFinancas.MVC.Services
                     {
                         LancamentoModel novoLancamento = new LancamentoModel();
                         novoLancamento.IdComprador = lancamento.IdComprador;
-                        novoLancamento.IdFatura = idFaturaSalva;
+                        novoLancamento.IdFatura = faturaSalva.Id;
                         novoLancamento.IsParcelado = true;
                         novoLancamento.Observacao = lancamento.Observacao;
                         novoLancamento.ParcelaAtual = lancamento.ParcelaAtual + 1;
@@ -137,8 +138,12 @@ namespace myFinancas.MVC.Services
                         novoLancamento.DataCompra = lancamento.DataCompra;
 
                         this.lancamentoService.Salvar(novoLancamento);
+                        totalValor += lancamento.Valor;
                     }
                 }
+
+                faturaSalva.Valor = totalValor;
+                this.Salvar(faturaSalva);
             }
         }
     }
