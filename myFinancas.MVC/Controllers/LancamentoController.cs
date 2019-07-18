@@ -19,7 +19,7 @@ namespace myFinancas.MVC.Controllers
 
             if (id != 0) { Lancamento = this.lancamentoService.RecuperarPeloId(id); }
             ViewBag.Lancamento = Lancamento;
-            ViewBag.active = "Lancamentos";
+            ViewBag.active = "Lancamento";
 
             return PartialView();
         }

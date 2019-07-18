@@ -7,31 +7,31 @@
                 <p>Dashboard</p>
             </a>
         </li>
-        <li class="nav-item @(ViewBag.active == "Cartoes" ? "active" : "")">
+        <li class="nav-item @(ViewBag.active == "Cartao" ? "active" : "")">
             <a class="nav-link" href="@Url.Action("Index", "Cartao")">
                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.CARTOES)</i>
                 <p>Cartões</p>
             </a>
         </li>
-        <li class="nav-item @(ViewBag.active == "Faturas" ? "active" : "")">
+        <li class="nav-item @(ViewBag.active == "Fatura" ? "active" : "")">
             <a class="nav-link" href="@Url.Action("Index", "Fatura")">
                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.FATURAS)</i>
                 <p>Faturas</p>
             </a>
         </li>
-        <li class="nav-item @(ViewBag.active == "Compradores" ? "active" : "")">
+        <li class="nav-item @(ViewBag.active == "Comprador" ? "active" : "")">
             <a class="nav-link" href="@Url.Action("Index", "Comprador")">
                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRADORES)</i>
                 <p>Compradores</p>
             </a>
         </li>
-        <li class="nav-item @(ViewBag.active == "Dividas" ? "active" : "")">
+        <li class="nav-item @(ViewBag.active == "Divida" ? "active" : "")">
             <a class="nav-link" href="@Url.Action("Index", "Divida")">
                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DIVIDAS)</i>
                 <p>Dividas</p>
             </a>
         </li>
-        <li class="nav-item @(ViewBag.active == "Relatorios" ? "active" : "")">
+        <li class="nav-item @(ViewBag.active == "Relatorio" ? "active" : "")">
             <a class="nav-link" href="#">
                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.RELATORIOS)</i>
                 <p>Relatórios</p>

@@ -23,7 +23,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                ViewBag.active = "Faturas";
+                ViewBag.active = "Fatura";
                 ViewBag.Faturas = faturaService.ListarTodos();
                 ViewBag.Cartoes = cartaoService.ListarTodos();
                 return View();
@@ -75,7 +75,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                ViewBag.active = "Faturas";
+                ViewBag.active = "Fatura";
                 List<LancamentoModel> lancamentos = this.lancamentoService.ListarTodosPelaFaturaIncludeComprador(id);
                 ViewBag.Fatura = this.faturaService.RecuperarPeloId(id);
                 ViewBag.Lancamentos = this.lancamentoService.OrganizarLancamentosPorComprador(lancamentos);

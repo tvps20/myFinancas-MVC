@@ -21,7 +21,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                ViewBag.active = "Compradores";
+                ViewBag.active = "Comprador";
                 ViewBag.Compradores = this.compradorService.ListarTodos();
                 return View();
             }
@@ -50,7 +50,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                ViewBag.active = "Compradores";
+                ViewBag.active = "Comprador";
                 List<DividaModel> dividas = this.dividaService.ListarTodasDividasCompradorNPagas(id);
                 Dictionary<string, List<LancamentoModel>> Lancamentos = this.lancamentoService.ListarLancamentosPorDividas(dividas);
                 ViewBag.Comprador = this.compradorService.RecuperarPeloId(id);

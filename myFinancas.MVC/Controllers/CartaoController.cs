@@ -20,7 +20,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                ViewBag.active = "Cartoes";
+                ViewBag.active = "Cartao";
                 ViewBag.Cartoes = this.cartaoService.ListarTodos();
                 return View();
             }
@@ -64,7 +64,7 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                ViewBag.active = "Cartoes";
+                ViewBag.active = "Cartao";
                 ViewBag.Cartao = this.cartaoService.RecuperarPeloId(id);
                 ViewBag.Faturas = this.faturaService.ListarTodosPeloCartao(id);
                 return View();

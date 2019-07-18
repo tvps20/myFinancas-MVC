@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace myFinancas.MVC.Controllers
 {
@@ -16,11 +17,16 @@ namespace myFinancas.MVC.Controllers
         private DividaService dividaService = new DividaService(DividaRepository.getInstance());
         private CompradorService compradorService = new CompradorService(CompradorRepository.getInstance());
         // GET: Divida
-        public ActionResult Index()
+        public ActionResult Index(int pagina = 1)
         {
-            ViewBag.active = "Dividas";
+            pagina = pagina == 0 ? 1 : pagina;
+            int qtdElementos = 5;
+            IPagedList<DividaModel> dividas = this.dividaService.ListarTodosIncludeComprador().ToPagedList(pagina, qtdElementos);
+
+            ViewBag.active = "Divida";
             ViewBag.Compradores = this.compradorService.ListarTodos();
-            ViewBag.Dividas = this.dividaService.ListarTodosIncludeComprador();
+            ViewBag.PagedList = dividas;
+            ViewBag.PageNumber = CustomUtil.caculaNumeroPagina(pagina, dividas.PageCount);
             return View();
         }
 
@@ -46,7 +52,7 @@ namespace myFinancas.MVC.Controllers
 
             if (id != 0) { Divida = this.dividaService.RecuperarPeloId(id); }
             ViewBag.Divida = Divida;
-            ViewBag.active = "Dividas";
+            ViewBag.active = "Divida";
 
             return PartialView();
         }
