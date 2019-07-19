@@ -47,14 +47,14 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
+                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.LANCAMENTOS)</i>
                         </div>
                         <p class="card-category">Lancamentos</p>
                         <h3 class="card-title">@(Lancamentos.Sum(x => x.Value.Count) + LancamentosAtuais.Sum(x => x.Value.Count))</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
+                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.LANCAMENTOS)</i>
                             <a href="#" class="info-link">Todos os Lançamentos</a>
                         </div>
                     </div>

@@ -28,29 +28,37 @@ namespace myFinancas.MVC.Models.Enuns
         [Description("cloud_download")]
         DONWLOAD = 8,
         [Description("shop")]
-        COMPRAS = 9,
+        LANCAMENTO = 9,
+        [Description("exposure")]
+        DIVIDA = 10,
 
         [Description("edit")]
-        EDITAR = 10,
+        EDITAR = 11,
         [Description("description")]
-        DETALHES = 11,
+        DETALHES = 12,
         [Description("close")]
-        REMOVER = 12,
+        REMOVER = 13,
 
         [Description("dashboard")]
-        DASHBOARD = 13,
+        DASHBOARD = 14,
         [Description("payment")]
-        CARTOES = 14,
+        CARTOES = 15,
         [Description("picture_as_pdf")]
-        FATURAS = 15,
+        FATURAS = 16,
         [Description("people")]
-        COMPRADORES = 16,
+        COMPRADORES = 17,
+        [Description("swap_vert")]
+        DIVIDAS = 18,
         [Description("shop_two")]
-        DIVIDAS = 17,
+        LANCAMENTOS = 19,
         [Description("library_books")]
-        RELATORIOS = 18,
+        RELATORIOS = 20,
 
         [Description("monetization_on")]
-        MONEY = 19
+        MONEY = 21,
+
+        [Description("expand_more")]
+        DOWNMOREMAIS = 22,
+
     }
 }

@@ -68,7 +68,7 @@
             <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.COMPRAS)</i>
+                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.LANCAMENTOS)</i>
                     </div>
                     <p class="card-category">Lançamentos</p>
                     <h3 class="card-title">@Lancamentos.Sum(x => x.Value.Count)</h3>
@@ -236,6 +236,20 @@
                                     }
                                 </tbody>
                             </table>
+                            @if (Lancamentos[key].Count > 5)
+                            {
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <button id="carregarMais" type="button" rel="tooltip" title="Mostrar mais"
+                                                    onclick="CarregarMais('@key', '@Fatura.Id','@Lancamentos[key]')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">keyboard_arrow_down</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            }
                         </div>
                     </div>
                 </div>
@@ -249,7 +263,8 @@
 @section Scripts {
     @Html.Partial("_ModalFuncao")
   
-    <script type="text/javascript">
+<script type="text/javascript">
+    $(document).ready(function () {
         $("#parcelaAtualDiv").css("visibility", "hidden");
         $("#qtdParcelasDiv").css("visibility", "hidden");
 
@@ -267,5 +282,14 @@
                 $(this).val("true");
             }
         });
-    </script>
+    });
+
+    // TODO: Corrigir faunçao de mostrar mais
+    function CarregarMais(nome, idFatura, lancamentos) {
+        var bloco = 2;
+        $.post('@Url.Action("CarregarBlocoLancamento", "Fatura")', { 'bloco': bloco, 'nome': nome, 'idFatura': idFatura, 'lancamentos': '@(ViewBag.Lancamentos)' }, function (data) {                          
+            bloco++;
+        });
+    }
+</script>
 }

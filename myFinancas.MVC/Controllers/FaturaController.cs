@@ -18,6 +18,7 @@ namespace myFinancas.MVC.Controllers
         private FaturaService faturaService = new FaturaService(FaturaRepository.getInstance());
         private LancamentoService lancamentoService = new LancamentoService(LancamentoRepository.getInstance());
         private CompradorService compradorService = new CompradorService(CompradorRepository.getInstance());
+        private int _tamanhoBloco = 5;
         // GET: Fatura
         public ActionResult Index()
         {
@@ -165,6 +166,21 @@ namespace myFinancas.MVC.Controllers
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        // Carrega bloco de lançamentos
+        private List<LancamentoModel> ObterBloco(int bloco, List<LancamentoModel> lancamentos)
+        {
+            var posInicial = this._tamanhoBloco * (bloco-1);
+            return lancamentos.Skip(posInicial).Take(_tamanhoBloco).ToList();
+        }
+
+        // TODO: Corrigir função de mostrar mais
+        [HttpPost]
+        public ActionResult CarregarBlocoLancamento(int bloco, string nome, long idFatura, List<LancamentoModel> lancamentos)
+        {
+            ViewBag.Lancamentos = new Dictionary<string, List<LancamentoModel>>();
+            return Json(lancamentos, nome);
         }
     }
 }
