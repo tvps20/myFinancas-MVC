@@ -91,7 +91,7 @@
                     <p class="card-category">Adicionar a fatura um novo Lançamento</p>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm("SalvarLancamento", "Fatura", null, FormMethod.Post, new {  autocomplete="off" }))
+                    @using (Html.BeginForm("SalvarLancamento", "Fatura", null, FormMethod.Post, new { autocomplete = "off" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
@@ -175,82 +175,80 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="card-columns">
         @foreach (string key in Lancamentos.Keys)
         {
-            <div class="@(Lancamentos.Count > 1 ? "col-lg-6" : "col-lg-12") col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title ">@key</h4>
-                        <p class="card-category">Valor de total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">@key</h4>
+                    <p class="card-category">Valor de total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>
+                                        Descrição
+                                    </th>
+                                    <th>
+                                        Valor
+                                    </th>
+                                    <th>
+                                        Parcela
+                                    </th>
+                                    <th class="text-center">
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (LancamentoModel Lancamento in Lancamentos[key])
+                                {
                                     <tr>
-                                        <th>
-                                            Descrição
-                                        </th>
-                                        <th>
-                                            Valor
-                                        </th>
-                                        <th>
-                                            Parcela
-                                        </th>
-                                        <th class="text-center">
-                                            Ação
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (LancamentoModel Lancamento in Lancamentos[key])
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Lancamento.Descricao
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(lancamento => Lancamento.Valor)
-                                            </td>
-                                            <td>
-                                                @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
-                                            </td>
-                                            <td align="center" style="width:250px">
-                                                <button type="button" rel="tooltip" title="Editar"
-                                                        class="btn btn-white btn-link btn-sm">
-                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Detalhes"
-                                                        onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
-                                                        class="btn btn-white btn-link btn-sm">
-                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remover"
-                                                        onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.IdFatura })')"
-                                                        class="btn btn-white btn-link btn-sm">
-                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            @if (Lancamentos[key].Count > 5)
-                            {
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <button id="carregarMais" type="button" rel="tooltip" title="Mostrar mais"
-                                                    onclick="CarregarMais('@key', '@Fatura.Id','@Lancamentos[key]')"
+                                        <td>
+                                            @Lancamento.Descricao
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(lancamento => Lancamento.Valor)
+                                        </td>
+                                        <td>
+                                            @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
+                                        </td>
+                                        <td align="center" style="width:250px">
+                                            <button type="button" rel="tooltip" title="Editar"
                                                     class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">keyboard_arrow_down</i>
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
                                             </button>
-                                        </div>
+                                            <button type="button" rel="tooltip" title="Detalhes"
+                                                    onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remover"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("RemoverLancamento", "Fatura", new { Id = Lancamento.Id, IdFatura = Lancamento.IdFatura })')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (Lancamentos[key].Count > 5)
+                        {
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button id="carregarMais" type="button" rel="tooltip" title="Mostrar mais"
+                                                onclick="CarregarMais('@key', '@Fatura.Id','@Lancamentos[key]')"
+                                                class="btn btn-white btn-link btn-sm">
+                                            <i class="material-icons">keyboard_arrow_down</i>
+                                        </button>
                                     </div>
-                                </div>                            
-                            }
-                        </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -262,8 +260,8 @@
 
 @section Scripts {
     @Html.Partial("_ModalFuncao")
-  
-<script type="text/javascript">
+
+    <script type="text/javascript">
     $(document).ready(function () {
         $("#parcelaAtualDiv").css("visibility", "hidden");
         $("#qtdParcelasDiv").css("visibility", "hidden");
@@ -287,9 +285,9 @@
     // TODO: Corrigir faunçao de mostrar mais
     function CarregarMais(nome, idFatura, lancamentos) {
         var bloco = 2;
-        $.post('@Url.Action("CarregarBlocoLancamento", "Fatura")', { 'bloco': bloco, 'nome': nome, 'idFatura': idFatura, 'lancamentos': '@(ViewBag.Lancamentos)' }, function (data) {                          
+        $.post('@Url.Action("CarregarBlocoLancamento", "Fatura")', { 'bloco': bloco, 'nome': nome, 'idFatura': idFatura, 'lancamentos': '@(ViewBag.Lancamentos)' }, function (data) {
             bloco++;
         });
     }
-</script>
+    </script>
 }
