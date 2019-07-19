@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace myFinancas.MVC.Controllers
 {
@@ -17,12 +18,17 @@ namespace myFinancas.MVC.Controllers
         private DividaService dividaService = new DividaService(DividaRepository.getInstance());
         private LancamentoService lancamentoService = new LancamentoService(LancamentoRepository.getInstance());
         // GET: Comprador
-        public ActionResult Index()
+        public ActionResult Index(int pagina = 1)
         {
             try
             {
+                pagina = pagina == 0 ? 1 : pagina;
+                int qtdElementos = 10;
+                IPagedList<CompradorModel> compradores = this.compradorService.ListarTodos().ToPagedList(pagina, qtdElementos);
+
                 ViewBag.active = "Comprador";
-                ViewBag.Compradores = this.compradorService.ListarTodos();
+                ViewBag.PagedList = compradores;
+                ViewBag.PageNumber = CustomUtil<CompradorModel>.caculaNumeroPagina(pagina, compradores);
                 return View();
             }
             catch (Exception e)

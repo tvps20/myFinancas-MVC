@@ -3,7 +3,7 @@
 }
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-        <li class="page-item @(pageNumber == 2 ? "disabled" : "")">
+        <li class="page-item @((pageNumber == 2 || ViewBag.PagedList.PageCount <= 1) ? "disabled" : "")">
             <a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber - 1 })">Previous</a>
         </li>
         @if (ViewBag.PagedList.PageCount >= 2)
@@ -15,7 +15,7 @@
         {
             <li class="page-item"><a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber + 1 })">@(pageNumber + 1)</a></li>
         }
-        <li class="page-item @(pageNumber == (ViewBag.PagedList.PageCount - 1) ? "disabled" : "")">
+        <li class="page-item @((pageNumber == (ViewBag.PagedList.PageCount - 1) || ViewBag.PagedList.PageCount <= 2)? "disabled" : "")">
             <a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber + 1 })">Next</a>
         </li>
     </ul>

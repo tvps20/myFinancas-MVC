@@ -1,10 +1,12 @@
 ﻿@model myFinancas.MVC.Models.Domain.CompradorModel
 @using myFinancas.MVC.Models.Domain;
 @using myFinancas.MVC.Models.Enuns;
+@using PagedList;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<CompradorModel> Compradores = ViewBag.Compradores;
+    IPagedList<CompradorModel> Compradores = ViewBag.PagedList;
+    int pageNumber = ViewBag.PageNumber;
 }
 
 <div class="container-fluid">
@@ -91,6 +93,7 @@
             </div>
         </div>
     </div>
+    @Html.Partial("_Pagination")
 </div>
 
 <div id="modalDetalhes"></div>

@@ -19,15 +19,22 @@ namespace myFinancas.MVC.Controllers
         // GET: Divida
         public ActionResult Index(int pagina = 1)
         {
-            pagina = pagina == 0 ? 1 : pagina;
-            int qtdElementos = 5;
-            IPagedList<DividaModel> dividas = this.dividaService.ListarTodosIncludeComprador().ToPagedList(pagina, qtdElementos);
+            try
+            {
+                pagina = pagina == 0 ? 1 : pagina;
+                int qtdElementos = 10;
+                IPagedList<DividaModel> dividas = this.dividaService.ListarTodosIncludeComprador().ToPagedList(pagina, qtdElementos);
 
-            ViewBag.active = "Divida";
-            ViewBag.Compradores = this.compradorService.ListarTodos();
-            ViewBag.PagedList = dividas;
-            ViewBag.PageNumber = CustomUtil.caculaNumeroPagina(pagina, dividas.PageCount);
-            return View();
+                ViewBag.active = "Divida";
+                ViewBag.Compradores = this.compradorService.ListarTodos();
+                ViewBag.PagedList = dividas;
+                ViewBag.PageNumber = CustomUtil<DividaModel>.caculaNumeroPagina(pagina, dividas);
+                return View();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Dashboard").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
+            }
         }
 
         [HttpPost]
@@ -48,13 +55,20 @@ namespace myFinancas.MVC.Controllers
         [HttpGet]
         public ActionResult Detalhes(long id)
         {
-            DividaModel Divida = new DividaModel();
+            try
+            {
+                DividaModel Divida = new DividaModel();
 
-            if (id != 0) { Divida = this.dividaService.RecuperarPeloId(id); }
-            ViewBag.Divida = Divida;
-            ViewBag.active = "Divida";
+                if (id != 0) { Divida = this.dividaService.RecuperarPeloId(id); }
+                ViewBag.Divida = Divida;
+                ViewBag.active = "Divida";
 
-            return PartialView();
+                return PartialView();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
+            }
         }
 
         [HttpGet]
