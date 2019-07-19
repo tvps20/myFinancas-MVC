@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace myFinancas.MVC.Controllers
 {
@@ -16,12 +17,17 @@ namespace myFinancas.MVC.Controllers
         private CartaoService cartaoService = new CartaoService(CartaoRepository.getInstance());
         private FaturaService faturaService = new FaturaService(FaturaRepository.getInstance());
         // GET: Cartao
-        public ActionResult Index()
+        public ActionResult Index(int pagina = 1)
         {
             try
             {
+                pagina = pagina == 0 ? 1 : pagina;
+                int qtdElementos = 10;
+                IPagedList<CartaoModel> cartoes = this.cartaoService.ListarTodos().ToPagedList(pagina, qtdElementos);
+
                 ViewBag.active = "Cartao";
-                ViewBag.Cartoes = this.cartaoService.ListarTodos();
+                ViewBag.PagedList = cartoes;
+                ViewBag.PageNumber = CustomUtil<CartaoModel>.caculaNumeroPagina(pagina, cartoes);
                 return View();
             }
             catch (Exception e)

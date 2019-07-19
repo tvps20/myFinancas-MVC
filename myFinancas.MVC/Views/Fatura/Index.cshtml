@@ -2,13 +2,15 @@
 @using myFinancas.MVC.Models.Domain;
 @using myFinancas.MVC.Models.Enuns;
 @using System.ComponentModel;
+@using PagedList;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<FaturaModel> Faturas = ViewBag.Faturas;
+    IPagedList<FaturaModel> Faturas = ViewBag.PagedList;
     List<CartaoModel> Cartoes = ViewBag.Cartoes;
     List<string> meses = EnumExtensions.getDescriptionsTipoMes();
     string MesFormatado = @DateTime.Now.ToString("MMMM")[0].ToString().ToUpper() + DateTime.Now.ToString("MMMM").Substring(1);
+    int pageNumber = ViewBag.PageNumber;
 }
 
 <div class="container-fluid">
@@ -20,7 +22,7 @@
                     <p class="card-category">Adicionar uma nova Fatura</p>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm("Salvar", "Fatura", null, FormMethod.Post, new {  autocomplete="off" }))
+                    @using (Html.BeginForm("Salvar", "Fatura", null, FormMethod.Post, new { autocomplete = "off" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
@@ -149,11 +151,6 @@
                                                             style="width: 100px">
                                                         Pagar
                                                     </button>
-                                                    @*<button class="btn btn-warning"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja fechar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? As dividas serão geradas para cada comprador e não se poderá mais adicionar novos lancamentos.', '@Url.Action("FecharFatura", "Fatura", new { Id = Fatura.Id })')"
-                                                            style="width: 100px">
-                                                        Fechar
-                                                    </button>*@
                                                 }
                                             }
                                             else
@@ -190,6 +187,7 @@
             </div>
         </div>
     </div>
+    @Html.Partial("_Pagination")
 </div>
 
 @section Scripts {

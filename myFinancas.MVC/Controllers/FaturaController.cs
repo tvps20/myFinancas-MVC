@@ -9,6 +9,7 @@ using System.Linq;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace myFinancas.MVC.Controllers
 {
@@ -20,13 +21,18 @@ namespace myFinancas.MVC.Controllers
         private CompradorService compradorService = new CompradorService(CompradorRepository.getInstance());
         private int _tamanhoBloco = 5;
         // GET: Fatura
-        public ActionResult Index()
+        public ActionResult Index(int pagina = 1)
         {
             try
             {
+                pagina = pagina == 0 ? 1 : pagina;
+                int qtdElementos = 10;
+                IPagedList<FaturaModel> faturas = this.faturaService.ListarTodos().ToPagedList(pagina, qtdElementos);
+
                 ViewBag.active = "Fatura";
-                ViewBag.Faturas = faturaService.ListarTodos();
-                ViewBag.Cartoes = cartaoService.ListarTodos();
+                ViewBag.PagedList = faturas;
+                ViewBag.Cartoes = this.cartaoService.ListarTodos();
+                ViewBag.PageNumber = CustomUtil<FaturaModel>.caculaNumeroPagina(pagina, faturas);
                 return View();
             }
             catch (Exception e)
