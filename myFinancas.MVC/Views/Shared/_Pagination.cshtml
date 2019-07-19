@@ -8,12 +8,12 @@
         </li>
         @if (ViewBag.PagedList.PageCount >= 2)
         {
-            <li class="page-item"><a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber - 1 })">@(pageNumber - 1)</a></li>
+            <li class="page-item @(ViewBag.PagedList.PageNumber == (pageNumber -1) ? "active": "")"><a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber - 1 })">@(pageNumber - 1)</a></li>
         }
-        <li class="page-item"><a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber })">@(pageNumber)</a></li>
+        <li class="page-item @(ViewBag.PagedList.PageNumber == pageNumber ? "active": "")"><a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber })">@(pageNumber)</a></li>
         @if (ViewBag.PagedList.PageCount >= 3)
         {
-            <li class="page-item"><a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber + 1 })">@(pageNumber + 1)</a></li>
+            <li class="page-item  @(ViewBag.PagedList.PageNumber == (pageNumber + 1) ? "active": "")"><a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber + 1 })">@(pageNumber + 1)</a></li>
         }
         <li class="page-item @((pageNumber == (ViewBag.PagedList.PageCount - 1) || ViewBag.PagedList.PageCount <= 2)? "disabled" : "")">
             <a class="page-link" href="@Url.Action("Index", ViewBag.Active, new { pagina = pageNumber + 1 })">Next</a>
