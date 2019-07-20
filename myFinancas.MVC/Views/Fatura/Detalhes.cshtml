@@ -183,6 +183,7 @@
                     <h4 class="card-title ">@key</h4>
                     <p class="card-category">Valor total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
                 </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
@@ -202,7 +203,8 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+
+                            <tbody class="collapse @(Lancamentos[key].Count < 5 ? "show" : "")" id="@(key)">
                                 @foreach (LancamentoModel Lancamento in Lancamentos[key])
                                 {
                                     <tr>
@@ -215,7 +217,7 @@
                                         <td class="text-center">
                                             @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
                                         </td>
-                                        <td align="center" style="width: 150px">                                           
+                                        <td align="center" style="width: 150px">
                                             <button type="button" rel="tooltip" title="Detalhes"
                                                     onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
                                                     class="btn btn-white btn-link btn-sm">
@@ -236,8 +238,8 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col text-center">
-                                        <button id="carregarMais" type="button" rel="tooltip" title="Mostrar mais"
-                                                onclick="CarregarMais('@key', '@Fatura.Id','@Lancamentos[key]')"
+                                        <button type="button" rel="tooltip" title="Mostrar mais"
+                                                data-toggle="collapse" data-target="@("#" + key)" aria-expanded="false" aria-controls="@("#" + key)"
                                                 class="btn btn-white btn-link btn-sm">
                                             <i class="material-icons">keyboard_arrow_down</i>
                                         </button>
@@ -248,6 +250,7 @@
                     </div>
                 </div>
             </div>
+
         }
     </div>
 </div>
@@ -270,32 +273,24 @@
     </style>
 
     <script type="text/javascript">
-    $(document).ready(function () {
-        $("#parcelaAtualDiv").css("visibility", "hidden");
-        $("#qtdParcelasDiv").css("visibility", "hidden");
+        $(document).ready(function () {
+            $("#parcelaAtualDiv").css("visibility", "hidden");
+            $("#qtdParcelasDiv").css("visibility", "hidden");
 
-        $("#IsParcelado").click(function () {
-            if ($(this).val() == "true") {
-                $("#parcelaAtualDiv").css("visibility", "hidden");
-                $("#qtdParcelasDiv").css("visibility", "hidden");
-                $(this).val("false");
-                document.getElementById('QtdParcelas').value = null;
-                document.getElementById('ParcelaAtual').value = null;
-            }
-            else {
-                $("#parcelaAtualDiv").css("visibility", "visible");
-                $("#qtdParcelasDiv").css("visibility", "visible");
-                $(this).val("true");
-            }
+            $("#IsParcelado").click(function () {
+                if ($(this).val() == "true") {
+                    $("#parcelaAtualDiv").css("visibility", "hidden");
+                    $("#qtdParcelasDiv").css("visibility", "hidden");
+                    $(this).val("false");
+                    document.getElementById('QtdParcelas').value = null;
+                    document.getElementById('ParcelaAtual').value = null;
+                }
+                else {
+                    $("#parcelaAtualDiv").css("visibility", "visible");
+                    $("#qtdParcelasDiv").css("visibility", "visible");
+                    $(this).val("true");
+                }
+            });
         });
-    });
-
-    // TODO: Corrigir faunçao de mostrar mais
-    function CarregarMais(nome, idFatura, lancamentos) {
-        var bloco = 2;
-        $.post('@Url.Action("CarregarBlocoLancamento", "Fatura")', { 'bloco': bloco, 'nome': nome, 'idFatura': idFatura, 'lancamentos': '@(ViewBag.Lancamentos)' }, function (data) {
-            bloco++;
-        });
-    }
     </script>
 }
