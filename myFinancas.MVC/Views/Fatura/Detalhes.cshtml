@@ -18,7 +18,7 @@
                         <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.FATURA)</i>
                     </div>
                     <p class="card-category">@(Fatura.IsPaga ? "Paga" : "Não Pagou")</p>
-                    <h3 class="card-title">R$ @Fatura.Valor</h3>
+                    <h5 class="card-title">R$ @Fatura.Valor</h5>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -34,7 +34,7 @@
                     <div class="card-icon">
                         <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.NOTA)</i>
                     </div>
-                    <p class="card-category">Observação</p>
+                    <p class="card-category">Fatura de</p>
                     <p class="card-title">@(Fatura.Observacao != null ? Fatura.Observacao : Fatura.MesReferente)</p>
                 </div>
                 <div class="card-footer">
@@ -181,7 +181,7 @@
             <div class="card">
                 <div class="card-header card-header-info">
                     <h4 class="card-title ">@key</h4>
-                    <p class="card-category">Valor de total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
+                    <p class="card-category">Valor total de R$ @Lancamentos[key].Sum(x => x.Valor)</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -194,7 +194,7 @@
                                     <th>
                                         Valor
                                     </th>
-                                    <th>
+                                    <th class="text-center">
                                         Parcela
                                     </th>
                                     <th class="text-center">
@@ -212,14 +212,10 @@
                                         <td>
                                             @Html.DisplayFor(lancamento => Lancamento.Valor)
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             @(Lancamento.IsParcelado ? Lancamento.ParcelaAtual + "/" + Lancamento.QtdParcelas : "-")
                                         </td>
-                                        <td align="center" style="width:250px">
-                                            <button type="button" rel="tooltip" title="Editar"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                            </button>
+                                        <td align="center" style="width: 150px">                                           
                                             <button type="button" rel="tooltip" title="Detalhes"
                                                     onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
                                                     class="btn btn-white btn-link btn-sm">
@@ -260,6 +256,18 @@
 
 @section Scripts {
     @Html.Partial("_ModalFuncao")
+
+    <style type="text/css" media="screen and (min-width:576px)">
+        .card-columns {
+            column-count: 1;
+        }
+    </style>
+
+    <style type="text/css" media="screen and (min-width:720px)">
+        .card-columns {
+            column-count: @(Lancamentos.Count <= 2 ? 1 : 2);
+        }
+    </style>
 
     <script type="text/javascript">
     $(document).ready(function () {
