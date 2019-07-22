@@ -16,7 +16,7 @@
     @Styles.Render("~/Content/assets/demo-css")
 </head>
 
-<body class="dark-edition" onLoad=hidden()>
+<body class="dark-edition">
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="black" data-image="../../img/sidebar-2.jpg">
             <div class="logo" style="text-align: center">
@@ -112,13 +112,13 @@
     @Scripts.Render("/Content/assets/js/core/popper.min.js")
     @Scripts.Render("/Content/assets/js/core/bootstrap-material-design.min.js")
     @Scripts.Render("https://unpkg.com/default-passive-events")
-    @Scripts.Render("/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js")
+    @*@Scripts.Render("/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js")*@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Chartist JS and Notifications Plugin -->
     @Scripts.Render("~/Content/js/plugins")
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    @Scripts.Render("~/Content/js/material-dashboard")
+    @Scripts.Render("~/Content/js/material-dashboard?v=2.1.0")
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     @Scripts.Render("~/Content/assets/demo-js")
     <script>

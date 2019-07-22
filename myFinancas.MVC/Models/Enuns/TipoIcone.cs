@@ -57,8 +57,10 @@ namespace myFinancas.MVC.Models.Enuns
         [Description("monetization_on")]
         MONEY = 21,
 
-        [Description("expand_more")]
+        [Description("keyboard_arrow_down")]
         DOWNMOREMAIS = 22,
+        [Description("keyboard_arrow_up")]
+        UPMOREMAIS = 23
 
     }
 }
