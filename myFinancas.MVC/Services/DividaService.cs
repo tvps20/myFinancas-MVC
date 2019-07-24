@@ -30,9 +30,34 @@ namespace myFinancas.MVC.Services
             return dividas;
         }
 
+        public Dictionary<string, List<DividaModel>> ListarDividasNaoPagas()
+        {
+            List<DividaModel> dividas = this.GetRepository().ListAllIncludeCompradorAndFaturaIsPagoFalse();
+            return this.OrganizarDividas(dividas);
+        }
+
         public DividaRepository GetRepository()
         {
             return (DividaRepository) this.repository;
+        }
+
+        private Dictionary<string, List<DividaModel>> OrganizarDividas(List<DividaModel> dividas)
+        {
+            Dictionary<string, List<DividaModel>> dividasDicionario = new Dictionary<string, List<DividaModel>>();
+
+            foreach(DividaModel divida in dividas)
+            {
+                string chave = divida.Comprador.Nome;
+
+                if (!dividasDicionario.Keys.Contains(chave))
+                {
+                    dividasDicionario.Add(chave, new List<DividaModel>());
+                }
+
+                dividasDicionario[chave].Add(divida);
+            }
+
+            return dividasDicionario;
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿@{
+﻿@using myFinancas.MVC.Models.Domain
+@{
     ViewBag.Title = "Dashboard";
+    Dictionary<string, List<DividaModel>> dividas = ViewBag.Dividas;
 }
 
 <div class="container-fluid">
@@ -61,7 +63,7 @@
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">Controle de Pagamentos</h4>
-                    <p class="card-category">Tabela de Pagamentos, 2019</p>
+                    <p class="card-category">Lista de devedores e suas dívidas</p>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table table-hover">
@@ -74,36 +76,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>João</td>
-                                <td>$36,738</td>
-                                <td>$10,738</td>
-                                <td class="text-danger">
-                                    <i class="fa fa-long-arrow-down"
-                                       style="margin-right: 5px;"></i>$26,00
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Maria</td>
-                                <td>$149,59</td>
-                                <td>$150,00</td>
-                                <td class="text-success"><i class="fa fa-long-arrow-up"></i> $0,41</td>
-                            </tr>
-                            <tr>
-                                <td>Pedro</td>
-                                <td>$60,38</td>
-                                <td>$60,00</td>
-                                <td class="text-danger">
-                                    <i class="fa fa-long-arrow-down"
-                                       style="margin-right: 5px;"></i>$0,38
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Fernanda</td>
-                                <td>$87,15</td>
-                                <td>$87,15</td>
-                                <td>$0,00</td>
-                            </tr>
+                            @foreach(string key in dividas.Keys.OrderBy(x => x))
+                            {
+                                <tr>
+                                    <td><a href="@Url.Action("Detalhes", "Comprador", new { id = dividas[key][0].IdComprador })">@key</a></td>
+                                    <td>@dividas[key].Sum(x => x.ValorDivida)</td>
+                                    <td>@dividas[key].Sum(x => x.ValorPago)</td>
+                                    <td class="text-danger">
+                                        <i class="fa fa-long-arrow-down"
+                                           style="margin-right: 5px;"></i>R$ @dividas[key].Sum(x => x.ValorRestante)
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -150,7 +134,7 @@
                                         <td>Maria</td>
                                         <td class="td-actions text-right">
                                             <a href="./devedor.html" rel="tooltip" title="Editar"
-                                                class="btn btn-white btn-link btn-sm">
+                                               class="btn btn-white btn-link btn-sm">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <button type="button" rel="tooltip" title="Remover"
@@ -173,7 +157,7 @@
                                         <td>Fernanda</td>
                                         <td class="td-actions text-right">
                                             <a href="./devedor.html" rel="tooltip" title="Editar"
-                                                class="btn btn-white btn-link btn-sm">
+                                               class="btn btn-white btn-link btn-sm">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                             <button type="button" rel="tooltip" title="Remover"
@@ -187,30 +171,14 @@
                         </div>
                         <div class="tab-pane" id="messages">
                             <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>João</td>
-                                        <td class="td-actions text-right">
-                                            <a href="./devedor.html" rel="tooltip" title="Editar"
-                                                class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">edit</i>
-                                            </a>
-                                            <button type="button" rel="tooltip" title="Remover"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">close</i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tbody>                                   
+                                    @foreach (string key in dividas.Keys)
+                                    {
+                                        <tr>
+                                            <td>@key</td>
+                                            <td>@dividas[key].Count dividas</td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>

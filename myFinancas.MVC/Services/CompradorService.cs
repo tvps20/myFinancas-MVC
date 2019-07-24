@@ -10,18 +10,26 @@ namespace myFinancas.MVC.Services
 {
     public class CompradorService : BaseService<CompradorModel>
     {
-        private LancamentoService lancamentoService = new LancamentoService(LancamentoRepository.getInstance());
-
         public CompradorService(IRepository<CompradorModel> repository) : base(repository) { }
 
         public CompradorRepository GetRepository()
         {
-            return (CompradorRepository) this.repository;
-        }    
+            return (CompradorRepository)this.repository;
+        }
 
         public CompradorModel BuscarPeloNome(string Nome)
         {
             return this.GetRepository().GetByName(Nome);
+        }
+
+        public List<CompradorModel> ListarTodosPagantes()
+        {
+            return this.GetRepository().ListAllPagantes();
+        }
+
+        public List<CompradorModel> ListarTodosDevedores()
+        {
+            return this.GetRepository().ListAllDevedores();
         }
     }
 }

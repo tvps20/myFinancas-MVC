@@ -34,6 +34,22 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        public List<CompradorModel> ListAllPagantes()
+        {
+            using (var db = new ContextoDB())
+            {
+                return db.Compradores.OrderBy(c => c.Id).Where(x => x.DividaTotalRestante < 0).ToList();
+            }
+        }
+
+        public List<CompradorModel> ListAllDevedores()
+        {
+            using (var db = new ContextoDB())
+            {
+                return db.Compradores.OrderBy(c => c.Id).Where(x => x.DividaTotalRestante > 0).ToList();
+            }
+        }
+
         public CompradorModel GetById(long id)
         {
             using (var db = new ContextoDB())

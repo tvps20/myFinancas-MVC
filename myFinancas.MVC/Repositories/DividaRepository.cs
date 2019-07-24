@@ -51,6 +51,15 @@ namespace myFinancas.MVC.Repositories
             }
         }
 
+        public List<DividaModel> ListAllIncludeCompradorAndFaturaIsPagoFalse()
+        {
+            using (var db = new ContextoDB())
+            {
+                List<DividaModel> dividas = db.Dividas.Include("Comprador").Include("Fatura").Where(x => x.isPaga == false).ToList();
+                return dividas;
+            }
+        }
+
         public DividaModel GetById(long id)
         {
             using (var db = new ContextoDB())
