@@ -137,6 +137,7 @@
     <Compile Include="Controllers\DividaController.cs" />
     <Compile Include="Controllers\FaturaController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
+    <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Erros\EntityNotFoundException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +186,7 @@
     <Compile Include="Services\DividaService.cs" />
     <Compile Include="Services\FaturaService.cs" />
     <Compile Include="Services\LancamentoService.cs" />
+    <Compile Include="Services\RelatorioService.cs" />
     <Compile Include="Util\ActionResultExtensions.cs" />
     <Compile Include="Util\CustomModelBinder.cs" />
     <Compile Include="Util\CustomUtil.cs" />
@@ -453,6 +455,7 @@
     <Content Include="Views\Divida\Detalhes.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\Lancamento\Index.cshtml" />
+    <Content Include="Views\Relatorio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

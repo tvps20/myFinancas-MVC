@@ -38,7 +38,7 @@
             </a>
         </li>
         <li class="nav-item @(ViewBag.active == "Relatorio" ? "active" : "")">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="@Url.Action("Index", "Relatorio")">
                 <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.RELATORIOS)</i>
                 <p>Relatórios</p>
             </a>
