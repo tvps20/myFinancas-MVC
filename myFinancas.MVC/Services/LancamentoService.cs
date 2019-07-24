@@ -29,6 +29,18 @@ namespace myFinancas.MVC.Services
             }
         }
 
+        public List<LancamentoModel> ListarTodosComFaturaECartao()
+        {
+            try
+            {
+                return this.GetRepository().ListAllIncludeFaturaIncludeCartao();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public Dictionary<string, List<LancamentoModel>> ListarLancamentosPorDividas(List<DividaModel> dividas)
         {
             Dictionary<string, List<LancamentoModel>> lancamentosByDivida = new Dictionary<string, List<LancamentoModel>>();

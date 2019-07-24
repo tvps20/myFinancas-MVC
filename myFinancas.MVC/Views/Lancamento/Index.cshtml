@@ -1,0 +1,94 @@
+﻿@model myFinancas.MVC.Models.Domain.LancamentoModel
+@using myFinancas.MVC.Models.Enuns;
+@using myFinancas.MVC.Models.Domain;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IPagedList<LancamentoModel> Lancamentos = ViewBag.PagedList;
+    int pageNumber = ViewBag.PageNumber;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">Lançamentos</h4>
+                    <p class="card-category">Lista de todos os Lançamentos</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>
+                                        Descrição
+                                    </th>
+                                    <th>
+                                        Data da Compra
+                                    </th>
+                                    <th>
+                                        Fatura
+                                    </th>
+                                    <th>
+                                        Cartao
+                                    </th>
+                                    <th>
+                                        Valor
+                                    </th>
+                                    <th class="text-center">
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (LancamentoModel Lancamento in Lancamentos)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Lancamento.Descricao
+                                        </td>
+                                        <td>
+                                            @Lancamento.DataCompra.ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td>
+                                            @Lancamento.Fatura.MesReferente
+                                        </td>
+                                        <td>
+                                            @Lancamento.Fatura.Cartao.Nome
+                                        </td>
+                                        <td>
+                                            @Lancamento.Valor
+                                        </td>
+
+                                        <td align="center" style="width: 150px">
+                                            <button type="button" rel="tooltip" title="Detalhes"
+                                                    onclick="mostrarModalDetalhes(@Lancamento.Id, '@Url.Action("Detalhes", "Lancamento")')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" title="Remover"
+                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover o Lançamento @Lancamento.Valor?', '@Url.Action("Remover", "Lancamento", new { Id = Lancamento.Id})')"
+                                                    class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Pagination")
+</div>
+
+<div id="modalDetalhes"></div>
+
+@section Scripts {
+    @Html.Partial("_ModalFuncao")
+}

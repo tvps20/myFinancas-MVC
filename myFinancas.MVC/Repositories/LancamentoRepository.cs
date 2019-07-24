@@ -38,7 +38,7 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Comprador").Where(l => l.IdFatura == idFatura).ToList();
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Comprador").OrderBy(l => l.DataCompra).Where(l => l.IdFatura == idFatura).ToList();
                 return lancamentos;
             }
         }
@@ -47,7 +47,7 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura").Where(x => (x.IdComprador == idComprador) && (x.IdFatura == idFatura)).ToList();
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura").OrderBy(l => l.DataCompra).Where(x => (x.IdComprador == idComprador) && (x.IdFatura == idFatura)).ToList();
                 return lancamentos;
             }
         }
@@ -56,7 +56,16 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura").Where(l => (l.IdComprador == idComprador) && (l.Fatura.IsFechada == false) && (l.Fatura.IsPaga == false)).ToList();
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura").OrderBy(l => l.DataCompra).Where(l => (l.IdComprador == idComprador) && (l.Fatura.IsFechada == false) && (l.Fatura.IsPaga == false)).ToList();
+                return lancamentos;
+            }
+        }
+
+        public List<LancamentoModel> ListAllIncludeFaturaIncludeCartao()
+        {
+            using (var db = new ContextoDB())
+            {
+                List<LancamentoModel> lancamentos = db.Lancamentos.Include("Fatura.Cartao").OrderBy(l => l.DataCompra).ToList();
                 return lancamentos;
             }
         }
