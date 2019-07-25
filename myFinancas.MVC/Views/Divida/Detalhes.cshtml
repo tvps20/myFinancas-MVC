@@ -1,23 +1,61 @@
 ﻿@using myFinancas.MVC.Models.Domain;
 @{
     DividaModel Divida = @ViewBag.Divida;
+    decimal ValorPago = Divida.ValorPago;
 }
 <div class="modal fade" id="detalhesModalLancamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="card card-profile" style="margin-top: 100px; background-color: white">
-            <div class="card-avatar">
-                <a href="#pablo">
-                    <img class="img" src="~/img/faces/divida.png" />
-                </a>
-            </div>
-            <div class="card-body">
-                <h6 class="card-category" style="font-size: 11px">@Divida.Data.ToString("dd MMMM yyyy")</h6>
-                <h3 class="card-category">@Divida.Descricao</h3>
-                <h3>R$ @Html.DisplayFor(divida => Divida.ValorDivida)</h3>
-                <p class="card-description">Já foi pago R$ @Html.DisplayFor(divida => Divida.ValorPago)</p>
-                <p class="card-description" style="font-size: 12px">Falta ser pago R$  @Html.DisplayFor(divida => Divida.ValorRestante)</p>
+            <div class="modal-content">
+                <div class="card-avatar">
+                    <a href="#pablo">
+                        <img class="img" src="~/img/faces/divida.png" />
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-category" style="font-size: 11px">@Divida.Data.ToString("dd MMMM yyyy")</h6>
+                    <h3 class="card-category">@Divida.Descricao</h3>
+                    @using (Html.BeginForm("PagarDivida", "Divida", null, FormMethod.Post, new { autocomplete = "off" }))
+                    {
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <tr>
+                                        -
+                                        <th>
+                                            Valor
+                                        </th>
+                                        <th>
+                                            Pago
+                                        </th>
+                                        <th>
+                                            Restante
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p class="card-description">R$ @Html.DisplayFor(divida => Divida.ValorDivida)</p>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input class="form-control" value="@Divida.ValorPago.ToString().Replace(",", ".")" type="number" name="ValorPago" id="ValorPago" required style="width: 75px; margin-left: 65px; color: #606477; text-align: center; margin-top: -17px;" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="card-description">R$ @Html.DisplayFor(divida => Divida.ValorRestante)</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <input hidden class="form-control" value="@Divida.IdComprador" name="IdComprador" />
+                        <input hidden class="form-control" value="@Divida.Id" name="Id" />
 
-                <a href="#" class="btn btn-primary btn-round">Fechar</a>
+                        <a href="#" class="btn btn-primary btn-round" data-dismiss="modal">Fechar</a>
+                    }
+                </div>
             </div>
         </div>
     </div>

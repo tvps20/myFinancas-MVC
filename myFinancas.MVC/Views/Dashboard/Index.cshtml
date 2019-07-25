@@ -82,9 +82,9 @@
                                 <tr>
                                     <td><a href="@Url.Action("Detalhes", "Comprador", new { id = dividas[key][0].IdComprador })">@key</a></td>
                                     <td>@dividas[key].Sum(x => x.ValorDivida)</td>
-                                    <td>@dividas[key].Sum(x => x.ValorPago)</td>
-                                    <td class="text-danger">
-                                        <i class="fa fa-long-arrow-down"
+                                    <td>@dividas[key].Sum(x => x.ValorPago)</td> 
+                                    <td class="@(dividas[key].Sum(x => x.ValorRestante) >= 0 ? "text-success" : "text-danger")">
+                                        <i class="fa @(dividas[key].Sum(x => x.ValorRestante) >= 0 ? "fa-long-arrow-up" : "fa-long-arrow-down")"
                                            style="margin-right: 5px;"></i>R$ @dividas[key].Sum(x => x.ValorRestante)
                                     </td>
                                 </tr>

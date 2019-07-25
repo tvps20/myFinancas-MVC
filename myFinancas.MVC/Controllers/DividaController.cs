@@ -96,5 +96,34 @@ namespace myFinancas.MVC.Controllers
                 return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
             }
         }
+
+        [HttpPost]
+        public ActionResult PagarDivida(DividaModel divida)
+        {
+            try
+            {
+
+                using (TransactionScope transaction = new TransactionScope())
+                {
+                    CompradorModel comprador = this.compradorService.RecuperarPeloId(divida.IdComprador);
+                    DividaModel dividaBd = this.dividaService.RecuperarPeloId(divida.Id);
+                    comprador.DividaTotalPaga += divida.ValorPago;
+                    comprador.CalcularValorRestante();
+                    comprador.VerificarDivida();
+                    dividaBd.ValorPago = divida.ValorPago;
+                    dividaBd.CalcularValorRestante();
+
+                    this.dividaService.Salvar(dividaBd);
+                    this.compradorService.Salvar(comprador);
+
+                    transaction.Complete();
+                    return RedirectToAction("Index").Mensagem("A divida foi atualizada com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.INFO), EnumExtensions.EnumToDescriptionString(TipoIcone.INFO));
+                }
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index").Mensagem(e.Message, "", EnumExtensions.EnumToDescriptionString(TipoMensagem.DANGER), EnumExtensions.EnumToDescriptionString(TipoIcone.ERRO));
+            }
+        }
     }
 }
