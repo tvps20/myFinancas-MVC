@@ -156,6 +156,10 @@
     <Compile Include="Migrations\201907161658045_faturaUp.Designer.cs">
       <DependentUpon>201907161658045_faturaUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907251412111_cascadeTrue.cs" />
+    <Compile Include="Migrations\201907251412111_cascadeTrue.Designer.cs">
+      <DependentUpon>201907251412111_cascadeTrue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContextoDB.cs" />
     <Compile Include="Models\Domain\CartaoModel.cs" />
@@ -482,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907161658045_faturaUp.resx">
       <DependentUpon>201907161658045_faturaUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907251412111_cascadeTrue.resx">
+      <DependentUpon>201907251412111_cascadeTrue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

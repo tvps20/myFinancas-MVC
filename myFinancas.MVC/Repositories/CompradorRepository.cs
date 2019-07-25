@@ -38,7 +38,7 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                return db.Compradores.OrderBy(c => c.Id).Where(x => x.DividaTotalRestante < 0).ToList();
+                return db.Compradores.OrderBy(c => c.Id).Where(x => x.DividaTotalRestante > 0).ToList();
             }
         }
 
@@ -46,7 +46,7 @@ namespace myFinancas.MVC.Repositories
         {
             using (var db = new ContextoDB())
             {
-                return db.Compradores.OrderBy(c => c.Id).Where(x => x.DividaTotalRestante > 0).ToList();
+                return db.Compradores.OrderBy(c => c.Id).Where(x => x.DividaTotalRestante < 0).ToList();
             }
         }
 

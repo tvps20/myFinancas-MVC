@@ -20,5 +20,20 @@ namespace myFinancas.MVC.Models.Domain
 
         [Display(Name = "Divida Restante")]
         public Decimal DividaTotalRestante { get; set; }
+
+
+        public void VerificarDivida()
+        {
+            if (this.DividaTotalPaga >= this.DividaTotal)
+            {
+                this.DividaTotal = 0;
+                this.DividaTotalPaga = 0;
+            }
+        }
+
+        public void CalcularValorRestante()
+        {
+            this.DividaTotalRestante = this.DividaTotalPaga - this.DividaTotal;
+        }
     }
 }

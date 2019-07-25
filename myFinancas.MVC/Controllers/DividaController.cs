@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using System.Transactions;
 
 namespace myFinancas.MVC.Controllers
 {
@@ -42,9 +43,20 @@ namespace myFinancas.MVC.Controllers
         {
             try
             {
-                Divida.CalcularValorRestante();
-                this.dividaService.Salvar(Divida);
-                return RedirectToAction("Index").Mensagem("A divida de " + Divida.ValorDivida.ToString("C") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
+                using (TransactionScope transaction = new TransactionScope())
+                {
+                    Divida.CalcularValorRestante();
+                    this.dividaService.Salvar(Divida);
+                    CompradorModel comprador = this.compradorService.RecuperarPeloId(Divida.IdComprador);
+                    comprador.DividaTotal += Divida.ValorDivida;
+                    comprador.DividaTotalPaga += Divida.ValorPago;
+                    comprador.CalcularValorRestante();
+                    comprador.VerificarDivida();
+                    this.compradorService.Salvar(comprador);
+
+                    transaction.Complete();
+                    return RedirectToAction("Index").Mensagem("A divida de " + Divida.ValorDivida.ToString("C") + " foi salva com sucesso!", "", EnumExtensions.EnumToDescriptionString(TipoMensagem.SUCCESS), EnumExtensions.EnumToDescriptionString(TipoIcone.SUCESSO));
+                }
             }
             catch (Exception e)
             {

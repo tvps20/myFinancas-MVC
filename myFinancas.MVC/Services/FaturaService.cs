@@ -13,6 +13,7 @@ namespace myFinancas.MVC.Services
     {
         private LancamentoService lancamentoService = new LancamentoService(LancamentoRepository.getInstance());
         private DividaService dividaService = new DividaService(DividaRepository.getInstance());
+        private CompradorService CompradorService = new CompradorService(CompradorRepository.getInstance());
 
         public FaturaService(IRepository<FaturaModel> repository) : base(repository) { }
 
@@ -105,6 +106,11 @@ namespace myFinancas.MVC.Services
                 novaDivida.ValorDivida = dividas[id];
                 novaDivida.CalcularValorRestante();
 
+                CompradorModel comprador = this.CompradorService.RecuperarPeloId(id);
+                comprador.DividaTotal += dividas[id];
+                comprador.CalcularValorRestante();
+
+                this.CompradorService.Salvar(comprador);
                 this.dividaService.Salvar(novaDivida);
             }
         }

@@ -31,7 +31,7 @@ namespace myFinancas.MVC.Models.Maps
             HasRequired(x => x.Comprador).WithMany().HasForeignKey(x => x.IdComprador);
 
             Property(x => x.IdFatura).HasColumnName("id_fatura").IsOptional();
-            HasOptional(x => x.Fatura).WithMany().HasForeignKey(x => x.IdFatura);
+            HasOptional(x => x.Fatura).WithMany().HasForeignKey(x => x.IdFatura).WillCascadeOnDelete(true);
         }
     }
 }

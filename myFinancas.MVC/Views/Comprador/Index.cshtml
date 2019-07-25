@@ -54,6 +54,15 @@
                                             <th>
                                                 Nome
                                             </th>
+                                            <th>
+                                                Divida Total
+                                            </th>
+                                            <th>
+                                                Pago
+                                            </th>
+                                            <th>
+                                                Valor Restante
+                                            </th>
                                             <th class="text-center">
                                                 Ação
                                             </th>
@@ -62,27 +71,37 @@
                                     <tbody>
                                         @foreach (CompradorModel Comprador in Compradores)
                                         {
-                                            <tr>
-                                                <td>
-                                                    @Comprador.Nome
-                                                </td>
-                                                <td align="center" style="width:250px">
-                                                    <button type="button" rel="tooltip" title="Editar"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Detalhes"
-                                                            onclick="location.href='@Url.Action("Detalhes", "Comprador", new { id = Comprador.Id })'"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remover"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja remover o comprador @Comprador.Nome?', '@Url.Action("Remover", "Comprador", new { id = Comprador.Id })')"
-                                                            class="btn btn-white btn-link btn-sm">
-                                                        <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td>
+                                                @Comprador.Nome
+                                            </td>
+                                            <td>
+                                                R$ @Comprador.DividaTotal
+                                            </td>
+                                            <td>
+                                                R$ @Comprador.DividaTotalPaga
+                                            </td>
+                                            <td class="@(Comprador.DividaTotalRestante >= 0 ? "text-success" : "text-danger")">
+                                                <i class="fa @(Comprador.DividaTotalRestante >= 0 ? "fa-long-arrow-up" : "fa-long-arrow-down")"
+                                                   style="margin-right: 5px;"></i>R$ @Html.DisplayFor(divida => Comprador.DividaTotalRestante)
+                                            </td>
+                                            <td align="center" style="width:250px">
+                                                <button type="button" rel="tooltip" title="Editar"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Detalhes"
+                                                        onclick="location.href='@Url.Action("Detalhes", "Comprador", new { id = Comprador.Id })'"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Remover"
+                                                        onclick="MensagemConfirma('Ateção', 'Deseja remover o comprador @Comprador.Nome?', '@Url.Action("Remover", "Comprador", new { id = Comprador.Id })')"
+                                                        class="btn btn-white btn-link btn-sm">
+                                                    <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>
