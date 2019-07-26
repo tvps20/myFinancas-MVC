@@ -4,6 +4,7 @@
 @using System.ComponentModel;
 @using PagedList;
 @{
+    Dictionary<string, List<FaturaModel>> faturaDicionario = ViewBag.FaturaDicionario;
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     IPagedList<FaturaModel> Faturas = ViewBag.PagedList;
@@ -13,182 +14,195 @@
     int pageNumber = ViewBag.PageNumber;
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title">Nova Fatura</h4>
-                    <p class="card-category">Adicionar uma nova Fatura</p>
-                </div>
-                <div class="card-body">
-                    @using (Html.BeginForm("Salvar", "Fatura", null, FormMethod.Post, new { autocomplete = "off" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.DataVencimento)
-                                    <input style="margin-top: 12px;" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="DataVencimento" class="form-control" required>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Nova Fatura</h4>
+                        <p class="card-category">Adicionar uma nova Fatura</p>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Salvar", "Fatura", null, FormMethod.Post, new { autocomplete = "off" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DataVencimento)
+                                        <input style="margin-top: 12px;" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="DataVencimento" class="form-control" required>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.MesReferente, new { Classe = "inputState" })
-                                    @Html.DropDownListFor(x => x.MesReferente, new SelectList(meses, @MesFormatado), "-Selecione-", new { Class = "form-control", style = "background-color: #202940; color: white", required = true })
-                                    @Html.ValidationMessageFor(model => model.MesReferente, "", new { Class = "text-danger" })
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MesReferente, new { Classe = "inputState" })
+                                        @Html.DropDownListFor(x => x.MesReferente, new SelectList(meses, @MesFormatado), "-Selecione-", new { Class = "form-control", style = "background-color: #202940; color: white", required = true })
+                                        @Html.ValidationMessageFor(model => model.MesReferente, "", new { Class = "text-danger" })
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Cartao, new { Classe = "inputState" })
-                                    <select id="IdCartao" name="IdCartao" class="form-control input-sm" style="background-color: #202940; color: white" required>
-                                        @foreach (CartaoModel Cartao in Cartoes)
-                                        {
-                                            <option value="@Cartao.Id"> @Cartao.Nome </option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        @Html.TextBox("IsFechada", true, new { Class = "form-check-input", Type = "checkbox" })
-                                        Fatura Fechada
-                                        <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-                                        <p>Não aceita novos lançamentos.</p>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox" })
-                                        Fatura Paga
-                                        <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Observacao, new { Class = "bmd-label-floating" })
-                                    @Html.TextBoxFor(model => model.Observacao, new { Class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
-                        <div class="clearfix"></div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-info">
-                    <h4 class="card-title ">Faturas</h4>
-                    <p class="card-category">Lista de todas as faturas</p>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class=" text-primary">
-                                <tr>
-                                    <th>
-                                        Fatura
-                                    </th>
-                                    <th>
-                                        Cartão
-                                    </th>
-                                    <th>
-                                        Valor
-                                    </th>
-                                    <th class="text-center">
-                                        Situação
-                                    </th>
-                                    <th class="text-center">
-                                        Ação
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (FaturaModel Fatura in Faturas)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Fatura.MesReferente
-                                        </td>
-                                        <td>
-                                            @Fatura.Cartao.Nome
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(fatura => Fatura.Valor)
-                                        </td>
-                                        <td class="text-center">
-                                            @if (Fatura.IsFechada)
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Cartao, new { Classe = "inputState" })
+                                        <select id="IdCartao" name="IdCartao" class="form-control input-sm" style="background-color: #202940; color: white" required>
+                                            @foreach (CartaoModel Cartao in Cartoes)
                                             {
-                                                if (Fatura.IsPaga)
-                                                {
-                                                    <button class="btn btn-default" style="width: 100px" disabled>Paga</button>
-                                                }
-                                                else
-                                                {
-                                                    <button class="btn btn-success"
-                                                            onclick="MensagemConfirma('Ateção', 'Deseja pagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? Novos lançamentos não porderão ser adicionados a esta fatura.', '@Url.Action("PagarFatura", "Fatura", new { Id = Fatura.Id })')"
-                                                            style="width: 100px">
-                                                        Pagar
-                                                    </button>
-                                                }
+                                                <option value="@Cartao.Id"> @Cartao.Nome </option>
                                             }
-                                            else
-                                            {
-                                                <button class="btn btn-warning"
-                                                        onclick="MensagemConfirma('Ateção', 'Deseja fechar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? As dividas serão geradas para cada comprador e não se poderá mais adicionar novos lancamentos.', '@Url.Action("FecharFatura", "Fatura", new { Id = Fatura.Id })')"
-                                                        style="width: 100px">
-                                                    Fechar
-                                                </button>
-                                            }
-                                        </td>
-                                        <td align="center" style="width:250px">
-                                            <button type="button" rel="tooltip" title="Editar"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Detalhes"
-                                                    onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="Remover"
-                                                    onclick="MensagemConfirma('Ateção', 'Deseja remover a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("Remover", "Fatura", new { Id = Fatura.Id })')"
-                                                    class="btn btn-white btn-link btn-sm">
-                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            @Html.TextBox("IsFechada", true, new { Class = "form-check-input", Type = "checkbox" })
+                                            Fatura Fechada
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                            <p>Não aceita novos lançamentos.</p>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            @Html.TextBox("IsPaga", true, new { Class = "form-check-input", Type = "checkbox" })
+                                            Fatura Paga
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Observacao, new { Class = "bmd-label-floating" })
+                                        @Html.TextBoxFor(model => model.Observacao, new { Class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary pull-right">Adicionar</button>
+                            <div class="clearfix"></div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-warning">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    @foreach (string key in faturaDicionario.Keys)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link @(faturaDicionario.Keys.First().Equals(key) ? "active" : "")" href="#@key" data-toggle="tab">
+                                                <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.CARTAO)</i> @key
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            @foreach (string key in faturaDicionario.Keys)
+                            {
+                                <div class="tab-pane @(faturaDicionario.Keys.First().Equals(key) ? "active" : "")" id="@key">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                            <tr>
+                                                <th>
+                                                    Fatura
+                                                </th>
+                                                <th>
+                                                    Valor
+                                                </th>
+                                                <th class="text-center">
+                                                    Situação
+                                                </th>
+                                                <th class="text-center">
+                                                    Ação
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (FaturaModel Fatura in faturaDicionario[key])
+                                            {
+
+                                                <tr>
+                                                    <td>
+                                                        @Fatura.MesReferente
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(fatura => Fatura.Valor)
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if (Fatura.IsFechada)
+                                                        {
+                                                            if (Fatura.IsPaga)
+                                                            {
+                                                                <button class="btn btn-default" style="width: 100px" disabled>Paga</button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button class="btn btn-success"
+                                                                        onclick="MensagemConfirma('Ateção', 'Deseja pagar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? Novos lançamentos não porderão ser adicionados a esta fatura.', '@Url.Action("PagarFatura", "Fatura", new { Id = Fatura.Id })')"
+                                                                        style="width: 100px">
+                                                                    Pagar
+                                                                </button>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <button class="btn btn-warning"
+                                                                    onclick="MensagemConfirma('Ateção', 'Deseja fechar a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")? As dividas serão geradas para cada comprador e não se poderá mais adicionar novos lancamentos.', '@Url.Action("FecharFatura", "Fatura", new { Id = Fatura.Id })')"
+                                                                    style="width: 100px">
+                                                                Fechar
+                                                            </button>
+                                                        }
+                                                    </td>
+                                                    <td align="center" style="width:250px">
+                                                        <button type="button" rel="tooltip" title="Editar"
+                                                                class="btn btn-white btn-link btn-sm">
+                                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.EDITAR)</i>
+                                                        </button>
+                                                        <button type="button" rel="tooltip" title="Detalhes"
+                                                                onclick="location.href='@Url.Action("Detalhes", "Fatura", new { id = Fatura.Id })'"
+                                                                class="btn btn-white btn-link btn-sm">
+                                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.DETALHES)</i>
+                                                        </button>
+                                                        <button type="button" rel="tooltip" title="Remover"
+                                                                onclick="MensagemConfirma('Ateção', 'Deseja remover a fatura @Fatura.DataVencimento.ToString("dd/MM/yyyy")?', '@Url.Action("Remover", "Fatura", new { Id = Fatura.Id })')"
+                                                                class="btn btn-white btn-link btn-sm">
+                                                            <i class="material-icons">@EnumExtensions.EnumToDescriptionString(TipoIcone.REMOVER)</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        @Html.Partial("_Pagination")
     </div>
-    @Html.Partial("_Pagination")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

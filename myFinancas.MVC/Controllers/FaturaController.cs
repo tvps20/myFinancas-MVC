@@ -33,6 +33,7 @@ namespace myFinancas.MVC.Controllers
                 ViewBag.PagedList = faturas;
                 ViewBag.Cartoes = this.cartaoService.ListarTodos();
                 ViewBag.PageNumber = CustomUtil<FaturaModel>.caculaNumeroPagina(pagina, faturas);
+                ViewBag.FaturaDicionario = this.faturaService.OrganizarFaturas(this.faturaService.ListarTodos());
                 return View();
             }
             catch (Exception e)

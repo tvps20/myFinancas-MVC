@@ -153,5 +153,24 @@ namespace myFinancas.MVC.Services
                 this.Salvar(faturaSalva);
             }
         }
+
+        public Dictionary<string, List<FaturaModel>> OrganizarFaturas(List<FaturaModel> faturas)
+        {
+            Dictionary<string, List<FaturaModel>> faturasDicionario = new Dictionary<string, List<FaturaModel>>();
+
+            foreach (FaturaModel fatura in faturas)
+            {
+                string chave = fatura.Cartao.Nome;
+
+                if (!faturasDicionario.Keys.Contains(chave))
+                {
+                    faturasDicionario.Add(chave, new List<FaturaModel>());
+                }
+
+                faturasDicionario[chave].Add(fatura);
+            }
+
+            return faturasDicionario;
+        }
     }
 }
